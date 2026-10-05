@@ -192,6 +192,19 @@ td.s{font-family:var(--verse);font-size:21px;color:var(--ramz);width:56px;text-a
 .homebar{display:flex;justify-content:flex-end;margin-bottom:-6px}
 .hbtns{display:flex;gap:8px;align-items:center}
 .count{display:inline-block;background:var(--rose-soft);color:var(--rose);border-radius:999px;padding:4px 14px;font-size:15px;font-weight:600;margin-top:10px}
+
+.lbcard{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:12px 14px 8px;margin:16px 0 0}
+.lbhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.lbhead b{font-size:17px}
+.lb.mini{gap:6px;margin-top:4px}
+.mini .lbr{padding:7px 12px;border-radius:12px;background:var(--paper)}
+.mini .lbr.me{background:var(--rose-soft)}
+.mini .sc{font-size:18px}
+.gap{text-align:center;color:var(--muted);line-height:1}
+.backdrop{position:fixed;inset:0;background:rgba(20,10,20,.5);z-index:50;display:flex;align-items:flex-end;justify-content:center}
+.sheet{background:var(--paper);width:100%;max-width:640px;max-height:84vh;overflow-y:auto;border-radius:22px 22px 0 0;padding:16px 16px calc(22px + env(safe-area-inset-bottom,0px));border:1px solid var(--line);border-bottom:0}
+.sh-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.sh-head b{font-size:20px}
 </style>
 </head>
 <body>
@@ -863,7 +876,7 @@ function selectQs(pool,n){return pool.map(q=>[priority(q),q]).sort((a,b)=>a[0]-b
 
 /* ===== التنقل ===== */
 let view=null, timerId=null;
-function go(fn,...args){clearInterval(timerId);view=[fn,args];fn(...args);window.scrollTo(0,0)}
+function go(fn,...args){closeUnits();clearInterval(timerId);view=[fn,args];fn(...args);window.scrollTo(0,0)}
 function hdr(back){return `<div class="top"><button class="brand" onclick="go(home)" aria-label="الرئيسية">حِرز</button><span class="hbtns">${back?`<button class="back" onclick="${back}">رجوع</button>`:''}${themeBtn()}</span></div>`}
 const ded='';
 
@@ -888,24 +901,22 @@ function home(){
     <h1>حِرز <span>الشاطبية</span></h1>
     <p>تدريب على الرموز والأبواب، من ملف المقرر نفسه.</p>
     ${countdownHtml()}
-    ${heroVerse()}
   </div>
+  <div class="lbcard">
+    <div class="lbhead"><b>المتصدرات</b><button class="lnk" onclick="go(lbView)">عرض الكل ←</button></div>
+    <div id="lbbody"><div class="empty" style="padding:14px">جارٍ التحميل…</div></div>
+  </div>
+  ${heroVerse()}
   <div class="actions">
     <button class="btn main" onclick="go(practiceSetup,'all')">تدريب عام <small>${seen?`الإتقان ${AR(total)}٪`:'كل المنهج، بالعدد والصعوبة'}</small></button>
     <button class="btn" onclick="go(examSetup,'all')">اختبار شامل <small>كل الملف</small></button>
+    <button class="btn" onclick="openUnits()">الوحدات <small>${AR(UNITS.length)} وحدة</small></button>
     <button class="btn" onclick="go(runSession,{scope:'mistakes',mode:'practice'})" ${m?'':'disabled style="opacity:.55"'}>أخطائي <span class="pill">${AR(m)}</span></button>
-    <button class="btn" onclick="go(lbView)">المتصدرات <small>تنافسي مع صديقاتك</small></button>
     <button class="btn" onclick="go(reference)">المرجع السريع <small>الجداول والأضداد</small></button>
   </div>
-  <h2>الوحدات</h2>
-  <div class="units">${UNITS.map((u,i)=>{const p=mastery(u.id);return `
-    <button class="unit" onclick="go(unitView,'${u.id}')">
-      <span class="n">${AR(i+1)}</span>
-      <span><span class="t">${u.title}</span><span class="p"> · ${u.pages}</span><div class="bar"><i style="width:${p}%"></i></div></span>
-      <span class="pct">${AR(p)}٪</span>
-    </button>`}).join('')}</div>
   ${S.flags.length?`<div class="row"><button class="ghost" onclick="go(flagsView)">ملاحظاتي على الأسئلة (${AR(S.flags.length)})</button></div>`:''}
   ${ded}`;
+  loadHomeLb();
 }
 
 /* ===== الوحدة ===== */
@@ -1187,6 +1198,7 @@ async function submitScore(){
   try{
     const r=await fetch(SB_URL+'/rest/v1/rpc/submit_score',{method:'POST',headers:{'apikey':SB_KEY,'Content-Type':'application/json'},
       body:JSON.stringify({p_device:S.dev,p_name:S.nick,p_correct:s.correct,p_answered:s.answered,p_mastery:s.mastery})});
+    if(r.ok)LBC.t=0;
     return r.ok;
   }catch(e){return false}
 }
@@ -1254,6 +1266,54 @@ function toggleTheme(){
   document.querySelectorAll('.theme').forEach(b=>b.textContent=isDark()?'☀️':'🌙');
 }
 applyTheme();
+
+/* ===== المتصدرات في الصفحة الرئيسية ===== */
+let LBC={t:0,rows:null};
+async function fetchRows(){
+  const r=await fetch(SB_URL+'/rest/v1/leaderboard?select=name,correct,answered,mastery,updated_at&order=correct.desc&limit=200',{headers:{'apikey':SB_KEY}});
+  if(!r.ok)throw new Error(r.status);
+  return r.json();
+}
+function miniLbHtml(rows){
+  const sorted=rows.slice().sort((a,b)=>b.correct-a.correct||b.mastery-a.mastery);
+  const medal=['🥇','🥈','🥉'];
+  const meIdx=S.nick?sorted.findIndex(r=>r.name===S.nick):-1;
+  const row=(r,i)=>`<div class="lbr ${S.nick&&r.name===S.nick?'me':''}"><span class="rk">${i<3?medal[i]:AR(i+1)}</span><span class="nm">${esc(r.name)}</span><span class="sc">${AR(r.correct)}</span></div>`;
+  let h=sorted.slice(0,5).map(row).join('');
+  if(meIdx>=5)h+='<div class="gap">⋯</div>'+row(sorted[meIdx],meIdx);
+  if(!sorted.length)h='<div class="empty" style="padding:14px">لا أحد بعد. كوني الأولى.</div>';
+  const foot=S.nick?'':'<button class="lnk" onclick="go(lbView)">سجّلي اسمك لتظهري في اللوحة</button>';
+  return `<div class="lb mini">${h}</div>${foot}`;
+}
+async function loadHomeLb(){
+  const box=()=>document.getElementById('lbbody');
+  if(!box())return;
+  const show=rows=>{const b=box();if(b)b.innerHTML=miniLbHtml(rows)};
+  if(LBC.rows&&Date.now()-LBC.t<20000){show(LBC.rows);return}
+  if(LBC.rows)show(LBC.rows);
+  try{const rows=await fetchRows();LBC={t:Date.now(),rows};show(rows)}
+  catch(e){const b=box();if(b&&!LBC.rows)b.innerHTML='<div class="empty" style="padding:14px">تعذّر تحميل المتصدرات.</div>'}
+}
+
+/* ===== قائمة الوحدات المنبثقة ===== */
+function openUnits(){
+  if(document.getElementById('sheet'))return;
+  const el=document.createElement('div');el.id='sheet';el.className='backdrop';
+  el.innerHTML=`<div class="sheet" role="dialog" aria-modal="true" aria-label="الوحدات">
+    <div class="sh-head"><b>الوحدات</b><button class="back" id="shx">إغلاق</button></div>
+    <div class="units">${UNITS.map((u,i)=>{const p=mastery(u.id);return `
+      <button class="unit" onclick="go(unitView,'${u.id}')">
+        <span class="n">${AR(i+1)}</span>
+        <span><span class="t">${u.title}</span><span class="p"> · ${u.pages}</span><div class="bar"><i style="width:${p}%"></i></div></span>
+        <span class="pct">${AR(p)}٪</span>
+      </button>`}).join('')}</div></div>`;
+  document.body.appendChild(el);
+  document.body.style.overflow='hidden';
+  el.onclick=e=>{if(e.target===el)closeUnits()};
+  $('#shx').onclick=closeUnits;$('#shx').focus();
+}
+function closeUnits(){const el=document.getElementById('sheet');if(el)el.remove();document.body.style.overflow=''}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeUnits()});
 
 go(home);
 </script>
