@@ -205,6 +205,29 @@ td.s{font-family:var(--verse);font-size:21px;color:var(--ramz);width:56px;text-a
 .sheet{background:var(--paper);width:100%;max-width:640px;max-height:84vh;overflow-y:auto;border-radius:22px 22px 0 0;padding:16px 16px calc(22px + env(safe-area-inset-bottom,0px));border:1px solid var(--line);border-bottom:0}
 .sh-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
 .sh-head b{font-size:20px}
+
+/* مربعات الصفحة الرئيسية */
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:20px 0}
+.tile{--accent:var(--rose);position:relative;aspect-ratio:1/1;border:1px solid transparent;border-radius:28px;padding:16px;text-align:right;cursor:pointer;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;color:var(--ink);font-family:inherit;touch-action:manipulation;
+  box-shadow:0 12px 24px -14px rgba(120,60,90,.55),0 2px 0 rgba(255,255,255,.35) inset;
+  transition:transform .3s cubic-bezier(.34,1.56,.64,1),box-shadow .3s ease,filter .2s ease;animation:rise .55s cubic-bezier(.22,1,.36,1) both}
+.tile::after{content:'';position:absolute;inset-inline-start:-34px;bottom:-34px;width:120px;height:120px;border-radius:50%;background:color-mix(in srgb,var(--card) 30%,transparent);pointer-events:none}
+.tile>span{position:relative;z-index:1}
+.tile .ic{align-self:flex-start;width:48px;height:48px;border-radius:17px;display:grid;place-items:center;background:color-mix(in srgb,var(--card) 62%,transparent);color:var(--accent)}
+.tile .ic svg{width:25px;height:25px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.tile b{display:block;font-size:18px;line-height:1.35;font-weight:600}
+.tile small{display:block;font-size:13px;opacity:.82;margin-top:2px;line-height:1.4}
+.tile:active{transform:scale(.94);box-shadow:0 6px 14px -10px rgba(120,60,90,.6);filter:brightness(.98)}
+@media (hover:hover){.tile:not([disabled]):hover{transform:translateY(-4px);box-shadow:0 18px 30px -14px rgba(120,60,90,.6)}}
+.tile[disabled]{opacity:.6;cursor:default;box-shadow:none}
+.t-main{background:linear-gradient(145deg,var(--rose),color-mix(in srgb,var(--rose) 62%,#fff));color:var(--card);--accent:var(--rose)}
+.t-units{background:linear-gradient(145deg,var(--lav),color-mix(in srgb,var(--lav) 60%,#fff));color:var(--card);--accent:var(--lav)}
+.t-exam{background:linear-gradient(145deg,color-mix(in srgb,var(--mint) 40%,var(--card)),color-mix(in srgb,var(--mint) 14%,var(--card)));--accent:var(--mint);border-color:color-mix(in srgb,var(--mint) 22%,transparent)}
+.t-shahid{background:linear-gradient(145deg,color-mix(in srgb,var(--rose) 26%,var(--card)),color-mix(in srgb,var(--rose) 9%,var(--card)));--accent:var(--rose);border-color:color-mix(in srgb,var(--rose) 20%,transparent)}
+.t-mist{background:linear-gradient(145deg,color-mix(in srgb,var(--wrong) 22%,var(--card)),color-mix(in srgb,var(--wrong) 8%,var(--card)));--accent:var(--wrong);border-color:color-mix(in srgb,var(--wrong) 18%,transparent)}
+.t-ref{background:var(--card);border-color:var(--line);--accent:var(--lav)}
+.tile:nth-child(2){animation-delay:.05s}.tile:nth-child(3){animation-delay:.1s}.tile:nth-child(4){animation-delay:.15s}.tile:nth-child(5){animation-delay:.2s}.tile:nth-child(6){animation-delay:.25s}
+@keyframes rise{from{opacity:0;transform:translateY(14px) scale(.96)}to{opacity:1;transform:none}}
 </style>
 </head>
 <body>
@@ -907,12 +930,13 @@ function home(){
     <div id="lbbody"><div class="empty" style="padding:14px">جارٍ التحميل…</div></div>
   </div>
   ${heroVerse()}
-  <div class="actions">
-    <button class="btn main" onclick="go(practiceSetup,'all')">تدريب عام <small>${seen?`الإتقان ${AR(total)}٪`:'كل المنهج، بالعدد والصعوبة'}</small></button>
-    <button class="btn" onclick="go(examSetup,'all')">اختبار شامل <small>كل الملف</small></button>
-    <button class="btn" onclick="openUnits()">الوحدات <small>${AR(UNITS.length)} وحدة</small></button>
-    <button class="btn" onclick="go(runSession,{scope:'mistakes',mode:'practice'})" ${m?'':'disabled style="opacity:.55"'}>أخطائي <span class="pill">${AR(m)}</span></button>
-    <button class="btn" onclick="go(reference)">المرجع السريع <small>الجداول والأضداد</small></button>
+  <div class="tiles">
+    <button class="tile t-main" onclick="go(practiceSetup,'all')"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/><path d="M19 17v4M17 19h4"/></svg></span><span><b>تدريب عام</b><small>${seen?`الإتقان ${AR(total)}٪`:'بالعدد والصعوبة'}</small></span></button>
+    <button class="tile t-exam" onclick="go(examSetup,'all')"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="4" width="14" height="17" rx="3"/><path d="M9 4h6v3H9z"/><path d="M9 14l2 2 4-4"/></svg></span><span><b>اختبار شامل</b><small>كل الملف</small></span></button>
+    <button class="tile t-units" onclick="openUnits()"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="2.2"/><rect x="13" y="4" width="7" height="7" rx="2.2"/><rect x="4" y="13" width="7" height="7" rx="2.2"/><rect x="13" y="13" width="7" height="7" rx="2.2"/></svg></span><span><b>الوحدات</b><small>${AR(UNITS.length)} وحدة</small></span></button>
+    <button class="tile t-shahid" onclick="go(runSession,{scope:'all',mode:'practice',only:'shahid',n:15})"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="5" r="2.2"/><circle cx="6" cy="19" r="2.2"/><circle cx="18" cy="19" r="2.2"/><path d="M12 7.2v4M12 11.2H6v5.6M12 11.2h6v5.6"/></svg></span><span><b>الشاهد والخريطة</b><small>البيت ← الخريطة</small></span></button>
+    <button class="tile t-mist" onclick="${m?`go(runSession,{scope:'mistakes',mode:'practice'})`:''}" ${m?'':'disabled'}><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 017-2.6A4 4 0 0119 10c0 5.6-7 10-7 10z"/></svg></span><span><b>أخطائي</b><small>${m?`${AR(m)} سؤال للمراجعة`:'لا أخطاء، أحسنتِ'}</small></span></button>
+    <button class="tile t-ref" onclick="go(reference)"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4h12v16H8a2 2 0 01-2-2z"/><path d="M6 18a2 2 0 012-2h10"/></svg></span><span><b>المرجع السريع</b><small>الجداول والأضداد</small></span></button>
   </div>
   ${S.flags.length?`<div class="row"><button class="ghost" onclick="go(flagsView)">ملاحظاتي على الأسئلة (${AR(S.flags.length)})</button></div>`:''}
   ${ded}`;
