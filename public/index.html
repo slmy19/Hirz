@@ -1264,9 +1264,10 @@ async function lbView(sortKey){
   ${sortKey==='mastery'?`<p class="hint" style="text-align:right;margin:0">يدخل الإتقان بعد ${AR(MIN)} إجابة أو أكثر.</p>`:''}
   ${me>=0?`<div class="mine">ترتيبك: <b>${AR(me+1)}</b> من ${AR(list.length)} · نقاطك: <b>${AR(list[me].correct)}</b></div>`:`<div class="mine">${sortKey==='mastery'?'أجيبي عن ٢٠ سؤالاً لتظهري في هذا الترتيب.':'ابدئي التدريب لتظهري في اللوحة.'}</div>`}
   <div class="lb">${list.length?list.map((r,i)=>`<div class="lbr ${r.name===S.nick?'me':''}"><span class="rk">${i<3?medal[i]:AR(i+1)}</span><span class="nm">${esc(r.name)}<small>إتقان ${AR(r.mastery)}٪ · أجابت ${AR(r.answered)}</small></span><span class="sc">${AR(sortKey==='mastery'?r.mastery+'٪':r.correct)}</span></div>`).join(''):'<div class="empty">لا أحد بعد. كوني الأولى.</div>'}</div>
-  <div class="row"><button class="lnk" id="chn">تغيير اسمي (${esc(S.nick)})</button></div>`;
+  <div class="row" style="gap:18px"><button class="lnk" id="chn">تغيير اسمي (${esc(S.nick)})</button><button class="lnk" id="del" style="color:var(--wrong)">حذف اسمي من اللوحة</button></div>`;
   app.querySelectorAll('[data-k]').forEach(b=>b.onclick=()=>lbView(b.dataset.k));
   $('#chn').onclick=()=>nameForm(true);
+  $('#del').onclick=deleteMe;
 }
 
 /* ===== الوضع الليلي وعدّاد الاختبار ===== */
@@ -1317,6 +1318,19 @@ async function loadHomeLb(){
   if(LBC.rows)show(LBC.rows);
   try{const rows=await fetchRows();LBC={t:Date.now(),rows};show(rows)}
   catch(e){const b=box();if(b&&!LBC.rows)b.innerHTML='<div class="empty" style="padding:14px">تعذّر تحميل المتصدرات.</div>'}
+}
+
+async function deleteMe(){
+  if(!confirm('تحذفين اسمك ونقاطك من اللوحة؟\nتقدمك في التدريب يبقى محفوظاً في جوالك.'))return;
+  let ok=false;
+  try{
+    const r=await fetch(SB_URL+'/rest/v1/rpc/delete_score',{method:'POST',headers:{'apikey':SB_KEY,'Content-Type':'application/json'},body:JSON.stringify({p_device:S.dev})});
+    ok=r.ok;
+  }catch(e){ok=false}
+  if(!ok){alert('تعذّر الحذف الآن. تأكدي من الإنترنت وحاولي مرة أخرى.');return}
+  S.nick='';save();LBC={t:0,rows:null};
+  alert('حُذف اسمك من اللوحة.');
+  go(home);
 }
 
 /* ===== قائمة الوحدات المنبثقة ===== */
