@@ -1297,7 +1297,7 @@ function adminForm(){
   <div class="row"><button class="go" id="pwg">دخول</button></div>`;
   const inp=$('#pw');inp.focus();
   const go_=async()=>{
-    const v=inp.value;if(!v){inp.focus();return}
+    const v=inp.value.trim();if(!v){inp.focus();return}
     $('#pwg').disabled=true;
     try{
       const ok=await rpc('admin_check',{p_password:v});
