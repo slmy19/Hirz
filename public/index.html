@@ -228,6 +228,10 @@ td.s{font-family:var(--verse);font-size:21px;color:var(--ramz);width:56px;text-a
 .t-ref{background:var(--card);border-color:var(--line);--accent:var(--lav)}
 .tile:nth-child(2){animation-delay:.05s}.tile:nth-child(3){animation-delay:.1s}.tile:nth-child(4){animation-delay:.15s}.tile:nth-child(5){animation-delay:.2s}.tile:nth-child(6){animation-delay:.25s}
 @keyframes rise{from{opacity:0;transform:translateY(14px) scale(.96)}to{opacity:1;transform:none}}
+
+.lbr.adm{grid-template-columns:38px 1fr auto auto}
+.xdel{border:0;background:var(--rose-soft);color:var(--wrong);width:34px;height:34px;border-radius:50%;font-size:22px;line-height:1;cursor:pointer;touch-action:manipulation}
+.xdel:active{transform:scale(.9)}
 </style>
 </head>
 <body>
@@ -1260,13 +1264,57 @@ async function lbView(sortKey){
   const medal=['🥇','🥈','🥉'];
   app.innerHTML=`${hdr('go(home)')}
   <div class="unit-head"><h1>المتصدرات</h1><p>كل إجابة صحيحة = نقطة · ${AR(rows.length)} مشاركة</p></div>
+  ${ADM?'<div class="mine" style="background:var(--rose-soft)">وضع المشرف: اضغط × لحذف مشاركة · <button class="lnk" id="adx">خروج</button></div>':''}
   <div class="seg"><button class="${sortKey==='correct'?'on':''}" data-k="correct">النقاط</button><button class="${sortKey==='mastery'?'on':''}" data-k="mastery">الإتقان</button></div>
   ${sortKey==='mastery'?`<p class="hint" style="text-align:right;margin:0">يدخل الإتقان بعد ${AR(MIN)} إجابة أو أكثر.</p>`:''}
   ${me>=0?`<div class="mine">ترتيبك: <b>${AR(me+1)}</b> من ${AR(list.length)} · نقاطك: <b>${AR(list[me].correct)}</b></div>`:`<div class="mine">${sortKey==='mastery'?'أجيبي عن ٢٠ سؤالاً لتظهري في هذا الترتيب.':'ابدئي التدريب لتظهري في اللوحة.'}</div>`}
-  <div class="lb">${list.length?list.map((r,i)=>`<div class="lbr ${r.name===S.nick?'me':''}"><span class="rk">${i<3?medal[i]:AR(i+1)}</span><span class="nm">${esc(r.name)}<small>إتقان ${AR(r.mastery)}٪ · أجابت ${AR(r.answered)}</small></span><span class="sc">${AR(sortKey==='mastery'?r.mastery+'٪':r.correct)}</span></div>`).join(''):'<div class="empty">لا أحد بعد. كوني الأولى.</div>'}</div>
+  <div class="lb">${list.length?list.map((r,i)=>`<div class="lbr ${r.name===S.nick?'me':''} ${ADM?'adm':''}"><span class="rk">${i<3?medal[i]:AR(i+1)}</span><span class="nm">${esc(r.name)}<small>إتقان ${AR(r.mastery)}٪ · أجابت ${AR(r.answered)}</small></span><span class="sc">${AR(sortKey==='mastery'?r.mastery+'٪':r.correct)}</span>${ADM?`<button class="xdel" data-n="${esc(r.name)}" aria-label="حذف ${esc(r.name)}">×</button>`:''}</div>`).join(''):'<div class="empty">لا أحد بعد. كوني الأولى.</div>'}</div>
   <div class="row"><button class="lnk" id="chn">تغيير اسمي (${esc(S.nick)})</button></div>`;
   app.querySelectorAll('[data-k]').forEach(b=>b.onclick=()=>lbView(b.dataset.k));
   $('#chn').onclick=()=>nameForm(true);
+  LASTSORT=sortKey;
+  if(ADM){
+    app.querySelectorAll('.xdel').forEach(b=>b.onclick=()=>adminDelete(b.dataset.n));
+    $('#adx').onclick=()=>{ADM='';try{sessionStorage.removeItem('hirz-adm')}catch(e){}lbView(sortKey)};
+  }else{
+    let taps=0,tt;
+    app.querySelector('.unit-head h1').onclick=()=>{taps++;clearTimeout(tt);tt=setTimeout(()=>taps=0,2500);if(taps>=5){taps=0;adminForm()}};
+  }
+}
+
+/* ===== وضع المشرف: حذف المشاركين (كلمة السر محفوظة في Supabase لا في الموقع) ===== */
+let ADM='',LASTSORT='correct';
+try{ADM=sessionStorage.getItem('hirz-adm')||''}catch(e){}
+async function rpc(name,body){
+  const r=await fetch(SB_URL+'/rest/v1/rpc/'+name,{method:'POST',headers:{'apikey':SB_KEY,'Content-Type':'application/json'},body:JSON.stringify(body)});
+  if(!r.ok)throw new Error(r.status);
+  return r.json();
+}
+function adminForm(){
+  app.innerHTML=`${hdr('go(lbView)')}
+  <div class="unit-head"><h1>وضع المشرف</h1><p>أدخل كلمة السر.</p></div>
+  <div class="field"><label for="pw">كلمة السر</label><input type="password" id="pw" autocomplete="off"></div>
+  <div class="row"><button class="go" id="pwg">دخول</button></div>`;
+  const inp=$('#pw');inp.focus();
+  const go_=async()=>{
+    const v=inp.value;if(!v){inp.focus();return}
+    $('#pwg').disabled=true;
+    try{
+      const ok=await rpc('admin_check',{p_password:v});
+      if(ok===true){ADM=v;try{sessionStorage.setItem('hirz-adm',v)}catch(e){}go(lbView);return}
+      alert('كلمة السر غير صحيحة.');
+    }catch(e){alert('تعذّر الاتصال. تأكد من الإنترنت ومن تنفيذ نص Supabase.')}
+    $('#pwg').disabled=false;
+  };
+  $('#pwg').onclick=go_;inp.onkeydown=e=>{if(e.key==='Enter')go_()};
+}
+async function adminDelete(name){
+  if(!confirm('حذف «'+name+'» من اللوحة؟\nإذا تشاركت عدة مشاركات بهذا الاسم تُحذف كلها.'))return;
+  try{
+    const n=await rpc('admin_delete',{p_password:ADM,p_name:name});
+    if(n===-1){ADM='';try{sessionStorage.removeItem('hirz-adm')}catch(e){}alert('كلمة السر لم تعد صالحة.');go(lbView);return}
+    LBC={t:0,rows:null};lbView(LASTSORT);
+  }catch(e){alert('تعذّر الحذف الآن. حاول مرة أخرى.')}
 }
 
 /* ===== الوضع الليلي وعدّاد الاختبار ===== */
