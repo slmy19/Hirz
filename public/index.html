@@ -1,0 +1,1231 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#FBF6F7">
+<title>حِرز · تدريب الشاطبية</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌷</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Aref+Ruqaa:wght@400;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FBF6F7; --card:#FFFFFF; --ink:#3A2C3B; --muted:#857584; --line:#EADCE1;
+  --rose:#C25B6B; --rose-soft:#F6E3E7; --mint:#4E9A8C; --mint-soft:#E1F1EC;
+  --lav:#7F74B3; --lav-soft:#ECE9F6; --ramz:#C0392B; --wrong:#B23A50;
+  --verse:'Amiri','Noto Naskh Arabic','Traditional Arabic',serif;
+  --ui:'IBM Plex Sans Arabic','Segoe UI',Tahoma,sans-serif;
+  --hand:'Aref Ruqaa','Amiri',serif;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#1F1820; --card:#2A2129; --ink:#F2E8EE; --muted:#B5A3B1; --line:#3E323D;
+  --rose:#E08797; --rose-soft:#3A2630; --mint:#7CC4B5; --mint-soft:#203A35;
+  --lav:#ABA2DA; --lav-soft:#2C2840; --ramz:#F07A6B; --wrong:#F08A9C;}}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--ui);font-size:17px;line-height:1.7;-webkit-tap-highlight-color:transparent}
+button{font-family:inherit;font-size:inherit;color:inherit}
+.wrap{max-width:640px;margin:0 auto;padding:18px 18px 40px}
+a{color:var(--lav)}
+:focus-visible{outline:3px solid var(--lav);outline-offset:2px;border-radius:10px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* رأس */
+.top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}
+.brand{font-family:var(--hand);font-size:28px;color:var(--rose);line-height:1;background:none;border:0;padding:4px 0;cursor:pointer}
+.back{background:none;border:1px solid var(--line);border-radius:999px;padding:6px 14px;cursor:pointer;color:var(--muted);font-size:15px}
+
+/* البطل */
+.hero{padding:26px 4px 8px}
+.hero h1{font-family:var(--hand);font-weight:700;font-size:56px;line-height:1.1;margin:0;color:var(--ink)}
+.hero h1 span{color:var(--rose)}
+.hero p{margin:6px 0 0;color:var(--muted)}
+.bayt{font-family:var(--verse);font-size:23px;line-height:2;margin:22px 0 6px;padding:16px 18px;background:var(--card);border-radius:18px;border:1px solid var(--line);text-align:center}
+.bayt .h{display:block}
+.r{color:var(--ramz)}
+
+/* أزرار رئيسية */
+.actions{display:grid;gap:10px;margin:22px 0}
+.btn{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;text-align:right;border:0;border-radius:16px;padding:15px 18px;cursor:pointer;font-weight:600;background:var(--card);border:1px solid var(--line)}
+.btn small{font-weight:400;color:var(--muted);font-size:14px}
+.btn.main{background:var(--rose);color:#fff;border-color:transparent}
+.btn.main small{color:#fff;opacity:.85}
+.btn:active{transform:scale(.99)}
+.pill{display:inline-block;min-width:26px;padding:0 9px;border-radius:999px;background:var(--rose-soft);color:var(--rose);font-size:14px;text-align:center}
+
+/* الوحدات */
+h2{font-size:15px;color:var(--muted);font-weight:500;margin:28px 4px 10px}
+.units{display:grid;gap:8px}
+.unit{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;cursor:pointer;text-align:right;width:100%}
+.unit .n{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:var(--lav-soft);color:var(--lav);font-size:14px;font-weight:600}
+.unit .t{font-weight:600}
+.unit .p{font-size:13px;color:var(--muted)}
+.bar{height:4px;border-radius:4px;background:var(--line);overflow:hidden;margin-top:4px}
+.bar i{display:block;height:100%;background:var(--mint);border-radius:4px}
+.pct{font-size:14px;color:var(--mint);font-weight:600;min-width:38px;text-align:left}
+
+/* لوحة الوحدة */
+.modes{display:grid;gap:10px;margin-top:10px}
+.mode{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 18px;cursor:pointer;text-align:right;width:100%}
+.mode b{display:block;font-size:18px}
+.mode span{color:var(--muted);font-size:14px}
+.unit-head h1{font-size:26px;margin:4px 0 0}
+.unit-head p{margin:0;color:var(--muted)}
+.seg{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}
+.seg button[disabled]{cursor:default}
+.seg small{font-size:12px;opacity:.75}
+.seg button{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:6px 14px;cursor:pointer}
+.seg button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+
+/* السؤال */
+.qmeta{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:14px;margin-bottom:8px}
+.progress{height:4px;background:var(--line);border-radius:4px;overflow:hidden;margin-bottom:14px}
+.progress i{display:block;height:100%;background:var(--rose);transition:width .3s}
+.qcard{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:20px}
+.prompt{font-size:19px;font-weight:600;margin:0 0 14px}
+.prompt.big{font-size:20px}
+.symbig{font-family:var(--verse);font-size:56px;color:var(--ramz);text-align:center;line-height:1.3;margin:-4px 0 6px}
+.qverse{font-family:var(--verse);font-size:22px;line-height:2;text-align:center;background:var(--lav-soft);border-radius:14px;padding:12px;margin-bottom:14px}
+.opts{display:grid;gap:9px}
+.opt{border:1.5px solid var(--line);background:var(--paper);border-radius:14px;padding:12px 14px;text-align:right;cursor:pointer;line-height:1.6}
+.opt.verse{font-family:var(--verse);font-size:20px}
+.opt.sel{border-color:var(--lav);background:var(--lav-soft)}
+.opt.ok{border-color:var(--mint);background:var(--mint-soft)}
+.opt.no{border-color:var(--wrong);background:var(--rose-soft)}
+.opt[disabled]{cursor:default}
+.tf{grid-template-columns:1fr 1fr}
+input[type=text],textarea{width:100%;font:inherit;border:1.5px solid var(--line);border-radius:12px;padding:11px 13px;background:var(--paper);color:var(--ink)}
+textarea{min-height:64px;resize:vertical}
+input.ok,textarea.ok{border-color:var(--mint)}
+input.no,textarea.no{border-color:var(--wrong)}
+.fb{margin-top:14px;padding:12px 14px;border-radius:14px;font-size:16px}
+.fb.ok{background:var(--mint-soft)}
+.fb.no{background:var(--rose-soft)}
+.fb b{display:block}
+.fb .ref{color:var(--muted);font-size:13px}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.go{flex:1;border:0;border-radius:14px;padding:13px;background:var(--ink);color:var(--paper);font-weight:600;cursor:pointer}
+.ghost{border:1px solid var(--line);border-radius:14px;padding:12px 14px;background:transparent;cursor:pointer;color:var(--muted)}
+.flag{background:none;border:0;color:var(--muted);font-size:13px;cursor:pointer;padding:6px 0;margin-top:8px;text-decoration:underline}
+
+/* الشاهد */
+.sh-verse{font-family:var(--verse);font-size:21px;line-height:2.1;text-align:center;background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:10px 8px;margin-bottom:6px}
+.sh-verse .half{display:block}
+.tok{background:none;border:0;padding:0 2px;margin:0 1px;border-radius:8px;cursor:pointer;font:inherit;color:inherit}
+.tok.on{background:var(--lav-soft);color:var(--lav);box-shadow:inset 0 -2px 0 var(--lav)}
+.tok.right{color:var(--ramz);box-shadow:inset 0 -2px 0 var(--ramz)}
+.tok.miss{color:var(--ramz);box-shadow:inset 0 -2px 0 var(--wrong);background:var(--rose-soft)}
+.tok.extra{text-decoration:line-through;text-decoration-color:var(--wrong)}
+.hint{font-size:13px;color:var(--muted);margin:0 0 16px;text-align:center}
+.field{margin-top:14px}
+.field label{display:block;font-weight:600;margin-bottom:6px;font-size:15px}
+.chips{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.chip{border:1.5px solid var(--line);background:var(--paper);border-radius:10px;padding:7px 4px;font-size:14px;cursor:pointer;line-height:1.3}
+.chip.reader{font-weight:600}
+.chip.on{background:var(--lav);border-color:var(--lav);color:#fff}
+.chip.ok{border-color:var(--mint)}
+.chip.no{border-color:var(--wrong)}
+.mark{font-size:14px;margin-inline-start:6px}
+
+/* خريطة الحل */
+.map{margin-top:16px;border-top:1px dashed var(--line);padding-top:14px}
+.map h3{margin:0 0 4px;text-align:center;font-size:16px}
+.map .root{background:var(--lav);color:#fff;border-radius:999px;padding:8px 14px;text-align:center;font-weight:600;margin:0 auto 12px;max-width:90%}
+.branches{display:grid;gap:10px}
+.br{border:1.5px dashed var(--line);border-radius:14px;padding:10px 12px;font-size:15px}
+.br b{display:block;color:var(--rose)}
+.br.sh{font-family:var(--verse);font-size:18px;line-height:1.9}
+.br.sh b{font-family:var(--ui);font-size:15px;color:var(--lav)}
+.br.rest b{color:var(--mint)}
+.self{display:flex;gap:6px;margin-top:10px}
+.self button{flex:1;border:1.5px solid var(--line);border-radius:12px;padding:9px 4px;background:var(--paper);cursor:pointer;font-size:15px}
+.self button.on{background:var(--ink);color:var(--paper)}
+
+/* بطاقات */
+.flash{perspective:1000px;margin:10px 0}
+.fc{min-height:230px;border-radius:22px;background:var(--card);border:1px solid var(--line);display:grid;place-items:center;text-align:center;padding:24px;cursor:pointer;user-select:none}
+.fc .front{font-size:22px;font-weight:600}
+.fc .front.sym{font-family:var(--verse);font-size:64px;color:var(--ramz)}
+.fc .front.v{font-family:var(--verse);font-size:23px;font-weight:400}
+.fc .bk{font-size:18px;color:var(--ink)}
+.fc .bk.v{font-family:var(--verse);font-size:23px}
+.fc .lbl{font-size:13px;color:var(--muted);margin-top:10px}
+
+/* المرجع */
+table{width:100%;border-collapse:collapse;background:var(--card);border-radius:14px;overflow:hidden;font-size:15px}
+th,td{border-bottom:1px solid var(--line);padding:9px 10px;text-align:right}
+th{background:var(--lav-soft);font-weight:600}
+td.s{font-family:var(--verse);font-size:21px;color:var(--ramz);width:56px;text-align:center}
+.tbl{overflow-x:auto;border-radius:14px;border:1px solid var(--line);margin-bottom:18px}
+
+/* النتيجة */
+.score{text-align:center;padding:10px 0 4px}
+.score .num{font-family:var(--hand);font-size:64px;color:var(--rose);line-height:1.1}
+.rev{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin-top:8px;font-size:15px}
+.rev.no{border-color:var(--wrong)}
+.rev .a{color:var(--muted)}
+.empty{text-align:center;color:var(--muted);padding:40px 10px}
+
+/* إهداء */
+.ded{text-align:center;margin:46px 0 10px;color:var(--muted)}
+.ded .to{font-family:var(--hand);font-size:26px;color:var(--rose);display:block;line-height:1.4}
+.ded small{font-size:13px;display:block}
+.ded .shatora{font-family:var(--hand);font-size:24px;color:var(--lav);display:block;margin-top:2px}
+.timer{font-variant-numeric:tabular-nums}
+
+/* المتصدرات */
+.lb{display:grid;gap:8px;margin-top:10px}
+.lbr{display:grid;grid-template-columns:38px 1fr auto;align-items:center;gap:10px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px 14px}
+.lbr.me{border-color:var(--rose);background:var(--rose-soft)}
+.lbr .rk{font-size:20px;text-align:center;color:var(--muted)}
+.lbr .nm{font-weight:600;overflow-wrap:anywhere}
+.lbr small{display:block;color:var(--muted);font-weight:400;font-size:13px}
+.lbr .sc{font-weight:700;color:var(--rose);font-size:22px;text-align:left}
+.mine{background:var(--lav-soft);border-radius:14px;padding:10px 14px;margin:10px 0;font-size:15px}
+.lnk{background:none;border:0;color:var(--lav);text-decoration:underline;cursor:pointer;font-size:14px;padding:4px 0}
+</style>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+<script>
+/* ===== حرز — البيانات وبنك الأسئلة ===== */
+const READERS = [
+  {id:'nafi',name:'نافع',sym:'أ',word:'أبج',nisba:'المدني',full:'نافع بن عبدالرحمن الليثي',death:167,via:'بلا واسطة',rawis:['qalun','warsh']},
+  {id:'ibnkathir',name:'ابن كثير',sym:'د',word:'دهز',nisba:'المكي',full:'عبدالله بن كثير الداري',death:120,via:'بواسطة',rawis:['bazzi','qunbul']},
+  {id:'abuamr',name:'أبو عمرو',sym:'ح',word:'حطي',nisba:'البصري',full:'زبان بن العلاء بن عمار المازني',death:155,via:'بواسطة يحيى اليزيدي',rawis:['duri_a','susi']},
+  {id:'ibnamir',name:'ابن عامر',sym:'ك',word:'كلم',nisba:'الشامي',full:'عبدالله بن عامر بن يزيد اليحصبي',death:118,via:'بواسطة',rawis:['hisham','ibndhakwan']},
+  {id:'asim',name:'عاصم',sym:'ن',word:'نصع',nisba:'الكوفي',full:'أبو بكر عاصم بن أبي النجود الأسدي',death:128,via:'بلا واسطة',rawis:['shuba','hafs']},
+  {id:'hamza',name:'حمزة',sym:'ف',word:'فضق',nisba:'الكوفي',full:'أبو عمارة حمزة بن حبيب الزيات',death:156,via:'بواسطة سليم',rawis:['khalaf','khallad']},
+  {id:'kisai',name:'الكسائي',sym:'ر',word:'رست',nisba:'الكوفي',full:'أبو الحسن علي بن حمزة النحوي',death:189,via:'بلا واسطة',rawis:['abulharith','duri_k']},
+];
+const RAWIS = [
+  {id:'qalun',name:'قالون',sym:'ب',of:'nafi',full:'أبو موسى عيسى بن مينا',death:205},
+  {id:'warsh',name:'ورش',sym:'ج',of:'nafi',full:'أبو سعيد عثمان بن سعيد المصري',death:197},
+  {id:'bazzi',name:'البزي',sym:'ه',of:'ibnkathir',full:'أبو الحسن أحمد بن محمد البزي',death:255},
+  {id:'qunbul',name:'قنبل',sym:'ز',of:'ibnkathir',full:'أبو عمرو محمد بن عبدالرحمن المخزومي',death:291},
+  {id:'duri_a',name:'الدوري',label:'دوري أبي عمرو',sym:'ط',of:'abuamr',full:'أبو عمر حفص بن عمر الدوري البغدادي',death:246},
+  {id:'susi',name:'السوسي',sym:'ي',of:'abuamr',full:'أبو شعيب صالح بن زياد السوسي الأهوازي',death:261},
+  {id:'hisham',name:'هشام',sym:'ل',of:'ibnamir',full:'أبو الوليد هشام بن عمار بن نصير',death:246},
+  {id:'ibndhakwan',name:'ابن ذكوان',sym:'م',of:'ibnamir',full:'عبدالله بن أحمد بن بشير بن ذكوان',death:242},
+  {id:'shuba',name:'شعبة',sym:'ص',of:'asim',full:'أبو بكر شعبة المشهور بابن عياش',death:193},
+  {id:'hafs',name:'حفص',sym:'ع',of:'asim',full:'أبو عمر حفص بن سليمان الكوفي',death:180},
+  {id:'khalaf',name:'خلف',sym:'ض',of:'hamza',full:'أبو محمد خلف بن هشام البزار',death:229},
+  {id:'khallad',name:'خلاد',sym:'ق',of:'hamza',full:'أبو عيسى خلاد بن خالد الصيرفي',death:220},
+  {id:'abulharith',name:'أبو الحارث',sym:'س',of:'kisai',full:'أبو الحارث الليث بن خالد البغدادي',death:240},
+  {id:'duri_k',name:'الدوري',label:'دوري الكسائي',sym:'ت',of:'kisai',full:'أبو عمر حفص الدوري',death:246},
+];
+const ALL = {}; READERS.forEach(r=>ALL[r.id]=r); RAWIS.forEach(r=>ALL[r.id]=r);
+const label = id => ALL[id].label || ALL[id].name;
+const KUFI = ['asim','hamza','kisai'];
+const GROUPS = [
+  {sym:'ث',kind:'حرفي',m:KUFI,desc:'الكوفيون: عاصم وحمزة والكسائي'},
+  {sym:'خ',kind:'حرفي',m:['ibnkathir','abuamr','ibnamir',...KUFI],desc:'القراء السبعة ما عدا نافعاً'},
+  {sym:'ذ',kind:'حرفي',m:[...KUFI,'ibnamir'],desc:'الكوفيون وابن عامر'},
+  {sym:'ظ',kind:'حرفي',m:[...KUFI,'ibnkathir'],desc:'الكوفيون وابن كثير'},
+  {sym:'غ',kind:'حرفي',m:[...KUFI,'abuamr'],desc:'الكوفيون وأبو عمرو'},
+  {sym:'ش',kind:'حرفي',m:['hamza','kisai'],desc:'حمزة والكسائي'},
+  {sym:'صحبة',kind:'كلمي',m:['hamza','kisai','shuba'],desc:'حمزة والكسائي وشعبة'},
+  {sym:'صحاب',kind:'كلمي',m:['hamza','kisai','hafs'],desc:'حمزة والكسائي وحفص'},
+  {sym:'عمّ',kind:'كلمي',m:['nafi','ibnamir'],desc:'نافع وابن عامر'},
+  {sym:'سما',kind:'كلمي',m:['nafi','ibnkathir','abuamr'],desc:'نافع وابن كثير وأبو عمرو'},
+  {sym:'حقّ',kind:'كلمي',m:['ibnkathir','abuamr'],desc:'ابن كثير وأبو عمرو'},
+  {sym:'نفر',kind:'كلمي',m:['ibnkathir','abuamr','ibnamir'],desc:'ابن كثير وأبو عمرو وابن عامر'},
+  {sym:'حرميّ',kind:'كلمي',m:['nafi','ibnkathir'],desc:'نافع وابن كثير'},
+  {sym:'حصن',kind:'كلمي',m:[...KUFI,'nafi'],desc:'الكوفيون ونافع'},
+];
+
+const UNITS = [
+  {id:'u1',title:'الشاطبي والقراء والرواة',pages:'ص ١–١٨'},
+  {id:'u2',title:'الرموز الفردية',pages:'ص ٣–١٩'},
+  {id:'u3',title:'الرموز الجماعية',pages:'ص ٢٧–٣١'},
+  {id:'u4',title:'قواعد النظم والأضداد',pages:'ص ٢٠–٤٠'},
+  {id:'u5',title:'الاستعاذة',pages:'ص ٤١–٤٨'},
+  {id:'u6',title:'البسملة',pages:'ص ٤٩–٦٠'},
+  {id:'u7',title:'سورة أم القرآن',pages:'ص ٦١–٦٩'},
+  {id:'u8',title:'الإدغام الكبير',pages:'ص ٧٠–٨٩'},
+  {id:'u9',title:'هاء الكناية',pages:'ص ٩٠–٩٣'},
+  {id:'u10',title:'المد والقصر',pages:'ص ٩٤–١١١'},
+  {id:'u11',title:'فرش البقرة (١–٦)',pages:'ص ١١٢–١١٧'},
+  {id:'u12',title:'فرش البقرة (٧–٩)',pages:'ص ١٢٢–١٢٦'},
+];
+
+/* ===== الأبيات (مع رقم الوحدة) ===== */
+const VERSES = {
+  u1:[
+    ['فَأَمَّا الْكَرِيمُ السِّرِّ فِي الطِّيبِ نَافِعٌ','فَذَاكَ الَّذِي اخْتَارَ الْمَدِينَةَ مَنْزِلَا'],
+    ['وَقَالُونُ عِيسَى ثُمَّ عُثْمَانُ وَرْشُهُمْ','بِصُحْبَتِهِ الْمَجْدَ الرَّفِيعَ تَأَثَّلَا'],
+    ['وَمَكَّةُ عَبْدُ اللَّهِ فِيهَا مُقَامُهُ','هُوَ ابْنُ كَثِيرٍ كَاثِرُ الْقَوْمِ مُعْتَلَا'],
+    ['رَوَى أَحْمَدُ الْبَزِّي لَهُ وَمُحَمَّدٌ','عَلَى سَنَدٍ وَهْوَ الْمُلَقَّبُ قُنْبُلَا'],
+    ['وَأَمَّا الْإِمَامُ الْمَازِنِيُّ صَرِيحُهُمْ','أَبُو عَمْرٍو الْبَصْرِي فَوَالِدُهُ الْعَلَا'],
+    ['أَفَاضَ عَلَى يَحْيَى الْيَزِيدِيِّ سَيْبَهُ','فَأَصْبَحَ بِالْعَذْبِ الْفُرَاتِ مُعَلَّلَا'],
+    ['أَبُو عُمَرَ الدُّورِي وَصَالِحُهُمْ أَبُو','شُعَيْبٍ هُوَ السُّوسِيُّ عَنْهُ تَقَبَّلَا'],
+    ['وَأَمَّا دِمَشْقُ الشَّامِ دَارُ ابْنِ عَامِرٍ','فَتِلْكَ بِعَبْدِ اللَّهِ طَابَتْ مُحَلَّلَا'],
+    ['هِشَامٌ وَعَبْدُ اللَّهِ وَهْوَ انْتِسَابُهُ','لِذَكْوَانَ بِالْإِسْنَادِ عَنْهُ تَنَقَّلَا'],
+    ['وَبِالْكُوفَةِ الْغَرَّاءِ مِنْهُمْ ثَلَاثَةٌ','أَذَاعُوا فَقَدْ ضَاعَتْ شَذًا وَقَرَنْفُلَا'],
+    ['فَأَمَّا أَبُو بَكْرٍ وَعَاصِمٌ اسْمُهُ','فَشُعْبَةُ رَاوِيهِ الْمُبَرِّزُ أَفْضَلَا'],
+    ['وَذَاكَ ابْنُ عَيَّاشٍ أَبُو بَكْرٍ الرِّضَا','وَحَفْصٌ وَبِالْإِتْقَانِ كَانَ مُفَضَّلَا'],
+    ['وَحَمْزَةُ مَا أَزْكَاهُ مِنْ مُتَوَرِّعٍ','إِمَامًا صَبُورًا لِلْقُرَانِ مُرَتِّلَا'],
+    ['رَوَى خَلَفٌ عَنْهُ وَخَلَّادٌ الَّذِي','رَوَاهُ سُلَيْمٌ مُتْقِنًا وَمُحَصِّلَا'],
+    ['وَأَمَّا عَلِيٌّ فَالْكِسَائِيُّ نَعْتُهُ','لِمَا كَانَ فِي الْإِحْرَامِ فِيهِ تَسَرْبَلَا'],
+    ['رَوَى لَيْثُهُمْ عَنْهُ أَبُو الْحَارِثِ الرِّضَا','وَحَفْصٌ هُوَ الدُّورِي وَفِي الذِّكْرِ قَدْ خَلَا'],
+  ],
+  u3:[
+    ['وَمِنْهُنَّ لِلْكُوفِيِّ ثَاءٌ مُثَلَّثٌ','وَسِتَّتُهُمْ بِالْخَاءِ لَيْسَ بِأَغْفَلَا'],
+    ['عَنَيْتُ الْأُلَى أَثْبَتُّهُمْ بَعْدَ نَافِعٍ','وَكُوفٍ وَشَامٍ ذَالُهُمْ لَيْسَ مُغْفَلَا'],
+    ['وَكُوفٍ مَعَ الْمَكِّيِّ بِالظَّاءِ مُعْجَمًا','وَكُوفٍ وَبَصْرٍ غَيْنُهُمْ لَيْسَ مُهْمَلَا'],
+    ['وَذُو النَّقْطِ شِينٌ لِلْكِسَائِي وَحَمْزَةٍ','وَقُلْ فِيهِمَا مَعْ شُعْبَةٍ صُحْبَةٌ تَلَا'],
+    ['صِحَابٌ هُمَا مَعْ حَفْصِهِمْ عَمَّ نَافِعٌ','وَشَامٍ سَمَا فِي نَافِعٍ وَفَتَى الْعَلَا'],
+    ['وَمَكٍّ وَحَقٌّ فِيهِ وَابْنِ الْعَلَاءِ قُلْ','وَقُلْ فِيهِمَا وَالْيَحْصُبِي نَفَرٌ حَلَا'],
+    ['وَحِرْمِيٌّ الْمَكِّيُّ فِيهِ وَنَافِعٌ','وَحِصْنٌ عَنِ الْكُوفِي وَنَافِعِهِمْ عَلَا'],
+  ],
+  u4:[
+    ['جَعَلْتُ أَبَا جَادٍ عَلَى كُلِّ قَارِئٍ','دَلِيلًا عَلَى الْمَنْظُومِ أَوَّلَ أَوَّلَا'],
+    ['وَمِنْ بَعْدِ ذِكْرِي الْحَرْفَ أُسْمِي رِجَالَهُ','مَتَى تَنْقَضِي آتِيكَ بِالْوَاوِ فَيْصَلَا'],
+    ['سِوَى أَحْرُفٍ لَا رِيبَةٌ فِي اتِّصَالِهَا','وَبِاللَّفْظِ أَسْتَغْنِي عَنِ الْقَيْدِ إِنْ جَلَا'],
+    ['وَرُبَّ مَكَانٍ كَرَّرَ الْحَرْفَ قَبْلَهَا','لِمَا عَارِضٍ وَالْأَمْرُ لَيْسَ مُهَوِّلَا'],
+    ['وَهَا أَنَا ذَا أَسْعَى لَعَلَّ حُرُوفَهُمْ','يَطُوعُ بِهَا نَظْمُ الْقَوَافِي مُسَهِّلَا'],
+    ['وَمَا كَانَ ذَا ضِدٍّ فَإِنِّي بِضِدِّهِ','غَنِيٌّ فَزَاحِمْ بِالذَّكَاءِ لِتَفْضُلَا'],
+    ['وَحَيْثُ جَرَى التَّحْرِيكُ غَيْرَ مُقَيَّدٍ','هُوَ الْفَتْحُ وَالْإِسْكَانُ آخَاهُ مَنْزِلَا'],
+    ['وَآخَيْتُ بَيْنَ النُّونِ وَالْيَا وَفَتْحِهِمْ','وَكَسْرٍ وَبَيْنَ النَّصْبِ وَالْخَفْضِ مُنْزِلَا'],
+    ['وَحَيْثُ أَقُولُ الضَّمُّ وَالرَّفْعُ سَاكِتًا','فَغَيْرُهُمُ بِالْفَتْحِ وَالنَّصْبِ أَقْبَلَا'],
+    ['وَفِي الرَّفْعِ وَالتَّذْكِيرِ وَالْغَيْبِ جُمْلَةٌ','عَلَى لَفْظِهَا أَطْلَقْتُ مَنْ قَيَّدَ الْعُلَا'],
+    ['وَقَبْلَ وَبَعْدَ الْحَرْفِ آتِي بِكُلِّ مَا','رَمَزْتُ بِهِ فِي الْجَمْعِ إِذْ لَيْسَ مُشْكِلَا'],
+    ['وَسَوْفَ أُسَمِّي حَيْثُ يَسْمَحُ نَظْمُهُ','بِهِ مُوضِحًا جِيدًا مُعَمًّا وَمُخْوَلَا'],
+    ['وَمَنْ كَانَ ذَا بَابٍ لَهُ فِيهِ مَذْهَبٌ','فَلَا بُدَّ أَنْ يُسْمَى فَيُدْرَى وَيُعْقَلَا'],
+  ],
+  u5:[
+    ['إِذَا مَا أَرَدْتَ الدَّهْرَ تَقْرَأُ فَاسْتَعِذْ','جِهَارًا مِنَ الشَّيْطَانِ بِاللَّهِ مُسْجَلَا'],
+    ['عَلَى مَا أَتَى فِي النَّحْلِ يُسْرًا وَإِنْ تَزِدْ','لِرَبِّكَ تَنْزِيهًا فَلَسْتَ مُجَهَّلَا'],
+    ['وَقَدْ ذَكَرُوا لَفْظَ الرَّسُولِ فَلَمْ يَزِدْ','وَلَوْ صَحَّ هَذَا النَّقْلُ لَمْ يُبْقِ مُجْمَلَا'],
+    ['وَفِيهِ مَقَالٌ فِي الْأُصُولِ فُرُوعُهُ','فَلَا تَعْدُ مِنْهَا بَاسِقًا وَمُظَلِّلَا'],
+    ['وَإِخْفَاؤُهُ فَصْلٌ أَبَاهُ وُعَاتُنَا','وَكَمْ مِنْ فَتًى كَالْمَهْدَوِي فِيهِ أَعْمَلَا'],
+  ],
+  u6:[
+    ['وَبَسْمَلَ بَيْنَ السُّورَتَيْنِ بِسُنَّةٍ','رِجَالٌ نَمَوْهَا دِرْيَةً وَتَحَمُّلَا'],
+    ['وَوَصْلُكَ بَيْنَ السُّورَتَيْنِ فَصَاحَةٌ','وَصِلْ وَاسْكُتَنْ كُلٌّ جَلَايَاهُ حَصَّلَا'],
+    ['وَلَا نَصَّ كَلَّا حُبَّ وَجْهٌ ذَكَرْتُهُ','وَفِيهَا خِلَافٌ جِيدُهُ وَاضِحُ الطُّلَا'],
+    ['وَسَكْتُهُمُ الْمُخْتَارُ دُونَ تَنَفُّسٍ','وَبَعْضُهُمُ فِي الْأَرْبَعِ الزُّهْرِ بَسْمَلَا'],
+    ['لَهُمْ دُونَ نَصٍّ وَهْوَ فِيهِنَّ سَاكِتٌ','لِحَمْزَةَ فَافْهَمْهُ وَلَيْسَ مُخَذَّلَا'],
+    ['وَمَهْمَا تَصِلْهَا أَوْ بَدَأْتَ بَرَاءَةً','لِتَنْزِيلِهَا بِالسَّيْفِ لَسْتَ مُبَسْمِلَا'],
+    ['وَلَا بُدَّ مِنْهَا فِي ابْتِدَائِكَ سُورَةً','سِوَاهَا وَفِي الْأَجْزَاءِ خُيِّرَ مَنْ تَلَا'],
+    ['وَمَهْمَا تَصِلْهَا مَعْ أَوَاخِرِ سُورَةٍ','فَلَا تَقِفَنَّ الدَّهْرَ فِيهَا فَتَثْقُلَا'],
+  ],
+  u7:[
+    ['وَمَالِكِ يَوْمِ الدِّينِ رَاوِيهِ نَاصِرٌ','وَعِنْدَ سِرَاطٍ وَالسِّرَاطَ لِقُنْبُلَا'],
+    ['بِحَيْثُ أَتَى وَالصَّادَ زَايًا أَشِمَّهَا','لَدَى خَلَفٍ وَاشْمِمْ لِخَلَّادٍ الَاوَّلَا'],
+    ['عَلَيْهِمْ إِلَيْهِمْ حَمْزَةٌ وَلَدَيْهِمُو','جَمِيعًا بِضَمِّ الْهَاءِ وَقْفًا وَمَوْصِلَا'],
+    ['وَصِلْ ضَمَّ مِيمِ الْجَمْعِ قَبْلَ مُحَرَّكٍ','دِرَاكًا وَقَالُونٌ بِتَخْيِيرِهِ جَلَا'],
+    ['وَمِنْ قَبْلِ هَمْزِ الْقَطْعِ صِلْهَا لِوَرْشِهِمْ','وَأَسْكَنَهَا الْبَاقُونَ بَعْدُ لِتَكْمُلَا'],
+    ['وَمِنْ دُونِ وَصْلٍ ضَمُّهَا قَبْلَ سَاكِنٍ','لِكُلٍّ وَبَعْدَ الْهَاءِ كَسْرُ فَتَى الْعَلَا'],
+    ['مَعَ الْكَسْرِ قَبْلَ الْهَا أَوِ الْيَاءِ سَاكِنًا','وَفِي الْوَصْلِ كَسْرُ الْهَاءِ بِالضَّمِّ شَمْلَلَا'],
+    ['كَمَا بِهِمُ الْأَسْبَابُ ثُمَّ عَلَيْهِمُ الْـ','ـقِتَالُ وَقِفْ لِلْكُلِّ بِالْكَسْرِ مُكْمِلَا'],
+  ],
+  u8:[
+    ['وَدُونَكَ الِادْغَامَ الْكَبِيرَ وَقُطْبُهُ','أَبُو عَمْرٍو الْبَصْرِيُّ فِيهِ تَحَفَّلَا'],
+    ['فَفِي كِلْمَةٍ عَنْهُ مَنَاسِكَكُمْ وَمَا','سَلَكَكُّمْ وَبَاقِي الْبَابِ لَيْسَ مُعَوَّلَا'],
+    ['وَمَا كَانَ مِنْ مِثْلَيْنِ فِي كِلْمَتَيْهِمَا','فَلَا بُدَّ مِنْ إِدْغَامِ مَا كَانَ أَوَّلَا'],
+    ['كَيَعْلَمُ مَا فِيهِ هُدًى وَطُبِعْ عَلَى','قُلُوبِهِمُ وَالْعَفْوَ وَأْمُرْ تَمَثَّلَا'],
+    ['إِذَا لَمْ يَكُنْ تَا مُخْبِرٍ أَوْ مُخَاطَبٍ','أَوِ الْمُكْتَسِي تَنْوِينَهُ أَوْ مُثَقَّلَا'],
+    ['كَكُنْتُ تُرَابًا أَنْتَ تُكْرِهُ وَاسِعٌ','عَلِيمٌ وَأَيْضًا تَمَّ مِيقَاتُ مُثِّلَا'],
+  ],
+  u10:[
+    ['إِذَا أَلِفٌ أَوْ يَاؤُهَا بَعْدَ كَسْرَةٍ','أَوِ الْوَاوُ عَنْ ضَمٍّ لَقِي الْهَمْزَ طُوِّلَا'],
+    ['فَإِنْ يَنْفَصِلْ فَالْقَصْرُ بَادِرْهُ طَالِبًا','بِخُلْفِهِمَا يُرْوِيكَ دَرًّا وَمُخْضَلَا'],
+    ['كَجِيءَ وَعَنْ سُوءٍ وَشَاءَ اتِّصَالُهُ','وَمَفْصُولُهُ فِي أُمِّهَا أَمْرُهُ إِلَى'],
+    ['وَمَا بَعْدَ هَمْزٍ ثَابِتٍ أَوْ مُغَيَّرٍ','فَقَصْرٌ وَقَدْ يُرْوَى لِوَرْشٍ مُطَوَّلَا'],
+    ['وَوَسَّطَهُ قَوْمٌ كَآمَنَ هَؤُلَا','ءِ آلِهَةً آتَى لِلْإِيمَانِ مُثِّلَا'],
+    ['سِوَى يَاءِ إِسْرَائِيلَ أَوْ بَعْدَ سَاكِنٍ','صَحِيحٍ كَقُرْآنٍ وَمَسْئُولًا اسْأَلَا'],
+    ['وَمَا بَعْدَ هَمْزِ الْوَصْلِ ايتِ وَبَعْضُهُمْ','يُؤَاخِذُكُمْ آلَانَ مُسْتَفْهِمًا تَلَا'],
+    ['وَعَادًا الُاولَى وَابْنُ غَلْبُونَ طَاهِرٌ','بِقَصْرِ جَمِيعِ الْبَابِ قَالَ وَقَوَّلَا'],
+    ['وَعَنْ كُلِّهِمْ بِالْمَدِّ مَا قَبْلَ سَاكِنٍ','وَعِنْدَ سُكُونِ الْوَقْفِ وَجْهَانِ أُصِّلَا'],
+    ['وَمُدَّ لَهُ عِنْدَ الْفَوَاتِحِ مُشْبِعًا','وَفِي عَيْنٍ الْوَجْهَانِ وَالطُّولُ فُضِّلَا'],
+    ['وَفِي نَحْوِ طَهَ الْقَصْرُ إِذْ لَيْسَ سَاكِنٌ','وَمَا فِي أَلِفْ مِنْ حَرْفِ مَدٍّ فَيُمْطَلَا'],
+    ['وَإِنْ تَسْكُنِ الْيَا بَيْنَ فَتْحٍ وَهَمْزَةٍ','بِكِلْمَةٍ أَوْ وَاوٌ فَوَجْهَانِ جُمِّلَا'],
+    ['بِطُولٍ وَقَصْرٍ وَصْلُ وَرْشٍ وَوَقْفُهُ','وَعِنْدَ سُكُونِ الْوَقْفِ لِلْكُلِّ أُعْمِلَا'],
+    ['وَعَنْهُمْ سُقُوطُ الْمَدِّ فِيهِ وَوَرْشُهُمْ','يُوَافِقُهُمْ فِي حَيْثُ لَا هَمْزَ مُدْخَلَا'],
+    ['وَفِي وَاوِ سَوْءَاتٍ خِلَافٌ لِوَرْشِهِمْ','وَعَنْ كُلٍّ الْمَوْءُودَةُ اقْصُرْ وَمَوْئِلَا'],
+  ],
+  u11:[
+    ['وَمَا يَخْدَعُونَ الْفَتْحُ مِنْ قَبْلِ سَاكِنٍ','وَبَعْدُ ذَكَا وَالْغَيْرُ كَالْحَرْفِ أَوَّلَا'],
+    ['وَخَفَّفَ كُوفٍ يَكْذِبُونَ وَيَاؤُهُ','بِفَتْحٍ وَلِلْبَاقِينَ ضُمَّ وَثُقِّلَا'],
+    ['وَقِيلَ وَغِيضَ ثُمَّ جِايءَ يُشِمُّهَا','لَدَى كَسْرِهَا ضَمًّا رِجَالٌ لِتَكْمُلَا'],
+    ['وَحِيلَ بِإِشْمَامٍ وَسِيقَ كَمَا رَسَا','وَسِيءَ وَسِيئَتْ كَانَ رَاوِيهِ أَنْبَلَا'],
+    ['وَهَا هُوَ بَعْدَ الْوَاوِ وَالْفَا وَلَامِهَا','وَهَا هِيَ أَسْكِنْ رَاضِيًا بَارِدًا حَلَا'],
+    ['وَثُمَّ هُوَ رِفْقًا بَانَ وَالضَّمُّ غَيْرُهُمْ','وَكَسْرٌ وَعَنْ كُلٍّ يُمِلَّ هُوَ انْجَلَى'],
+  ],
+  u12:[
+    ['وَفِي فَأَزَلَّ اللَّامَ خَفِّفْ لِحَمْزَةٍ','وَزِدْ أَلِفًا مِنْ قَبْلِهِ فَتُكَمِّلَا'],
+    ['وَءَادَمَ فَارْفَعْ نَاصِبًا كَلِمَاتِهِ','بِكَسْرٍ وَلِلْمَكِّيِّ عَكْسٌ تَحَوَّلَا'],
+    ['وَيُقْبَلُ الُاولَى أَنَّثُوا دُونَ حَاجِزٍ','وَعَدْنَا جَمِيعًا دُونَ مَا أَلِفٍ حَلَا'],
+  ],
+};
+
+/* ===== أسئلة الشاهد (الخريطة) =====
+   lines: أبيات تُعرض؛ الكلمات بين {} هي مواضع الرمز/الاسم في هذا السؤال (لا تظهر الأقواس للطالبة) */
+const SHAHID = [
+  {id:'s-malik',unit:'u7',ref:'ص ٦٢',lines:[['وَمَالِكِ يَوْمِ الدِّينِ {رَاوِيهِ} {نَاصِرٌ}','وَعِنْدَ سِرَاطٍ وَالسِّرَاطَ لِقُنْبُلَا']],
+   word:'مالك يوم الدين',accept:['مالك','ملك','مالك يوم الدين','ملك يوم الدين'],
+   shahid:'وَمَالِكِ يَوْمِ الدِّينِ رَاوِيهِ نَاصِرٌ',
+   groups:[{who:['kisai','asim'],codes:'ر: راويه — ن: ناصر',reading:'بإثبات الألف بعد الميم «مالك»'}],
+   rest:'باقي القراء بحذف الألف «ملك»'},
+  {id:'s-sirat',unit:'u7',ref:'ص ٦٣',lines:[['وَمَالِكِ يَوْمِ الدِّينِ رَاوِيهِ نَاصِرٌ','وَعِنْدَ سِرَاطٍ وَالسِّرَاطَ {لِقُنْبُلَا}'],['بِحَيْثُ أَتَى وَالصَّادَ زَايًا أَشِمَّهَا','لَدَى {خَلَفٍ} وَاشْمِمْ {لِخَلَّادٍ} الَاوَّلَا']],
+   word:'صراط، الصراط',accept:['صراط','الصراط','سراط','السراط','صراط الصراط','الصراط صراط','سراط والسراط','صراط والصراط'],
+   shahid:'وَعِنْدَ سِرَاطٍ وَالسِّرَاطَ لِقُنْبُلَا بِحَيْثُ أَتَى وَالصَّادَ زَايًا أَشِمَّهَا لَدَى خَلَفٍ وَاشْمِمْ لِخَلَّادٍ الَاوَّلَا',
+   groups:[{who:['qunbul'],codes:'قنبل: باسمه صريحاً',reading:'بالسين «سراط، السراط» حيث وقع'},
+           {who:['khalaf'],codes:'خلف: باسمه صريحاً',reading:'بإشمام الصاد صوت الزاي حيث وقع'},
+           {who:['khallad'],codes:'خلاد: باسمه صريحاً',reading:'بالإشمام في الموضع الأول فقط «اهدنا الصراط المستقيم»، وبالصاد الخالصة في الثاني'}],
+   rest:'باقي القراء بالصاد الخالصة قولاً واحداً'},
+  {id:'s-alayhim',unit:'u7',ref:'ص ٦٤',lines:[['عَلَيْهِمْ إِلَيْهِمْ {حَمْزَةٌ} وَلَدَيْهِمُو','جَمِيعًا بِضَمِّ الْهَاءِ وَقْفًا وَمَوْصِلَا']],
+   word:'عليهم، إليهم، لديهم',accept:['عليهم اليهم لديهم','عليهم','عليهم واليهم ولديهم','عليهم اليهم ولديهم'],
+   shahid:'عَلَيْهِمْ إِلَيْهِمْ حَمْزَةٌ وَلَدَيْهِمُو جَمِيعًا بِضَمِّ الْهَاءِ وَقْفًا وَمَوْصِلَا',
+   groups:[{who:['hamza'],codes:'حمزة: باسمه صريحاً',reading:'بضم الهاء وصلاً ووقفاً حيث وردت «عليهُم، إليهُم، لديهُم»'}],
+   rest:'باقي القراء بكسر الهاء'},
+  {id:'s-mim1',unit:'u7',ref:'ص ٦٦',lines:[['وَصِلْ ضَمَّ مِيمِ الْجَمْعِ قَبْلَ مُحَرَّكٍ','{دِرَاكًا} وَ{قَالُونٌ} بِتَخْيِيرِهِ جَلَا'],['وَمِنْ قَبْلِ هَمْزِ الْقَطْعِ صِلْهَا {لِوَرْشِهِمْ}','وَأَسْكَنَهَا الْبَاقُونَ بَعْدُ لِتَكْمُلَا']],
+   word:'ميم الجمع قبل متحرك',accept:['ميم الجمع','ميم الجمع قبل متحرك','ميم الجمع قبل حرف متحرك'],
+   shahid:'وَصِلْ ضَمَّ مِيمِ الْجَمْعِ قَبْلَ مُحَرَّكٍ دِرَاكًا وَقَالُونٌ بِتَخْيِيرِهِ جَلَا وَمِنْ قَبْلِ هَمْزِ الْقَطْعِ صِلْهَا لِوَرْشِهِمْ',
+   groups:[{who:['ibnkathir'],codes:'د: دراكا',reading:'بصلة الميم بواو قولاً واحداً بمقدار حركتين'},
+           {who:['qalun'],codes:'قالون: باسمه صريحاً',reading:'بالتخيير بين الصلة والإسكان'},
+           {who:['warsh'],codes:'ورش: باسمه صريحاً',reading:'بالصلة إذا وقعت الميم قبل همزة قطع، وبالإسكان قبل غيرها'}],
+   rest:'الباقون بإسكان الميم'},
+  {id:'s-mim2',unit:'u7',ref:'ص ٦٧',lines:[['وَمِنْ دُونِ وَصْلٍ ضَمُّهَا قَبْلَ سَاكِنٍ','لِكُلٍّ وَبَعْدَ الْهَاءِ كَسْرُ {فَتَى الْعَلَا}'],['مَعَ الْكَسْرِ قَبْلَ الْهَا أَوِ الْيَاءِ سَاكِنًا','وَفِي الْوَصْلِ كَسْرُ الْهَاءِ بِالضَّمِّ {شَمْلَلَا}'],['كَمَا بِهِمُ الْأَسْبَابُ ثُمَّ عَلَيْهِمُ الْـ','ـقِتَالُ وَقِفْ لِلْكُلِّ بِالْكَسْرِ مُكْمِلَا']],
+   word:'ميم الجمع قبل ساكن بعد هاء مكسورة',accept:['ميم الجمع','ميم الجمع قبل ساكن','عليهم القتال','بهم الاسباب'],
+   shahid:'وَبَعْدَ الْهَاءِ كَسْرُ فَتَى الْعَلَا مَعَ الْكَسْرِ قَبْلَ الْهَا أَوِ الْيَاءِ سَاكِنًا وَفِي الْوَصْلِ كَسْرُ الْهَاءِ بِالضَّمِّ شَمْلَلَا',
+   groups:[{who:['abuamr'],codes:'أبو عمرو: بكنيته «فتى العلا»',reading:'بكسر الهاء والميم وصلاً «عليهِمِ القتال»'},
+           {who:['hamza','kisai'],codes:'ش: شمللا',reading:'بضم الهاء والميم وصلاً «عليهُمُ القتال»'}],
+   rest:'الباقون بكسر الهاء وضم الميم وصلاً «عليهِمُ القتال»، وميم الجمع قبل ساكن مضمومة للكل بلا صلة، والوقف بإسكان الميم للجميع'},
+  {id:'s-yakhdaun',unit:'u11',ref:'ص ١١٤',lines:[['وَمَا يَخْدَعُونَ الْفَتْحُ مِنْ قَبْلِ سَاكِنٍ','وَبَعْدُ {ذَكَا} وَالْغَيْرُ كَالْحَرْفِ أَوَّلَا']],
+   word:'وما يخدعون إلا أنفسهم',accept:['يخدعون','يخادعون','وما يخدعون','وما يخادعون','وما يخدعون الا انفسهم','وما يخادعون الا انفسهم'],
+   shahid:'وَمَا يَخْدَعُونَ الْفَتْحُ مِنْ قَبْلِ سَاكِنٍ وَبَعْدُ ذَكَا',
+   groups:[{who:['asim','hamza','kisai','ibnamir'],codes:'ذ: ذكا (الكوفيون وابن عامر)',reading:'«وما يَخْدَعون» بفتح الحرف قبل الساكن والحرف بعده'}],
+   rest:'الباقون (أهل سما) «وما يُخادعون»، والموضع الأول «يخادعون الله» بالألف للجميع'},
+  {id:'s-yakdhibun',unit:'u11',ref:'ص ١١٥',lines:[['وَخَفَّفَ {كُوفٍ} يَكْذِبُونَ وَيَاؤُهُ','بِفَتْحٍ وَلِلْبَاقِينَ ضُمَّ وَثُقِّلَا']],
+   word:'بما كانوا يكذبون',accept:['يكذبون','بما كانوا يكذبون'],
+   shahid:'وَخَفَّفَ كُوفٍ يَكْذِبُونَ وَيَاؤُهُ بِفَتْحٍ',
+   groups:[{who:['asim','hamza','kisai'],codes:'كوف: باسمهم صريحاً',reading:'بفتح الياء وتخفيف الذال «يَكْذِبون»'}],
+   rest:'الباقون (أهل سما وابن عامر) بضم الياء وتشديد الذال «يُكَذِّبون»'},
+  {id:'s-qila',unit:'u11',ref:'ص ١١٦',lines:[['وَقِيلَ وَغِيضَ ثُمَّ جِايءَ يُشِمُّهَا','لَدَى كَسْرِهَا ضَمًّا {رِجَالٌ} {لِتَكْمُلَا}']],
+   word:'قيل، غيض، جيء',accept:['قيل غيض جيء','قيل وغيض وجيء','قيل وغيض','قيل'],
+   shahid:'وَقِيلَ وَغِيضَ ثُمَّ جِايءَ يُشِمُّهَا لَدَى كَسْرِهَا ضَمًّا رِجَالٌ لِتَكْمُلَا',
+   groups:[{who:['kisai','hisham'],codes:'ر: رجال — ل: لتكملا',reading:'بإشمام كسر الحرف الأول ضماً'}],
+   rest:'الباقون بالكسر الخالص'},
+  {id:'s-hila',unit:'u11',ref:'ص ١١٦',lines:[['وَحِيلَ بِإِشْمَامٍ وَسِيقَ {كَمَا} {رَسَا}','وَسِيءَ وَسِيئَتْ كَانَ رَاوِيهِ أَنْبَلَا']],
+   word:'حيل، سيق',accept:['حيل سيق','حيل وسيق','وحيل وسيق'],
+   shahid:'وَحِيلَ بِإِشْمَامٍ وَسِيقَ كَمَا رَسَا',
+   groups:[{who:['ibnamir','kisai'],codes:'ك: كما — ر: رسا',reading:'بالإشمام في «وحيل بينهم» (سبأ) و«وسيق» (موضعي الزمر)'}],
+   rest:'الباقون بالكسر الخالص'},
+  {id:'s-siya',unit:'u11',ref:'ص ١١٦',lines:[['وَحِيلَ بِإِشْمَامٍ وَسِيقَ كَمَا رَسَا','وَسِيءَ وَسِيئَتْ {كَانَ} {رَاوِيهِ} {أَنْبَلَا}']],
+   word:'سيء، سيئت',accept:['سيء سيئت','سيء وسيئت','وسيء وسيئت'],
+   shahid:'وَسِيءَ وَسِيئَتْ كَانَ رَاوِيهِ أَنْبَلَا',
+   groups:[{who:['ibnamir','kisai','nafi'],codes:'ك: كان — ر: راويه — أ: أنبلا',reading:'بالإشمام في «سيء بهم» (هود والعنكبوت) و«سيئت» (الملك)'}],
+   rest:'الباقون بالكسر الخالص'},
+  {id:'s-huwa',unit:'u11',ref:'ص ١١٧',lines:[['وَهَا هُوَ بَعْدَ الْوَاوِ وَالْفَا وَلَامِهَا','وَهَا هِيَ أَسْكِنْ {رَاضِيًا} {بَارِدًا} {حَلَا}']],
+   word:'هو، هي (بعد الواو والفاء واللام)',accept:['هو هي','هو وهي','وهو وهي','هو','وهو فهو لهو'],
+   shahid:'وَهَا هُوَ بَعْدَ الْوَاوِ وَالْفَا وَلَامِهَا وَهَا هِيَ أَسْكِنْ رَاضِيًا بَارِدًا حَلَا',
+   groups:[{who:['kisai','qalun','abuamr'],codes:'ر: راضياً — ب: بارداً — ح: حلا',reading:'بإسكان الهاء «وهْو، فهْي، لهْو»'}],
+   rest:'الباقون بضم هاء «هو» وكسر هاء «هي»'},
+  {id:'s-thumma',unit:'u11',ref:'ص ١١٧',lines:[['وَثُمَّ هُوَ {رِفْقًا} {بَانَ} وَالضَّمُّ غَيْرُهُمْ','وَكَسْرٌ وَعَنْ كُلٍّ يُمِلَّ هُوَ انْجَلَى']],
+   word:'ثم هو يوم القيامة',accept:['ثم هو','ثم هو يوم القيامه'],
+   shahid:'وَثُمَّ هُوَ رِفْقًا بَانَ',
+   groups:[{who:['kisai','qalun'],codes:'ر: رفقاً — ب: بان',reading:'بإسكان الهاء «ثم هْو» في القصص'}],
+   rest:'الباقون بضم الهاء، و«أن يمل هو» بالضم للجميع'},
+  {id:'s-azalla',unit:'u12',ref:'ص ١٢٤',lines:[['وَفِي فَأَزَلَّ اللَّامَ خَفِّفْ {لِحَمْزَةٍ}','وَزِدْ أَلِفًا مِنْ قَبْلِهِ فَتُكَمِّلَا']],
+   word:'فأزلهما',accept:['فازلهما','فازالهما','فازل'],
+   shahid:'وَفِي فَأَزَلَّ اللَّامَ خَفِّفْ لِحَمْزَةٍ وَزِدْ أَلِفًا مِنْ قَبْلِهِ',
+   groups:[{who:['hamza'],codes:'حمزة: باسمه صريحاً',reading:'بتخفيف اللام وزيادة ألف قبلها «فأزالهما»'}],
+   rest:'الباقون بتشديد اللام وحذف الألف «فأزلّهما»'},
+  {id:'s-adam',unit:'u12',ref:'ص ١٢٥',lines:[['وَءَادَمَ فَارْفَعْ نَاصِبًا كَلِمَاتِهِ','بِكَسْرٍ وَ{لِلْمَكِّيِّ} عَكْسٌ تَحَوَّلَا']],
+   word:'فتلقى آدم من ربه كلمات',accept:['ادم كلمات','ادم','ادم وكلمات','فتلقي ادم من ربه كلمات'],
+   shahid:'وَءَادَمَ فَارْفَعْ نَاصِبًا كَلِمَاتِهِ بِكَسْرٍ وَلِلْمَكِّيِّ عَكْسٌ تَحَوَّلَا',
+   groups:[{who:['ibnkathir'],codes:'المكي: باسمه صريحاً',reading:'بنصب «آدمَ» ورفع «كلماتٌ»'}],
+   rest:'الباقون برفع «آدمُ» ونصب «كلماتٍ» بالكسر'},
+  {id:'s-tuqbal',unit:'u12',ref:'ص ١٢٦',lines:[['وَيُقْبَلُ الُاولَى أَنَّثُوا {دُونَ} {حَاجِزٍ}','وَعَدْنَا جَمِيعًا دُونَ مَا أَلِفٍ حَلَا']],
+   word:'ولا يقبل منها شفاعة',accept:['يقبل','ولا يقبل','ولا يقبل منها شفاعه','تقبل'],
+   shahid:'وَيُقْبَلُ الُاولَى أَنَّثُوا دُونَ حَاجِزٍ',
+   groups:[{who:['ibnkathir','abuamr'],codes:'د: دون — ح: حاجز',reading:'بتاء التأنيث «ولا تُقبل منها شفاعة»'}],
+   rest:'الباقون بياء التذكير «ولا يُقبل»، و«ولا يقبل منها عدل» بالتذكير للجميع'},
+  {id:'s-waadna',unit:'u12',ref:'ص ١٢٦',lines:[['وَيُقْبَلُ الُاولَى أَنَّثُوا دُونَ حَاجِزٍ','وَعَدْنَا جَمِيعًا دُونَ مَا أَلِفٍ {حَلَا}']],
+   word:'واعدنا',accept:['واعدنا','وعدنا','واذ واعدنا'],
+   shahid:'وَعَدْنَا جَمِيعًا دُونَ مَا أَلِفٍ حَلَا',
+   groups:[{who:['abuamr'],codes:'ح: حلا',reading:'بحذف الألف «وعدنا» في مواضعها الثلاثة'}],
+   rest:'الباقون بإثبات الألف «واعدنا»'},
+  {id:'s-basmala',unit:'u6',ref:'ص ٥١',lines:[['وَبَسْمَلَ بَيْنَ السُّورَتَيْنِ {بِسُنَّةٍ}','{رِجَالٌ} {نَمَوْهَا} {دِرْيَةً} وَتَحَمُّلَا']],
+   word:'البسملة بين السورتين',accept:['البسمله','البسمله بين السورتين','بسمل'],
+   shahid:'وَبَسْمَلَ بَيْنَ السُّورَتَيْنِ بِسُنَّةٍ رِجَالٌ نَمَوْهَا دِرْيَةً',
+   groups:[{who:['qalun','kisai','asim','ibnkathir'],codes:'ب: بسنة — ر: رجال — ن: نموها — د: درية',reading:'بالبسملة بين السورتين'}],
+   rest:'حمزة بالوصل بلا بسملة، وورش وأبو عمرو وابن عامر لهم ثلاثة أوجه'},
+  {id:'s-wasl',unit:'u6',ref:'ص ٥١',lines:[['وَوَصْلُكَ بَيْنَ السُّورَتَيْنِ {فَصَاحَةٌ}','وَصِلْ وَاسْكُتَنْ كُلٌّ جَلَايَاهُ حَصَّلَا']],
+   word:'الوصل بين السورتين',accept:['الوصل','الوصل بين السورتين','وصلك'],
+   shahid:'وَوَصْلُكَ بَيْنَ السُّورَتَيْنِ فَصَاحَةٌ',
+   groups:[{who:['hamza'],codes:'ف: فصاحة',reading:'بالوصل بين السورتين بلا بسملة'}],
+   rest:'الباقون بين البسملة والأوجه الثلاثة'},
+  {id:'s-thalatha',unit:'u6',ref:'ص ٥١',lines:[['وَوَصْلُكَ بَيْنَ السُّورَتَيْنِ فَصَاحَةٌ','وَصِلْ وَاسْكُتَنْ {كُلٌّ} {جَلَايَاهُ} {حَصَّلَا}']],
+   word:'الوصل والسكت بين السورتين',accept:['الوصل والسكت','صل واسكتن','الاوجه الثلاثه','الوصل والسكت والبسمله'],
+   shahid:'وَصِلْ وَاسْكُتَنْ كُلٌّ جَلَايَاهُ حَصَّلَا',
+   groups:[{who:['ibnamir','warsh','abuamr'],codes:'ك: كل — ج: جلاياه — ح: حصلا',reading:'ثلاثة أوجه: الوصل بلا بسملة، والسكت بلا تنفس ولا بسملة، والبسملة'}],
+   rest:'قالون والكسائي وعاصم وابن كثير بالبسملة، وحمزة بالوصل'},
+  {id:'s-ikhfa',unit:'u5',ref:'ص ٤٨',lines:[['وَإِخْفَاؤُهُ {فَصْلٌ} {أَبَاهُ} وُعَاتُنَا','وَكَمْ مِنْ فَتًى كَالْمَهْدَوِي فِيهِ أَعْمَلَا']],
+   word:'إخفاء الاستعاذة',accept:['الاستعاذه','اخفاء الاستعاذه','اخفاوه'],
+   shahid:'وَإِخْفَاؤُهُ فَصْلٌ أَبَاهُ',
+   groups:[{who:['hamza','nafi'],codes:'ف: فصل — أ: أباه',reading:'إخفاء الاستعاذة: رُوي عن حمزة الجهر بها أول الفاتحة وإخفاؤها في سائر القرآن، وعن نافع إخفاؤها في جميع القرآن'}],
+   rest:'الباقون على الأصل وهو الجهر «فاستعذ جهاراً»، والراجح في الملف أن في البيت رموزاً'},
+  {id:'s-munfasil',unit:'u10',ref:'ص ١٠٢',lines:[['فَإِنْ يَنْفَصِلْ فَالْقَصْرُ {بَادِرْهُ} {طَالِبًا}','بِخُلْفِهِمَا {يُرْوِيكَ} {دَرًّا} وَمُخْضَلَا']],
+   word:'المد المنفصل',accept:['المنفصل','المد المنفصل','المد الجايز المنفصل','الجايز المنفصل'],
+   shahid:'فَإِنْ يَنْفَصِلْ فَالْقَصْرُ بَادِرْهُ طَالِبًا بِخُلْفِهِمَا يُرْوِيكَ دَرًّا',
+   groups:[{who:['qalun','duri_a'],codes:'ب: بادره — ط: طالباً (بخلفهما)',reading:'القصر والتوسط'},
+           {who:['susi','ibnkathir'],codes:'ي: يرويك — د: دراً',reading:'القصر قولاً واحداً'}],
+   rest:'ورش وحمزة بالإشباع، وابن عامر وعاصم والكسائي بالتوسط'},
+];
+
+/* ===== أدوات ===== */
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function pick(a,n,excl=[]){return shuffle(a.filter(x=>!excl.includes(x))).slice(0,n)}
+function names(ids){const n=ids.map(label);return n.length<2?n[0]:n.slice(0,-1).join('، ')+' و'+n[n.length-1]}
+function norm(s){return (s||'').replace(/[\u064B-\u065F\u0670\u0640]/g,'').replace(/[أإآٱ]/g,'ا').replace(/ة/g,'ه').replace(/ى/g,'ي').replace(/ؤ/g,'و').replace(/ئ/g,'ي').replace(/ء/g,'').replace(/[^\u0621-\u064Aa-zA-Z0-9\s]/g,' ').replace(/\s+/g,' ').trim()}
+
+/* تحويل نص أسماء إلى مجموعة معرفات */
+const ALIASES = [
+  ['الكوفيون',KUFI],['الكوفيين',KUFI],['الكوفي',KUFI],
+  ['دوري ابي عمرو',['duri_a']],['دوري الكسايي',['duri_k']],
+  ['ابن كثير',['ibnkathir']],['المكي',['ibnkathir']],['ابو عمرو',['abuamr']],['ابوعمرو',['abuamr']],['البصري',['abuamr']],
+  ['ابن عامر',['ibnamir']],['الشامي',['ibnamir']],['اليحصبي',['ibnamir']],['ابن ذكوان',['ibndhakwan']],['ابو الحارث',['abulharith']],
+  ['نافع',['nafi']],['المدني',['nafi']],['عاصم',['asim']],['حمزه',['hamza']],['الكسايي',['kisai']],['كسايي',['kisai']],
+  ['قالون',['qalun']],['ورش',['warsh']],['البزي',['bazzi']],['قنبل',['qunbul']],['الدوري',['duri']],['السوسي',['susi']],
+  ['هشام',['hisham']],['شعبه',['shuba']],['حفص',['hafs']],['خلف',['khalaf']],['خلاد',['khallad']],
+].map(([a,ids])=>[norm(a).split(' '),ids]).sort((x,y)=>y[0].length-x[0].length);
+function parseNames(text){
+  const t=norm(text).split(' ').filter(Boolean);const out=new Set();let i=0;
+  while(i<t.length){let hit=false;
+    for(const [al,ids] of ALIASES){
+      for(const strip of [false,true]){
+        const first=strip?(t[i].startsWith('و')?t[i].slice(1):null):t[i];
+        if(first===null)continue;
+        const seg=[first,...t.slice(i+1,i+al.length)];
+        if(seg.length===al.length&&seg.every((w,k)=>w===al[k])){ids.forEach(x=>out.add(x));i+=al.length;hit=true;break}
+      }
+      if(hit)break;
+    }
+    if(!hit)i++;
+  }
+  return out;
+}
+function sameSet(a,b){a=[...a];b=[...b];return a.length===b.length&&a.every(x=>b.includes(x))}
+function setMatches(text,ids){
+  const got=parseNames(text);
+  const want=new Set(ids.map(x=>x.startsWith('duri')?x:x));
+  // الدوري العامة تقبل عن أي دوري
+  if(got.has('duri')){got.delete('duri');for(const d of ['duri_a','duri_k'])if(want.has(d)&&!got.has(d)){got.add(d);break}}
+  return sameSet(got,want);
+}
+
+/* ===== مولّد بنك الأسئلة ===== */
+function buildBank(){
+  const B=[];
+  const add=q=>{B.push(q)};
+  const MC=(id,unit,prompt,correct,wrongs,explain,ref,extra={})=>add({id,unit,type:'mcq',prompt,options:[correct,...wrongs],correct,explain,ref,...extra});
+  const TF=(id,unit,stmt,val,explain,ref)=>add({id,unit,type:'mcq',fixed:true,prompt:stmt,options:['صح','خطأ'],correct:val?'صح':'خطأ',explain,ref});
+  const MULTI=(id,unit,prompt,correct,wrongs,explain,ref)=>add({id,unit,type:'multi',prompt,options:[...correct,...wrongs],correct,explain,ref});
+
+  /* --- الوحدة ٢: الرموز الفردية --- */
+  const singles=[...READERS.map(r=>({id:r.id,sym:r.sym,role:'قارئ'})),...RAWIS.map(r=>({id:r.id,sym:r.sym,role:'راوي عن '+ALL[r.of].name}))];
+  const allSyms=singles.map(s=>s.sym);
+  singles.forEach(s=>{
+    const pool=singles.filter(o=>o.id!==s.id).map(o=>label(o.id));
+    MC(`u2-s2n-${s.id}`,'u2',`لمن رمز الشاطبي بحرف «${s.sym}»؟`,label(s.id),pick(pool,3),`«${s.sym}» = ${label(s.id)} (${s.role}).`,'الجدول',{big:true});
+    MC(`u2-n2s-${s.id}`,'u2',`ما رمز «${label(s.id)}»؟`,s.sym,pick(allSyms,3,[s.sym]),`رمز ${label(s.id)} هو «${s.sym}».`,'الجدول');
+    add({id:`u2-t-n2s-${s.id}`,unit:'u2',type:'text',prompt:`اكتبي رمز «${label(s.id)}»`,accept:[s.sym],model:s.sym,mode:'exact',explain:`رمز ${label(s.id)} هو «${s.sym}».`,ref:'الجدول'});
+    add({id:`u2-t-s2n-${s.id}`,unit:'u2',type:'text',prompt:`اكتبي من رمزه «${s.sym}»`,ids:[s.id],model:label(s.id),mode:'names',explain:`«${s.sym}» = ${label(s.id)}.`,ref:'الجدول'});
+  });
+  READERS.forEach(r=>{
+    const right=names(r.rawis);
+    const others=READERS.filter(o=>o.id!==r.id).map(o=>names(o.rawis));
+    MC(`u2-rawis-${r.id}`,'u2',`من راويا ${r.name}؟`,right,pick(others,3),`راويا ${r.name}: ${right}.`,'ص ١٨');
+    MC(`u2-word-${r.id}`,'u2',`أي كلمة من «أبجد» تخص ${r.name} وراوييه؟`,r.word,pick(READERS.map(o=>o.word),3,[r.word]),`${r.word}: ${r.sym} = ${r.name}، ثم ${r.rawis.map(x=>ALL[x].sym+' = '+label(x)).join('، ')}.`,'ص ٢٢');
+  });
+  RAWIS.forEach(w=>{
+    MC(`u2-of-${w.id}`,'u2',`«${label(w.id)}» يروي عن أي قارئ؟`,ALL[w.of].name,pick(READERS.map(r=>r.name),3,[ALL[w.of].name]),`${label(w.id)} راوي ${ALL[w.of].name}.`,'ص ١٨');
+  });
+  MC('u2-duri','u2','الدوري له رمزان: «ط» و«ت». ما الفرق؟','«ط» دوري أبي عمرو، و«ت» دوري الكسائي',['«ط» دوري الكسائي، و«ت» دوري أبي عمرو','هما راويان مختلفان بالاسم نفسه ولا علاقة بينهما','«ط» عند الوصل و«ت» عند الوقف'],'الدوري شخص واحد روى عن أبي عمرو وعن الكسائي، فرمزه يتبع القارئ المروي عنه.','ص ١٧');
+  MC('u2-who-two','u2','أي الرواة روى عن قارئين اثنين؟','الدوري',['حفص','خلف','هشام'],'الدوري روى عن أبي عمرو وعن الكسائي.','ص ١٧');
+  TF('u2-tf-a','u2','الرمز «أ» يدل على نافع بروايتيه.',true,'رمز القارئ يشمل راوييه معاً.','ص ٢٢');
+  TF('u2-tf-b','u2','الرمز «ب» يدل على نافع.',false,'«ب» لقالون وحده.','الجدول');
+  TF('u2-tf-ha','u2','الرمز «ه» للبزي.',true,'دهز: د ابن كثير، ه البزي، ز قنبل.','الجدول');
+  TF('u2-tf-ya','u2','الرمز «ي» لهشام.',false,'«ي» للسوسي، وهشام «ل».','الجدول');
+
+  /* --- الوحدة ٣: الرموز الجماعية --- */
+  GROUPS.forEach(g=>{
+    const others=GROUPS.filter(o=>o.sym!==g.sym);
+    MC(`u3-s2m-${g.sym}`,'u3',`ماذا يعني الرمز «${g.sym}»؟`,g.desc,pick(others.map(o=>o.desc),3),`«${g.sym}» (${g.kind}) = ${g.desc}.`,'ص ٢٨–٣٠',{big:true});
+    MC(`u3-m2s-${g.sym}`,'u3',`ما الرمز الدال على: ${g.desc}؟`,g.sym,pick(others.map(o=>o.sym),3),`${g.desc} = «${g.sym}».`,'ص ٢٨–٣٠');
+    const memberLabels=g.m.map(label);
+    const pool=[...READERS.map(r=>r.id),'shuba','hafs'].filter(x=>!g.m.includes(x)).map(label);
+    MULTI(`u3-multi-${g.sym}`,'u3',`اختاري كل من يشملهم الرمز «${g.sym}»`,memberLabels,pick(pool,Math.min(4,7-memberLabels.length+1)),`«${g.sym}» = ${g.desc}.`,'ص ٢٨–٣٠');
+    add({id:`u3-t-s2m-${g.sym}`,unit:'u3',type:'text',prompt:`اكتبي من يشملهم الرمز «${g.sym}»`,ids:g.m,model:g.desc,mode:'names',special:g.sym==='خ'?['عدا نافع','ما عدا نافع','غير نافع','الا نافع']:null,explain:`«${g.sym}» = ${g.desc}.`,ref:'ص ٢٨–٣٠'});
+    add({id:`u3-t-m2s-${g.sym}`,unit:'u3',type:'text',prompt:`اكتبي الرمز الدال على: ${g.desc}`,accept:[g.sym],model:g.sym,mode:'exact',explain:`${g.desc} = «${g.sym}».`,ref:'ص ٢٨–٣٠'});
+    if(g.m.length>=2){
+      const out=pick([...READERS.map(r=>r.id)].filter(x=>!g.m.includes(x)),1)[0];
+      const opts=shuffle([...pick(g.m,3),out]);
+      MC(`u3-odd-${g.sym}`,'u3',`أيّ هؤلاء ليس من «${g.sym}»؟`,label(out),opts.filter(x=>x!==out).map(label),`«${g.sym}» = ${g.desc}، و${label(out)} ليس منهم.`,'ص ٢٨–٣٠');
+    }
+    MC(`u3-count-${g.sym}`,'u3',`كم قارئاً أو راوياً يشمل الرمز «${g.sym}»؟`,String(g.m.length),pick(['1','2','3','4','5','6'],3,[String(g.m.length)]),`«${g.sym}» = ${g.desc}، أي ${g.m.length}.`,'ص ٢٨–٣٠');
+  });
+  MC('u3-kufi','u3','من هم الكوفيون؟','عاصم وحمزة والكسائي',['عاصم وحمزة وابن عامر','حمزة والكسائي فقط','عاصم والكسائي وأبو عمرو'],'الكوفيون ثلاثة: عاصم وحمزة والكسائي، ورمزهم «ث».','ص ٢٨');
+  MC('u3-sohba','u3','ما الفرق بين «صحبة» و«صحاب»؟','صحبة فيها شعبة، وصحاب فيها حفص',['صحبة فيها حفص، وصحاب فيها شعبة','صحبة فيها نافع، وصحاب فيها ابن كثير','لا فرق بينهما'],'كلاهما حمزة والكسائي، ويزيد صحبة شعبة وصحاب حفص.','ص ٢٩');
+  MC('u3-nafar','u3','«نفر» = «حقّ» + ؟','ابن عامر',['نافع','عاصم','حمزة'],'حق = ابن كثير وأبو عمرو، ونفر = حق + ابن عامر.','ص ٣٠');
+  MC('u3-sama','u3','«سما» = «حقّ» + ؟','نافع',['ابن عامر','عاصم','الكسائي'],'سما = نافع وابن كثير وأبو عمرو.','ص ٢٩');
+  MC('u3-hisn','u3','«حصن» = «ث» + ؟','نافع',['ابن كثير','ابن عامر','أبو عمرو'],'حصن = الكوفيون ونافع.','ص ٣٠');
+  MC('u3-kind','u3','حروف «ث خ ذ ظ غ ش» من أي نوع من الرموز؟','جماعية حرفية',['فردية حرفية','جماعية كلمية','فردية كلمية'],'هي رموز جماعية حرفية، أما صحبة وصحاب ونحوها فجماعية كلمية.','ص ٢٦');
+  MC('u3-kalimi','u3','أيّ هذه رمز جماعي كلمي؟','حرميّ',['ذ','ش','غ'],'الكلمية: صحبة، صحاب، عمّ، سما، حقّ، نفر، حرميّ، حصن.','ص ٢٦');
+  MC('u3-kha','u3','الرمز «خ» يدل على:','القراء السبعة ما عدا نافعاً',['الكوفيون وابن كثير','القراء السبعة ما عدا ابن كثير','نافع وحده'],'«وستتهم بالخاء» أي الستة بعد نافع.','ص ٢٨');
+
+  /* --- الوحدة ١: الشاطبي والقراء والرواة --- */
+  READERS.forEach(r=>{
+    MC(`u1-nisba-${r.id}`,'u1',`ما نسبة الإمام ${r.name}؟`,r.nisba,pick(['المدني','المكي','البصري','الشامي','الكوفي'],3,[r.nisba]),`${r.name} ${r.nisba}.`,'ص ٤–١٧');
+    MC(`u1-full-${r.id}`,'u1',`من صاحب هذا الاسم: «${r.full}»؟`,r.name,pick(READERS.map(o=>o.name),3,[r.name]),`هو الإمام ${r.name}.`,'ص ٤–١٧');
+    MC(`u1-via-${r.id}`,'u1',`روى راويا ${r.name} عنه:`,r.via.startsWith('بلا')?'مباشرة بلا واسطة':'بواسطة',[r.via.startsWith('بلا')?'بواسطة':'مباشرة بلا واسطة'],`${names(r.rawis)} رويا عن ${r.name} ${r.via}.`,'ص ٤–١٧',{fixed:true});
+  });
+  RAWIS.filter(w=>w.id!=='duri_k').forEach(w=>{
+    MC(`u1-full-${w.id}`,'u1',`من صاحب هذا الاسم: «${w.full}»؟`,w.name,pick(RAWIS.filter(o=>o.name!==w.name).map(o=>o.name),3),`هو ${w.name}، راوي ${ALL[w.of].name}.`,'ص ٤–١٧');
+  });
+  const u1=[
+    ['u1-sh-name','ما اسم الإمام الشاطبي؟','أبو محمد القاسم بن فِيرُّه بن خلف بن أحمد',['أبو عمرو عثمان بن سعيد الداني','أبو عبدالله محمد بن علي النفزي','أبو العباس أحمد بن عمار المهدوي'],'الشاطبي: أبو محمد القاسم بن فيره بن خلف بن أحمد.','ص ١'],
+    ['u1-sh-born','متى وُلد الشاطبي؟','سنة ٥٣٨هـ ضريراً',['سنة ٥٩٠هـ','سنة ٤٤٤هـ','سنة ٥٢٠هـ'],'وُلد ضريراً سنة ٥٣٨هـ في شاطبة.','ص ١'],
+    ['u1-sh-died','متى وأين توفي الشاطبي؟','سنة ٥٩٠هـ في القاهرة',['سنة ٥٣٨هـ في شاطبة','سنة ٥٩٠هـ في بلنسية','سنة ٦٠٠هـ في دمشق'],'توفي ٢٨ جمادى الآخرة سنة ٥٩٠هـ في القاهرة ودُفن فيها.','ص ١'],
+    ['u1-sh-place','أين تقع شاطبة؟','شرق الأندلس',['غرب الأندلس','شمال مصر','جنوب الشام'],'شاطبة مدينة كبيرة شرق الأندلس.','ص ١'],
+    ['u1-sh-sheikh','على من قرأ الشاطبي القراءات؟','أبو عبدالله محمد بن علي النفزي',['أبو عمرو الداني','المهدوي','يحيى اليزيدي'],'قرأ على شيخه النفزي، ثم رحل إلى بلنسية.','ص ١'],
+    ['u1-sh-taysir','ما الكتاب الذي عرضه الشاطبي في بلنسية؟','التيسير لأبي عمرو الداني',['حرز الأماني','التبصرة لمكي','الكامل للهذلي'],'عرض في بلنسية كتاب التيسير لأبي عمرو الداني.','ص ١'],
+    ['u1-qalun','لماذا لُقّب قالون بهذا اللقب؟','لجودة حفظه',['لشدة بياضه','نسبة لبيت في مكة','لأنه أحرم في كساء'],'قالون لُقّب لجودة حفظه حسب الملف.','ص ٥'],
+    ['u1-warsh','لماذا لُقّب ورش بهذا اللقب؟','لشدة بياضه',['لجودة حفظه','نسبة لبيت في مكة','لأنه أحرم في كساء'],'ورش لُقّب لشدة بياضه.','ص ٥'],
+    ['u1-qunbul','لماذا لُقّب قنبل بهذا اللقب؟','نسبة للقنابلة، وهو بيت في مكة',['لشدة بياضه','لجودة حفظه','لأنه أحرم في كساء'],'قنبل نسبة للقنابلة، بيت في مكة.','ص ٧'],
+    ['u1-kisai','لماذا لُقّب الكسائي بهذا اللقب؟','لأنه أحرم في كساء',['لشدة بياضه','نسبة لبيت في مكة','لجودة حفظه'],'«لما كان في الإحرام فيه تسربلا».','ص ١٧'],
+    ['u1-nafi-misk','لماذا وصف الشاطبي نافعاً بأنه «كريم السر في الطيب»؟','لأنه كان إذا تكلم شُمّت من فيه رائحة المسك',['لأنه كان كريماً كثير الصدقة','لأنه أقام في المدينة','لأنه روى بلا واسطة'],'قال: رأى النبي ﷺ يقرأ في فيه في المنام.','ص ٥'],
+    ['u1-tabii','أيّ القراء السبعة تابعي؟','ابن عامر',['نافع','أبو عمرو','الكسائي'],'ابن عامر الشامي تابعي رحمه الله.','ص ١١'],
+    ['u1-yazidi','عن طريق من روى الدوري والسوسي عن أبي عمرو؟','يحيى بن المبارك اليزيدي',['سليم','هشام بن عمار','المهدوي'],'«أفاض على يحيى اليزيدي سيبه».','ص ٩'],
+    ['u1-sulaym','خلف وخلاد قرآ على حمزة عن طريق:','سليم',['يحيى اليزيدي','حفص','الكسائي'],'«رواه سليم متقناً ومحصلا».','ص ١٥'],
+    ['u1-hafs','من كان مرجّحاً في ضبط قراءة عاصم؟','حفص',['شعبة','خلف','أبو الحارث'],'«وحفص وبالإتقان كان مفضلا».','ص ١٣'],
+    ['u1-arab','من القراء الذين ذكر الناظم أنهم من صميم العرب؟','أبو عمرو وابن عامر',['نافع وابن كثير','عاصم وحمزة','الكسائي ونافع'],'وباقي القراء أحاط بهم ولاء العجم لكونهم ولدوا في بلادهم.','ص ٢٠'],
+    ['u1-kufa3','كم قارئاً من السبعة من الكوفة؟','ثلاثة',['اثنان','أربعة','واحد'],'«وبالكوفة الغراء منهم ثلاثة»: عاصم وحمزة والكسائي.','ص ١٢'],
+  ];
+  u1.forEach(([id,p,c,w,e,r])=>MC(id,'u1',p,c,w,e,r));
+  TF('u1-tf-direct-nafi','u1','قرأ قالون وورش على نافع مباشرة بلا واسطة.',true,'رويا عن شيخهما نافع بلا واسطة.','ص ٥');
+  TF('u1-tf-bazzi','u1','لقي البزي وقنبل شيخهما ابن كثير.',false,'لم يلتقيا به، بل بينهما أكثر من راوٍ.','ص ٧');
+  TF('u1-tf-amir','u1','لقي هشام وابن ذكوان ابن عامر مباشرة.',false,'لم يلتقيا به، بل بينهما أكثر من راوٍ.','ص ١١');
+
+  /* --- الوحدة ٤: قواعد النظم والأضداد --- */
+  const OPP=[['المد','القصر'],['القصر','المد'],['الإثبات','الحذف'],['الحذف','الإثبات'],['الإمالة','الفتح'],['الإدغام','الإظهار'],['الإظهار','الإدغام'],['الهمز','ترك الهمز'],['النقل','إبقاء الحركة'],['الاختلاس','إتمام الحركة'],['الجزم','الرفع'],['التذكير','التأنيث'],['التأنيث','التذكير'],['الغيب','الخطاب'],['الخطاب','الغيب'],['التخفيف','التشديد'],['التشديد','التخفيف'],['الجمع','الإفراد'],['الإفراد','الجمع'],['التنوين','ترك التنوين'],['التحريك المطلق','الإسكان'],['النون','الياء'],['الياء','النون'],['الكسر','الفتح'],['النصب','الخفض'],['الخفض','النصب'],['الرفع','النصب'],['الضم غير المقيد','الفتح']];
+  const oppVals=[...new Set(OPP.map(o=>o[1]))];
+  OPP.forEach(([a,b])=>MC(`u4-opp-${a}`,'u4',`ما ضد «${a}» عند الناظم؟`,b,pick(oppVals,3,[b]),`ضد ${a}: ${b}.`,'ص ٣٤–٣٧'));
+  const u4=[
+    ['u4-waw','ما وظيفة الواو بعد ذكر رموز القراء في النظم؟','فاصلة بين المسألة والتي بعدها، وليست رمزاً',['رمز لورش','رمز للقراء السبعة','للعطف على الرمز السابق'],'«متى تنقضي آتيك بالواو فيصلا».','ص ٢٢–٢٣'],
+    ['u4-nowaw','متى يترك الناظم الواو الفاصلة؟','إذا لم يلتبس الأمر باتصال الكلمات',['في الرموز الجماعية فقط','في آخر كل بيت','لا يتركها أبداً'],'«سوى أحرف لا ريبة في اتصالها».','ص ٢٤'],
+    ['u4-qayd','معنى «وباللفظ أستغني عن القيد إن جلا»:','يذكر الكلمة بلفظها دون قيد إذا كان اللفظ واضحاً',['يذكر الرمز دون القارئ','يكرر الرمز لتتميم القافية','يذكر اسم القارئ صريحاً'],'مثل «ويدعون نجم حافظ» فلم يقيده بالغيب.','ص ٢٤'],
+    ['u4-tikrar','لماذا قد يكرر الناظم الرمز، مثل «حلا حلا»؟','لأمر عارض كتزيين اللفظ أو تتميم القافية',['للدلالة على راويين','لأن القراءة فيها وجهان','للدلالة على الضد'],'«ورُبّ مكان كرّر الحرف قبلها لما عارض».','ص ٢٥'],
+    ['u4-qabl','موضع الكلمة القرآنية مع الرمز الكلمي:','قد تأتي قبله أو بعده',['دائماً قبله','دائماً بعده','لا تجتمع معه في بيت'],'«وقبل وبعد الحرف آتي بكل ما رمزت به في الجمع».','ص ٣٩'],
+    ['u4-sarih','متى يذكر الناظم اسم القارئ صريحاً؟','إذا سمح النظم، أو إذا انفرد القارئ بمذهب في باب',['إذا كان القارئ كوفياً','في الفرش فقط','عند تكرار الرمز'],'«ومن كان ذا باب له فيه مذهب فلا بد أن يُسمى».','ص ٤٠'],
+    ['u4-tahrik','إذا ذكر الناظم «التحريك» دون تقييد فالمراد:','الفتح',['الضم','الكسر','الإسكان'],'«وحيث جرى التحريك غير مقيد هو الفتح».','ص ٣٥'],
+    ['u4-rafa','الرفع والتذكير والغيب عند الناظم:','يطلقها على لفظها دون قيد',['يقيدها دائماً','يرمز لها بالواو','ضدها الإمالة'],'مثل «وخالصة أصل» فتُقرأ بالرفع لأنه أطلقها.','ص ٣٨'],
+    ['u4-dammsukun','إذا قيّد الناظم الضم بالإسكان مثل «وجزءاً وجزء ضم الإسكان» فقراءة الباقين:','بالإسكان',['بالفتح','بالكسر','بالنصب'],'إذا قُيّد الضم بالإسكان فالضد الإسكان.','ص ٣٧'],
+    ['u4-addad','ما المقصود بالأضداد؟','القيود التي تُقيَّد بها الألفاظ المختلف فيها، فيُذكر أحد الوجهين ويُفهم الآخر بالضد',['الكلمات المتضادة في المعنى','رموز القراء المتقابلة','الأبيات المكررة'],'«وما كان ذا ضد فإني بضده غني».','ص ٣٣'],
+    ['u4-abjad','«جعلت أبا جاد على كل قارئ» أي:','جعل حروف أبجد رموزاً دالة على القراء ورواتهم',['جعل القراء على ترتيب أبجد في الوفاة','رتّب الأبواب على حروف أبجد','جعل لكل قارئ بيتاً'],'أبج دهز حطي كلم نصع فضق رست.','ص ٢٢'],
+  ];
+  u4.forEach(([id,p,c,w,e,r])=>MC(id,'u4',p,c,w,e,r));
+
+  /* --- الوحدة ٥: الاستعاذة --- */
+  const u5=[
+    ['u5-lugha','الاستعاذة لغة:','الالتجاء والتحصن والاعتصام',['التنزيه والتقديس','الدعاء والسؤال','الإخفاء والإسرار'],'واصطلاحاً: الالتجاء والاعتصام بالله من الشيطان الرجيم.','ص ٤٢'],
+    ['u5-mukhtara','الصيغة المختارة للاستعاذة:','أعوذ بالله من الشيطان الرجيم',['أعوذ بالله العظيم من الشيطان الرجيم','أعوذ بالله السميع العليم من الشيطان الرجيم','أعوذ بالله من الشيطان'],'على ما أتى في سورة النحل.','ص ٤٣'],
+    ['u5-hadith','ما الصيغة التي رواها أبو داود عن أبي سعيد الخدري؟','أعوذ بالله السميع العليم من الشيطان الرجيم',['أعوذ بالله من الشيطان الرجيم','أعوذ بالله العظيم من الشيطان الرجيم','أعوذ بالله من الشيطان'],'وزاد: من همزه ونفخه ونفثه.','ص ٤٦'],
+    ['u5-ziyada','قول من قال إن النبي ﷺ لم يزد على «أعوذ بالله من الشيطان الرجيم»:','أشار الناظم إلى ضعفه، لأن أحاديثه ضعيفة',['هو الراجح عند الناظم','لم يتعرض له الناظم','هو مذهب حمزة'],'«ولو صح هذا النقل لم يبق مجملا».','ص ٤٦'],
+    ['u5-ikhfa-who','من المرموز لهم في «وإخفاؤه فصلٌ أباه»؟','حمزة ونافع',['حفص ونافع','حمزة وأبو عمرو','الكسائي وابن كثير'],'ف = حمزة، أ = نافع.','ص ٤٨'],
+    ['u5-mahdawi','من العالم الذي بحث مسألة الرموز في بيت الإخفاء وأثبتها؟','المهدوي',['الداني','النفزي','اليزيدي'],'أبو العباس أحمد بن عمار المهدوي.','ص ٤٨'],
+    ['u5-jahr','متى يُستحب الجهر بالاستعاذة؟','في غير مواضع الإخفاء',['إذا كان القارئ يقرأ سراً','إذا كان يقرأ وحده','إذا كان في الصلاة'],'يستحب الإخفاء: إذا قرأ سراً، أو وحده، أو في الصلاة، أو كان غير مبتدئ في جماعة.','ص ٤٥'],
+    ['u5-ikhfa-hal','أيّ الحالات يُستحب فيها إخفاء الاستعاذة؟','إذا كان القارئ في الصلاة',['إذا كان مبتدئاً بالقراءة في جماعة','إذا كان يقرأ جهراً','لا يُستحب الإخفاء أبداً'],'من مواضع الإخفاء: الصلاة، والقراءة سراً، والقراءة وحده، وغير المبتدئ في جماعة.','ص ٤٥'],
+  ];
+  u5.forEach(([id,p,c,w,e,r])=>MC(id,'u5',p,c,w,e,r));
+  TF('u5-tf-nafi','u5','رُوي عن نافع أنه كان يخفي التعوذ في جميع القرآن.',true,'كما في شرح بيت الإخفاء.','ص ٤٨');
+  TF('u5-tf-ramz','u5','الصواب الراجح في الملف أن بيت «وإخفاؤه فصلٌ أباه» لا رموز فيه.',false,'الصواب والراجح في الملف أن فيه رموزاً.','ص ٤٨');
+
+  /* --- الوحدة ٦: البسملة --- */
+  const u6=[
+    ['u6-bas-who','من يبسمل بين السورتين؟','قالون والكسائي وعاصم وابن كثير',['حمزة وحده','ورش وأبو عمرو وابن عامر','نافع وحمزة والكسائي'],'«بسنة رجال نموها دريةً».','ص ٥١'],
+    ['u6-hamza','مذهب حمزة بين السورتين:','الوصل بلا بسملة',['البسملة','السكت','ثلاثة أوجه'],'«ووصلك بين السورتين فصاحة».','ص ٥١'],
+    ['u6-three','من لهم ثلاثة أوجه بين السورتين؟','ابن عامر وورش وأبو عمرو',['قالون والكسائي وعاصم','حمزة وخلف وخلاد','ابن كثير وقالون'],'«وصل واسكتن كل جلاياه حصّلا».','ص ٥١'],
+    ['u6-three-what','ما الأوجه الثلاثة لابن عامر وورش وأبي عمرو؟','الوصل بلا بسملة، والسكت بلا تنفس، والبسملة',['البسملة، والقطع، والوقف','الوصل، والإدغام، والإظهار','السكت، والوقف، والقطع'],'الأوجه الثلاثة بين السورتين.','ص ٥٤'],
+    ['u6-mukhtar','الوجه المقدّم عند أصحاب الأوجه الثلاثة:','السكت',['البسملة','الوصل','لا مقدّم بينها'],'«وسكتهم المختار دون تنفس».','ص ٥٣'],
+    ['u6-nass','الأوجه الثلاثة عن ابن عامر وورش وأبي عمرو:','اختيار أهل الأداء، ولم يرد بها نص صريح عنهم',['منصوصة عنهم صراحة','خاصة بالأربع الزهر','مروية عن حمزة'],'«ولا نص كلا حب وجه ذكرته».','ص ٥٢'],
+    ['u6-awail','البسملة في أوائل السور (عدا براءة):','البسملة لجميع القراء قولاً واحداً',['الوجهان لجميع القراء','البسملة لقالون فقط','تركها لحمزة'],'لم يقع خلاف بين القراء في أوائل السور.','ص ٥٠'],
+    ['u6-wasat','البسملة في وسط السورة (الأجزاء):','القارئ مخيّر بين البسملة وتركها',['واجبة','ممنوعة','لقالون فقط'],'«وفي الأجزاء خُيّر من تلا».','ص ٥٠، ٥٦'],
+    ['u6-baraa','البسملة في أول سورة براءة:','ممنوعة لجميع القراء',['واجبة','مستحبة','لقالون فقط'],'«لتنزيلها بالسيف لست مبسملا».','ص ٥٥، ٦٠'],
+    ['u6-anfal','أوجه القراءة بين الأنفال والتوبة:','الوصل، والسكت، والوقف، كلها بلا بسملة',['البسملة فقط','الوصل والبسملة','الوقف مع البسملة'],'ثلاثة أوجه بلا بسملة.','ص ٥٧'],
+    ['u6-mamnu','ما الوجه الممنوع عند وصل البسملة بآخر السورة؟','الوقف على البسملة بعد وصلها بآخر السورة',['وصل البسملة بأول السورة','السكت قبل البسملة','الوقف على آخر السورة'],'«فلا تقفن الدهر فيها»؛ لئلا يُظن أنها من السورة المنتهية.','ص ٥٨'],
+    ['u6-bara-why','من أسباب ترك البسملة في أول براءة:','نزلت بالسيف وفيها تهديد ووعيد، والبسملة أمان',['لأنها مدنية','لأنها قصيرة','لأن حمزة لا يبسمل'],'ومنها أن جبريل لم ينزل فيها بالبسملة في أولها.','ص ٥٥'],
+    ['u6-hukm-awal','حكم الإتيان بالبسملة في أول كل سورة (عدا براءة):','واجبة',['مستحبة','ممنوعة','جائزة لقالون فقط'],'كما في جدول حكم الإتيان بالبسملة.','ص ٦٠'],
+  ];
+  u6.forEach(([id,p,c,w,e,r])=>MC(id,'u6',p,c,w,e,r));
+
+  /* --- الوحدة ٧: الفاتحة --- */
+  const u7=[
+    ['u7-malik','من قرأ «مالك» بإثبات الألف؟','الكسائي وعاصم',['حمزة وعاصم','نافع وابن كثير','الكسائي وحده'],'ر = الكسائي (راويه)، ن = عاصم (ناصر).','ص ٦٢'],
+    ['u7-malik-rest','كيف قرأ باقي القراء «مالك يوم الدين»؟','«ملك» بحذف الألف',['«مالك» بالألف','«مليك»','«ملكِ» بالإمالة'],'المسكوت عنهم يقرؤون بالضد: حذف الألف.','ص ٦٢'],
+    ['u7-qunbul','كيف قرأ قنبل «الصراط»؟','بالسين',['بالإشمام','بالصاد الخالصة','بالزاي الخالصة'],'«وعند سراط والسراط لقنبلا».','ص ٦٣'],
+    ['u7-khalaf','كيف قرأ خلف «الصراط»؟','بإشمام الصاد صوت الزاي حيث وقع',['بالسين','بالإشمام في الموضع الأول فقط','بالصاد الخالصة'],'«والصاد زاياً أشمها لدى خلف».','ص ٦٣'],
+    ['u7-khallad','كيف قرأ خلاد «الصراط»؟','بالإشمام في الموضع الأول فقط',['بالإشمام حيث وقع','بالسين','بالصاد الخالصة في الكل'],'«واشمم لخلاد الأولا».','ص ٦٣'],
+    ['u7-hamza','قرأ حمزة «عليهم، إليهم، لديهم»:','بضم الهاء وصلاً ووقفاً',['بكسر الهاء','بضم الهاء وصلاً فقط','بضم الهاء والميم'],'«جميعاً بضم الهاء وقفاً وموصلا».','ص ٦٤'],
+    ['u7-mimdef','ميم الجمع هي:','الميم الزائدة الدالة على الجمع',['كل ميم ساكنة','الميم الأصلية في الكلمة','الميم المشددة'],'لها حالتان: قبل متحرك وقبل ساكن.','ص ٦٥'],
+    ['u7-ibnkathir','حكم ابن كثير في ميم الجمع قبل متحرك:','الصلة قولاً واحداً بمقدار حركتين',['التخيير','الإسكان','الصلة قبل همز القطع فقط'],'«وصل ضم ميم الجمع قبل محرك دِراكاً».','ص ٦٦'],
+    ['u7-qalun','حكم قالون في ميم الجمع قبل متحرك:','التخيير بين الصلة والإسكان',['الصلة قولاً واحداً','الإسكان قولاً واحداً','الصلة قبل همز القطع فقط'],'«وقالون بتخييره جلا».','ص ٦٦'],
+    ['u7-warsh','حكم ورش في ميم الجمع:','الصلة قبل همز القطع، والإسكان قبل غيره',['الصلة مطلقاً','الإسكان مطلقاً','التخيير'],'«ومن قبل همز القطع صلها لورشهم».','ص ٦٦'],
+    ['u7-baqun','حكم الباقين في ميم الجمع قبل متحرك:','الإسكان',['الصلة','الضم','التخيير'],'«وأسكنها الباقون».','ص ٦٦'],
+    ['u7-sakin','ميم الجمع قبل ساكن مثل «منهمُ المؤمنون»:','الضم بلا صلة لجميع القراء',['الإسكان للجميع','الصلة لابن كثير','الكسر لأبي عمرو'],'تخلصاً من التقاء الساكنين.','ص ٦٧'],
+    ['u7-abuamr','قرأ أبو عمرو «عليهم القتال» وصلاً:','بكسر الهاء والميم «عليهِمِ»',['بضم الهاء والميم','بكسر الهاء وضم الميم','بإسكان الميم'],'«وبعد الهاء كسر فتى العلا».','ص ٦٧'],
+    ['u7-shin','قرأ حمزة والكسائي «عليهم القتال» وصلاً:','بضم الهاء والميم «عليهُمُ»',['بكسر الهاء والميم','بكسر الهاء وضم الميم','بضم الهاء وإسكان الميم'],'«وفي الوصل كسر الهاء بالضم شمللا».','ص ٦٧'],
+    ['u7-rest-qital','قرأ الباقون «عليهم القتال» وصلاً:','بكسر الهاء وضم الميم «عليهِمُ»',['بكسر الهاء والميم','بضم الهاء والميم','بإسكان الميم'],'الباقون بكسر الهاء وضم الميم.','ص ٦٧'],
+    ['u7-waqf','حكم ميم الجمع وقفاً:','الإسكان لجميع القراء',['الصلة لابن كثير','الضم لحمزة','التخيير لقالون'],'الحالة الأولى والثانية وقفاً: الإسكان للجميع.','ص ٦٨'],
+    ['u7-ladayhim-warsh','حكم ورش في ميم «لديهم إذ يلقون» وصلاً:','الصلة، لأن بعدها همزة قطع',['الإسكان','التخيير','الضم بلا صلة'],'ورش يصل الميم قبل همز القطع.','ص ٦٩'],
+    ['u7-ladayhim-hamza','حكم حمزة في هاء «لديهم»:','الضم وصلاً ووقفاً',['الكسر','الضم وصلاً فقط','الكسر وقفاً فقط'],'عليهم وإليهم ولديهم بضم الهاء لحمزة.','ص ٦٤، ٦٩'],
+    ['u7-yatihim','قرأ أبو عمرو «يوم يأتيهم العذاب» وصلاً:','بكسر الهاء والميم',['بضم الهاء والميم','بكسر الهاء وضم الميم','بضم الهاء وكسر الميم'],'لأن قبل الهاء ياء ساكنة وبعد الميم ساكن.','ص ٦٧، ٦٩'],
+    ['u7-yatihim-sh','قرأ حمزة والكسائي «يوم يأتيهم العذاب» وصلاً:','بضم الهاء والميم',['بكسر الهاء والميم','بكسر الهاء وضم الميم','بإسكان الميم'],'«بالضم شمللا».','ص ٦٧، ٦٩'],
+  ];
+  u7.forEach(([id,p,c,w,e,r])=>MC(id,'u7',p,c,w,e,r));
+
+  /* --- الوحدة ٨: الإدغام الكبير --- */
+  const u8=[
+    ['u8-def','تعريف الإدغام الكبير:','التقاء حرف متحرك بمتحرك بحيث يصيران حرفاً واحداً مشدداً',['التقاء ساكن بمتحرك','إخفاء الحرف الأول','إبدال الحرف الأول ياءً'],'هذا تعريفه في الملف.','ص ٧٢'],
+    ['u8-why','لماذا سُمّي كبيراً؟','لكثرة وقوعه، أو لأن فيه مرحلتين: إسكان الأول ثم إدغامه',['لأنه خاص بالقراء الكبار','لأنه في الكلمات الطويلة','لأنه يُمد ست حركات'],'الحركة أكثر من السكون.','ص ٧٣'],
+    ['u8-asbab','أسباب الإدغام:','التماثل والتجانس والتقارب',['الإظهار والإخفاء والقلب','المد والقصر والتوسط','الفتح والإمالة والتقليل'],'ثلاثة أسباب.','ص ٧٤'],
+    ['u8-shart','شرط الإدغام:','أن يلتقي الحرفان خطاً ولفظاً، أو خطاً لا لفظاً',['أن يلتقيا لفظاً لا خطاً','أن يكونا في كلمة واحدة دائماً','أن يكون الأول ساكناً'],'فيدخل «إنه هو»، ويخرج «أنا نذير».','ص ٧٤'],
+    ['u8-anna','لماذا لا يُدغم «أنا نذير»؟','لأن الحرفين لم يلتقيا خطاً، فالألف ثابتة رسماً',['لأن الأول منون','لأن الأول مشدد','لأنه تاء مخاطب'],'شرط الإدغام الالتقاء الخطي.','ص ٧٤'],
+    ['u8-kalima','المثلان في كلمة واحدة أُدغما في:','«مناسككم» و«ما سلككم» فقط',['كل مثلين في كلمة','«جباههم» و«بشرككم»','لا يُدغم شيء في كلمة'],'«ففي كلمة عنه مناسككم وما سلككم».','ص ٧٥'],
+    ['u8-jibahuhum','حكم السوسي في «جباههم»:','الإظهار',['الإدغام','الإخفاء','وجهان'],'لم يُدغم في كلمة إلا مناسككم وسلككم.','ص ٧٥'],
+    ['u8-mawani','موانع إدغام المثلين:','تاء المتكلم أو المخاطب، والمنون، والمشدد',['الوقف والابتداء والسكت','المد والقصر والهمز','التفخيم والترقيق'],'«إذا لم يكن تا مخبر أو مخاطب أو المكتسي تنوينه أو مثقلا».','ص ٧٨'],
+    ['u8-manasik','حكم السوسي في «فإذا قضيتم مناسككم»:','الإدغام',['الإظهار','الإخفاء','وجهان'],'من الكلمتين المستثنيتين في كلمة واحدة.','ص ٧٩'],
+    ['u8-nisaakum','حكم السوسي في «ويستحيون نساءكم»:','الإدغام',['الإظهار لأنه منون','الإظهار لأنه مشدد','الإخفاء'],'مثلان متحركان في كلمتين ولا مانع.','ص ٧٩'],
+    ['u8-tukrih','حكم السوسي في «أفأنت تكره الناس»:','الإظهار',['الإدغام','الإخفاء','وجهان'],'المانع: تاء المخاطب.','ص ٧٩'],
+    ['u8-wasi','حكم السوسي في «واسع عليم»:','الإظهار، لأن الأول منون',['الإدغام','الإظهار، لأنه تاء مخاطب','الإظهار، لأنه مشدد'],'المكتسي تنوينه.','ص ٧٨'],
+    ['u8-tamma','حكم السوسي في «تمّ ميقات»:','الإظهار، لأن الأول مشدد',['الإدغام','الإظهار، لأنه منون','الإظهار، لأنه في كلمة'],'«أو مثقلا».','ص ٧٨'],
+    ['u8-qk','المتقاربان في كلمة واحدة: أدغم السوسي:','القاف في الكاف بشرطين',['الكاف في القاف مطلقاً','كل متقاربين','لا شيء'],'الشرطان: متحرك قبل القاف، وميم جمع بعد الكاف.','ص ٨٢'],
+    ['u8-khalaqakum','حكم السوسي في «خلقكم»:','الإدغام',['الإظهار','الإخفاء','وجهان'],'قبل القاف متحرك وبعد الكاف ميم جمع.','ص ٨٢'],
+    ['u8-mithaqakum','حكم السوسي في «وإذ أخذنا ميثاقكم»:','الإظهار، لأن قبل القاف ساكناً',['الإدغام','الإظهار، لعدم ميم الجمع','وجهان'],'يُشترط أن يكون قبل القاف متحرك.','ص ٨٣، ٨٨'],
+    ['u8-khalaqaka','حكم السوسي في «خلقك»:','الإظهار، لعدم ميم الجمع بعد الكاف',['الإدغام','الإظهار، لأن قبل القاف ساكناً','وجهان'],'يُشترط ميم الجمع بعد الكاف.','ص ٨٣'],
+    ['u8-tallaqakunna','حكم السوسي في «طلقكن»:','وجهان: الإظهار والإدغام، والمقدم الإدغام',['الإدغام فقط','الإظهار فقط','ممنوع'],'لأن بعدها نون جمع لا ميم.','ص ٨٣'],
+    ['u8-letters','عدد الحروف التي يُدغم فيها المتقارب والمتجانس في كلمتين:','ستة عشر حرفاً',['أربعة عشر','عشرة','ثمانية'],'مجموعة في: «رض سنشد حجتك بذل قثم».','ص ٨٤'],
+    ['u8-mawani2','موانع إدغام المتقاربين والمتجانسين أربعة:','المنون، وتاء المخاطب، والمجزوم، والمشدد',['الوقف، والسكت، والقطع، والوصل','المد، والقصر، والهمز، والنقل','المنون، والمد، والإمالة، والسكت'],'مثل: ظلمات ثلاث، خلقت طيناً، ولم يؤت سعة، أشد ذكراً.','ص ٨٥'],
+    ['u8-ba3d','حكم السوسي في «لبعض شأنهم»:','الإدغام',['الإظهار','الإخفاء','وجهان'],'الضاد في الشين من الحروف الستة عشر.','ص ٨٨'],
+    ['u8-shahid','حكم السوسي في «وشهد شاهد»:','الإدغام',['الإظهار','الإخفاء','وجهان'],'الدال في الشين.','ص ٨٨'],
+    ['u8-zumar','حكم السوسي في «إلى الجنة زمراً»:','الإدغام',['الإظهار لأنه منون','الإخفاء','وجهان'],'التاء في الزاي، ولا مانع.','ص ٨٨'],
+    ['u8-ittakhadha','حكم السوسي في «واتخذ سبيله»:','الإدغام',['الإظهار','الإخفاء','وجهان'],'الذال في السين.','ص ٨٨'],
+    ['u8-dawud','حكم السوسي في «وقتل داوود جالوت»:','الإدغام',['الإظهار','الإخفاء','وجهان'],'من الأمثلة الإضافية في الملف.','ص ٨٩'],
+    ['u8-thulath','حكم السوسي في «في ظلمات ثلاث»:','الإظهار، لأن الأول منون',['الإدغام','الإظهار، لأنه مجزوم','الإظهار، لأنه مشدد'],'من موانع الإدغام.','ص ٨٥'],
+    ['u8-yuta','حكم السوسي في «ولم يؤت سعة»:','الإظهار، لأن الأول مجزوم',['الإدغام','الإظهار، لأنه منون','الإظهار، لأنه تاء مخاطب'],'من موانع إدغام المتقاربين.','ص ٨٥'],
+  ];
+  u8.forEach(([id,p,c,w,e,r])=>MC(id,'u8',p,c,w,e,r));
+
+  /* --- الوحدة ٩: هاء الكناية --- */
+  const u9=[
+    ['u9-def','هاء الكناية هي:','الهاء الزائدة الدالة على المفرد المذكر الغائب',['كل هاء في آخر الكلمة','هاء التأنيث','الهاء الأصلية'],'وتسمى هاء الضمير.','ص ٩٠'],
+    ['u9-name','تُسمى هاء الكناية أيضاً:','هاء الضمير',['هاء السكت','هاء التأنيث','الهاء الأصلية'],'كما في التعريف.','ص ٩٠'],
+    ['u9-asli','الهاء في «نفقه» و«ينته»:','هاء أصلية وليست هاء كناية',['هاء كناية','هاء سكت','هاء تأنيث'],'خرجت بقيد «الزائدة».','ص ٩٠'],
+    ['u9-alayha','الهاء في «عليها، عليهما، عليهم»:','هاء ضمير لا تُسمى هاء كناية اصطلاحاً',['هاء كناية','هاء أصلية','هاء سكت'],'لأنها لا تدل على المفرد المذكر.','ص ٩٠'],
+    ['u9-sakin-after','إذا وقعت هاء الكناية قبل ساكن مثل «ربه الأعلى»:','لا صلة لجميع القراء',['صلة لابن كثير','صلة لجميع القراء','صلة لحفص'],'تمتنع الصلة لأن ما بعدها ساكن.','ص ٩٢'],
+    ['u9-two-mut','إذا وقعت بين متحركين مثل «له قانتون»:','الصلة لجميع القراء',['لا صلة لأحد','الصلة لابن كثير فقط','الصلة لحفص فقط'],'تُوصل بواو إن ضُمت، وبياء إن كُسرت.','ص ٩٢'],
+    ['u9-ibnkathir','إذا وقعت بعد ساكن وقبل متحرك مثل «فيه هدى»:','يصلها ابن كثير، والباقون بلا صلة',['الصلة للجميع','لا صلة لأحد','يصلها حفص وحده'],'ابن كثير يصلها بواو أو ياء.','ص ٩٢'],
+    ['u9-muhana','«ويخلد فيه مهاناً» في الفرقان:','يصلها ابن كثير وحفص',['يصلها ابن كثير وحده','لا صلة لأحد','يصلها الجميع'],'يوافق حفصٌ ابنَ كثير في هذا الموضع.','ص ٩٢'],
+    ['u9-wasid','حكم «ذراعيه بالوصيد»:','يصلها ابن كثير، والباقون بلا صلة',['الصلة للجميع','لا صلة لأحد','يصلها حفص وابن كثير'],'قبلها ساكن (الياء) وبعدها متحرك.','ص ٩٣'],
+    ['u9-jamahu','حكم «جمعه وقرءانه»:','الصلة لجميع القراء',['يصلها ابن كثير فقط','لا صلة لأحد','يصلها حفص فقط'],'الهاء بين متحركين.','ص ٩٣'],
+    ['u9-aghraqnah','حكم «فأغرقناه وجنوده»:','يصلها ابن كثير، والباقون بلا صلة',['الصلة للجميع','لا صلة لأحد','يصلها حفص وابن كثير'],'قبل الهاء ساكن (الألف) وبعدها متحرك.','ص ٩٣'],
+    ['u9-waqf','الصلة في هاء الكناية:','تثبت وصلاً وتُحذف وقفاً',['تثبت وصلاً ووقفاً','تُحذف وصلاً وتثبت وقفاً','لا تثبت أبداً'],'الصلة إشباع الضمة واواً والكسرة ياءً.','ص ٩٢'],
+    ['u9-attach','تتصل هاء الكناية بـ:','الاسم والفعل والحرف',['الاسم فقط','الفعل فقط','الحرف فقط'],'«أهله»، «ولا يئوده»، «عليه».','ص ٩٠'],
+  ];
+  u9.forEach(([id,p,c,w,e,r])=>MC(id,'u9',p,c,w,e,r));
+
+  /* --- الوحدة ١٠: المد والقصر --- */
+  const u10=[
+    ['u10-def','المد اصطلاحاً:','إطالة الصوت بحرف المد عند ملاقاته للهمز أو السكون',['الزيادة','إطالة الصوت بحرف اللين مطلقاً','حذف حرف المد'],'ولغةً: الزيادة.','ص ٩٧'],
+    ['u10-tabii','المد الطبيعي:','لا خلاف فيه بين القراء، حركتان',['فيه الإشباع لورش','فيه ثلاثة أوجه','فيه التوسط للجميع'],'المد الطبيعي ليس فيه خلاف.','ص ٩٨'],
+    ['u10-muttasil-def','المد المتصل:','حرف المد وبعده همزة في كلمة واحدة',['حرف المد آخر كلمة والهمزة أول التالية','همزة قبل حرف المد','حرف مد بعده ساكن أصلي'],'مثل: جاء، السماء.','ص ١٠١'],
+    ['u10-muttasil','حكم المد المتصل:','وجوب المد: الإشباع لورش وحمزة، والتوسط للباقين',['جواز القصر للجميع','الإشباع للجميع','القصر لابن كثير'],'سُمي واجباً لأنه لا أحد من القراء يقصره.','ص ١٠١'],
+    ['u10-munfasil-qalun','حكم قالون ودوري أبي عمرو في المنفصل:','القصر والتوسط',['القصر قولاً واحداً','الإشباع','التوسط قولاً واحداً'],'«بادره طالباً بخلفهما».','ص ١٠٢'],
+    ['u10-munfasil-susi','حكم السوسي وابن كثير في المنفصل:','القصر قولاً واحداً',['القصر والتوسط','الإشباع','التوسط'],'«يرويك دراً».','ص ١٠٢'],
+    ['u10-munfasil-warsh','حكم ورش وحمزة في المنفصل:','الإشباع',['القصر','التوسط','القصر والتوسط'],'ورش وحمزة يشبعان المتصل والمنفصل.','ص ١٠٢'],
+    ['u10-munfasil-rest','من لهم التوسط في المنفصل؟','ابن عامر وعاصم والكسائي',['قالون والدوري','السوسي وابن كثير','ورش وحمزة'],'الباقون بالتوسط.','ص ١٠٢'],
+    ['u10-badal-def','مد البدل:','أن تتقدم الهمزة على حرف المد',['أن يأتي بعد حرف المد همزة','أن يأتي بعد حرف المد ساكن','حرف لين بعده همزة'],'مثل: ءادم، إيماناً، أوتوا.','ص ١٠٣'],
+    ['u10-badal','حكم مد البدل:','لورش القصر والتوسط والطول، والباقون القصر',['الإشباع للجميع','التوسط للجميع','القصر لورش فقط'],'«وقد يُروى لورش مطولا ووسطه قوم».','ص ١٠٣'],
+    ['u10-badal-ex','أيّ هذه من مستثنيات مد البدل لورش؟','«القرءان» لأن الهمزة بعد ساكن صحيح',['«ءامنوا»','«ءادم»','«أوتوا»'],'المستثنيات: بعد ساكن صحيح، وبعد همز الوصل ابتداءً، والمبدل من التنوين، وإسرائيل، ويؤاخذ.','ص ١٠٤'],
+    ['u10-israil','كلمتا «إسرائيل» و«يؤاخذ» لورش:','مستثناتان من مد البدل',['فيهما الطول فقط','فيهما التوسط فقط','لا علاقة لهما بالبدل'],'من مستثنيات البدل حيث وقعتا.','ص ١٠٤'],
+    ['u10-lazim','حكم المد اللازم:','الإشباع ست حركات',['القصر','التوسط','ثلاثة أوجه'],'وهو كلمي وحرفي، مخفف ومثقل.','ص ١٠٦'],
+    ['u10-ayn','حرف العين في فاتحتي مريم والشورى:','التوسط والإشباع، والطول مقدم',['الإشباع فقط','القصر','لا يُمد'],'لأن الممدود حرف لين لا حرف مد.','ص ١٠٧، ١٠٩'],
+    ['u10-hayy','حروف «حي طهر» في الفواتح:','القصر (حركتان)',['الإشباع','التوسط','لا تُمد'],'ما كان هجاؤه من حرفين.','ص ١٠٩'],
+    ['u10-alif','لفظ «ألف» في الفواتح:','لا يُمد مطلقاً',['الإشباع','القصر','التوسط'],'ليس وسطه حرف مد ولا لين.','ص ١٠٩'],
+    ['u10-nqs','حروف «نقص عسلكم» في الفواتح:','الإشباع ست حركات',['القصر','التوسط','لا تُمد'],'ما كان هجاؤه ثلاثة أحرف وسطها حرف مد.','ص ١٠٩'],
+    ['u10-arid','المد العارض للسكون:','القصر والتوسط والطول لجميع القراء',['الطول لورش فقط','القصر فقط','التوسط فقط'],'«وعند سكون الوقف وجهان أُصّلا» والقصر ثابت.','ص ١٠٨'],
+    ['u10-lin-warsh','مد اللين المهموز (شيء، سوء) لورش:','التوسط والطول وصلاً ووقفاً',['القصر','ثلاثة أوجه وصلاً','التوسط وقفاً فقط'],'«بطول وقصر وصل ورش ووقفه» حسب الشرح في الملف.','ص ١١٠'],
+    ['u10-lin-rest','مد اللين المهموز للباقين:','القصر وصلاً، والثلاثة وقفاً',['التوسط وصلاً','الطول وصلاً ووقفاً','لا مد فيه أبداً'],'وقفاً يلحق بالعارض للسكون.','ص ١١٠'],
+    ['u10-mawuda','«الموءودة» و«موئلا» لورش:','القصر بلا خلاف',['التوسط والطول','الطول فقط','ثلاثة أوجه'],'«وعن كلٍّ الموءودة اقصر وموئلا».','ص ١١١'],
+    ['u10-sawat','«سوءات» لورش:','خلاف بين التوسط والقصر',['القصر بلا خلاف','الطول فقط','الإشباع'],'«وفي واو سوءات خلاف لورشهم».','ص ١١١'],
+  ];
+  u10.forEach(([id,p,c,w,e,r])=>MC(id,'u10',p,c,w,e,r));
+
+  /* --- الوحدة ١١ و١٢: الفرش --- */
+  const u11=[
+    ['u11-yakhdaun','من قرأ «وما يَخْدَعون إلا أنفسهم»؟','الكوفيون وابن عامر',['أهل سما','الكوفيون فقط','نافع وابن عامر'],'ذ = الكوفيون وابن عامر.','ص ١١٤'],
+    ['u11-yakhdaun-first','«يخادعون الله» (الموضع الأول):','بالألف لجميع القراء',['بلا ألف للكوفيين','بلا ألف لجميع القراء','بلا ألف لأهل سما'],'«والغير كالحرف أولا».','ص ١١٤'],
+    ['u11-yakdhibun','من قرأ «يَكْذِبون» بالتخفيف وفتح الياء؟','الكوفيون',['أهل سما','ابن عامر وحده','الكوفيون وابن عامر'],'«وخفف كوف يكذبون».','ص ١١٥'],
+    ['u11-qila','من قرأ بإشمام «قيل، وغيض، وجيء»؟','الكسائي وهشام',['ابن عامر والكسائي','الكسائي ونافع','هشام وحده'],'ر = رجال، ل = لتكملا.','ص ١١٦'],
+    ['u11-hila','من قرأ بإشمام «وحيل، وسيق»؟','ابن عامر والكسائي',['الكسائي وهشام','نافع وابن عامر والكسائي','الكسائي وحده'],'«كما رسا»: ك ابن عامر، ر الكسائي.','ص ١١٦'],
+    ['u11-sia','من قرأ بإشمام «سيء، وسيئت»؟','ابن عامر والكسائي ونافع',['الكسائي وهشام','ابن عامر والكسائي','نافع وحده'],'«كان راويه أنبلا».','ص ١١٦'],
+    ['u11-ishmam','كيفية الإشمام في هذه الأفعال:','حركة مركبة من ضمة وكسرة',['ضم الشفتين بعد السكون','إسكان الحرف الأول','صوت بين الصاد والزاي'],'تحرك الحرف الأول بحركة مركبة من حركتين.','ص ١١٦'],
+    ['u11-huwa','من قرأ بإسكان هاء «هو، هي» بعد الواو والفاء واللام؟','الكسائي وقالون وأبو عمرو',['الكسائي وقالون','حمزة والكسائي','قالون وحده'],'«راضياً بارداً حلا».','ص ١١٧'],
+    ['u11-thumma','من قرأ بإسكان الهاء في «ثم هو يوم القيامة»؟','الكسائي وقالون',['الكسائي وقالون وأبو عمرو','أبو عمرو وحده','حمزة'],'«وثم هو رفقاً بان».','ص ١١٧'],
+    ['u11-yumill','«أن يُمِلّ هو» في البقرة:','بضم الهاء لجميع القراء',['بالإسكان للكسائي','بالإسكان لقالون','وجهان'],'«وعن كل يمل هو انجلى».','ص ١١٧'],
+  ];
+  u11.forEach(([id,p,c,w,e,r])=>MC(id,'u11',p,c,w,e,r));
+  const u12=[
+    ['u12-azalla','من قرأ «فأزالهما»؟','حمزة',['الكسائي','حمزة والكسائي','ابن كثير'],'«وفي فأزل اللام خفف لحمزة».','ص ١٢٤'],
+    ['u12-tawjih','توجيه «فأزالهما» و«فأزلّهما»:','أزالهما من الزوال، وأزلّهما من الزلل',['أزالهما من الزلل، وأزلّهما من الزوال','كلاهما من الزلل','كلاهما من الزوال'],'هذا توجيه القراءتين.','ص ١٢٤'],
+    ['u12-adam','قرأ ابن كثير:','بنصب «آدمَ» ورفع «كلماتٌ»',['برفع «آدمُ» ونصب «كلماتٍ»','برفعهما','بنصبهما'],'«وللمكي عكس تحولا».','ص ١٢٥'],
+    ['u12-adam-why','توجيه رفع «آدم»:','على أنه فاعل',['على أنه مفعول به','على أنه مبتدأ','على أنه بدل'],'وبالنصب على أنه مفعول به.','ص ١٢٥'],
+    ['u12-tuqbal','من قرأ «ولا تُقبل منها شفاعة» بالتأنيث؟','ابن كثير وأبو عمرو',['أبو عمرو وحده','نافع وابن كثير','الكوفيون'],'«دون حاجز»: د ابن كثير، ح أبو عمرو.','ص ١٢٦'],
+    ['u12-adl','«ولا يقبل منها عدل»:','بالتذكير لجميع القراء',['بالتأنيث لابن كثير','بالتأنيث لأبي عمرو','وجهان'],'التقييد بالأولى للاحتراز عن الثانية.','ص ١٢٦'],
+    ['u12-waadna','من قرأ «وعدنا» بلا ألف؟','أبو عمرو',['ابن كثير وأبو عمرو','حمزة','الكسائي'],'«وعدنا جميعاً دون ما ألف حلا».','ص ١٢٦'],
+    ['u12-waadna-n','في كم موضعاً وردت «واعدنا» المختلف فيها؟','ثلاثة: البقرة والأعراف وطه',['موضعان','أربعة','موضع واحد'],'وإذ واعدنا موسى، وواعدنا موسى ثلاثين، وواعدناكم جانب الطور.','ص ١٢٦'],
+  ];
+  u12.forEach(([id,p,c,w,e,r])=>MC(id,'u12',p,c,w,e,r));
+
+  /* --- أسئلة الشاهد --- */
+  SHAHID.forEach(s=>add({...s,type:'shahid',prompt:'استخرجي الخريطة من البيت'}));
+  return B;
+}
+
+/* ===== بطاقات التعلّم ===== */
+function buildCards(unit){
+  if(unit==='u2')return [...READERS.map(r=>({f:r.sym,b:r.name+' — قارئ'})),...RAWIS.map(w=>({f:w.sym,b:label(w.id)+' — راوي '+ALL[w.of].name})),...READERS.map(r=>({f:r.word,b:r.sym+' '+r.name+' · '+r.rawis.map(x=>ALL[x].sym+' '+label(x)).join(' · ')}))];
+  if(unit==='u3')return GROUPS.map(g=>({f:g.sym,b:g.desc}));
+  if(unit==='u1')return [...READERS.map(r=>({f:r.name,b:`${r.full} · ${r.nisba} · راوياه: ${names(r.rawis)} (${r.via})`})),...RAWIS.filter(w=>w.id!=='duri_k').map(w=>({f:w.name,b:`${w.full} · راوي ${ALL[w.of].name}`})),{f:'الشاطبي',b:'أبو محمد القاسم بن فيره · وُلد ضريراً ٥٣٨هـ بشاطبة (شرق الأندلس) · توفي بالقاهرة ٥٩٠هـ · شيخه النفزي · عرض التيسير في بلنسية'}];
+  const B=buildBank().filter(q=>q.unit===unit&&q.type==='mcq'&&!q.verseOpts&&!q.fixed);
+  const cards=B.map(q=>({f:q.prompt,b:q.correct}));
+  return cards;
+}
+if(typeof module!=='undefined')module.exports={buildBank,buildCards,norm,parseNames,setMatches,UNITS,SHAHID,GROUPS,READERS,RAWIS,ALL};
+
+</script>
+<script>
+/* ===== الحالة والتخزين ===== */
+const KEY='hirz-v1';
+let S={q:{},flags:[],last:null,nick:'',dev:''};
+try{const raw=localStorage.getItem(KEY);if(raw)S=Object.assign(S,JSON.parse(raw))}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+const BANK=buildBank();
+const BYID={};BANK.forEach(q=>BYID[q.id]=q);
+const $=s=>document.querySelector(s);
+const app=$('#app');
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const AR=n=>String(n).replace(/\d/g,d=>'٠١٢٣٤٥٦٧٨٩'[d]);
+
+function rec(id,ok){
+  const r=S.q[id]||{c:0,w:0,box:0};
+  if(ok){r.c++;r.box=Math.min(5,r.box+1)}else{r.w++;r.box=0}
+  r.t=Date.now();S.q[id]=r;save();
+  scheduleSubmit();
+}
+let _st=null;
+function scheduleSubmit(){if(!S.nick)return;clearTimeout(_st);_st=setTimeout(()=>submitScore(),2500)}
+function mastery(unit){
+  const qs=BANK.filter(q=>!unit||q.unit===unit);
+  const sum=qs.reduce((a,q)=>a+Math.min(3,(S.q[q.id]||{}).box||0),0);
+  return Math.round(100*sum/(3*qs.length));
+}
+function diff(q){
+  if(q.type==='shahid'||q.type==='text')return 3;
+  if(q.type==='multi')return 2;
+  if(q.options&&q.options[0]==='صح'||/^(u2-s2n|u2-n2s|u2-of|u3-s2m|u3-m2s|u1-nisba|u1-via)/.test(q.id))return 1;
+  return 2;
+}
+const LEVELS=[['mix','منوّع'],['1','سهل'],['2','متوسط'],['3','صعب']];
+const LEVEL_HINT={mix:'من كل المستويات',1:'اختيار من متعدد مباشر وصح أو خطأ',2:'أسئلة الأبواب والأحكام واختيار أكثر من إجابة',3:'كتابة الإجابة بنفسك، والشاهد والخريطة'};
+const mistakes=()=>BANK.filter(q=>{const r=S.q[q.id];return r&&r.w>0&&r.box<3});
+
+/* اختيار الأسئلة: الأضعف أولاً */
+function priority(q){
+  const r=S.q[q.id];
+  if(!r)return 1+Math.random();
+  if(r.w>0&&r.box===0)return Math.random()*.8;
+  return 1.2+r.box+Math.random()*1.5;
+}
+function selectQs(pool,n){return pool.map(q=>[priority(q),q]).sort((a,b)=>a[0]-b[0]).slice(0,n).map(x=>x[1]).sort(()=>Math.random()-.5)}
+
+/* ===== التنقل ===== */
+let view=null, timerId=null;
+function go(fn,...args){clearInterval(timerId);view=[fn,args];fn(...args);window.scrollTo(0,0)}
+function hdr(back){return `<div class="top"><button class="brand" onclick="go(home)" aria-label="الرئيسية">حِرز</button>${back?`<button class="back" onclick="${back}">رجوع</button>`:''}</div>`}
+const ded='';
+
+function verseHtml(v,cls='bayt'){
+  // يلوّن أوائل الكلمات المعروفة كرموز
+  return `<div class="${cls}"><span class="h">${v[0]}</span><span class="h">${v[1]}</span></div>`;
+}
+function heroVerse(){
+  const s=SHAHID[Math.floor(Math.random()*SHAHID.length)];
+  const line=s.lines[s.lines.length===1?0:Math.floor(Math.random()*s.lines.length)];
+  const fmt=t=>t.replace(/\{([^}]+)\}/g,(m,w)=>`<span class="r">${w}</span>`);
+  return `<div class="bayt"><span class="h">${fmt(line[0])}</span><span class="h">${fmt(line[1])}</span></div>`;
+}
+
+/* ===== الرئيسية ===== */
+function home(){
+  const m=mistakes().length, total=mastery();
+  const seen=Object.keys(S.q).length;
+  app.innerHTML=`
+  <div class="hero">
+    <h1>حِرز <span>الشاطبية</span></h1>
+    <p>تدريب على الرموز والأبواب، من ملف المقرر نفسه.</p>
+    ${heroVerse()}
+  </div>
+  <div class="actions">
+    <button class="btn main" onclick="go(practiceSetup,'all')">تدريب عام <small>${seen?`الإتقان ${AR(total)}٪`:'كل المنهج، بالعدد والصعوبة'}</small></button>
+    <button class="btn" onclick="go(examSetup,'all')">اختبار شامل <small>كل الملف</small></button>
+    <button class="btn" onclick="go(runSession,{scope:'mistakes',mode:'practice'})" ${m?'':'disabled style="opacity:.55"'}>أخطائي <span class="pill">${AR(m)}</span></button>
+    <button class="btn" onclick="go(lbView)">المتصدرات <small>تنافسي مع صديقاتك</small></button>
+    <button class="btn" onclick="go(reference)">المرجع السريع <small>الجداول والأضداد</small></button>
+  </div>
+  <h2>الوحدات</h2>
+  <div class="units">${UNITS.map((u,i)=>{const p=mastery(u.id);return `
+    <button class="unit" onclick="go(unitView,'${u.id}')">
+      <span class="n">${AR(i+1)}</span>
+      <span><span class="t">${u.title}</span><span class="p"> · ${u.pages}</span><div class="bar"><i style="width:${p}%"></i></div></span>
+      <span class="pct">${AR(p)}٪</span>
+    </button>`}).join('')}</div>
+  ${S.flags.length?`<div class="row"><button class="ghost" onclick="go(flagsView)">ملاحظاتي على الأسئلة (${AR(S.flags.length)})</button></div>`:''}
+  ${ded}`;
+}
+
+/* ===== الوحدة ===== */
+function unitView(uid){
+  const u=UNITS.find(x=>x.id===uid), qs=BANK.filter(q=>q.unit===uid);
+  const hasSh=qs.some(q=>q.type==='shahid');
+  app.innerHTML=`${hdr('go(home)')}
+  <div class="unit-head"><p>${u.pages} · ${AR(qs.length)} سؤالاً</p><h1>${u.title}</h1></div>
+  <div class="bar" style="margin:12px 0 4px"><i style="width:${mastery(uid)}%"></i></div>
+  <div class="modes">
+    <button class="mode" onclick="go(learn,'${uid}')"><b>تعلّم</b><span>بطاقات تقلبينها للحفظ، بلا تسجيل</span></button>
+    <button class="mode" onclick="go(practiceSetup,'${uid}')"><b>تدريب</b><span>تختارين العدد والصعوبة، والتصحيح فوري</span></button>
+    ${hasSh?`<button class="mode" onclick="go(runSession,{scope:'${uid}',mode:'practice',only:'shahid'})"><b>الشاهد والخريطة</b><span>البيت ← اللفظ والقراء والشاهد والباقون</span></button>`:''}
+    <button class="mode" onclick="go(examSetup,'${uid}')"><b>اختبار</b><span>بدون تصحيح حتى النهاية، مع مؤقت اختياري</span></button>
+  </div>${ded}`;
+}
+
+/* ===== التعلّم ===== */
+function learn(uid){
+  const cards=shuffle(buildCards(uid));let i=0,flipped=false;
+  const isSym=c=>uid==='u2'||uid==='u3'?c.f.length<=5:false;
+  function draw(){
+    const c=cards[i];
+    app.innerHTML=`${hdr(`go(unitView,'${uid}')`)}
+    <div class="qmeta"><span>تعلّم · ${UNITS.find(u=>u.id===uid).title}</span><span>${AR(i+1)} / ${AR(cards.length)}</span></div>
+    <div class="flash"><div class="fc" id="fc" role="button" tabindex="0" aria-label="اقلبي البطاقة">
+      <div>${flipped?`<div class="bk ${c.verse?'v':''}">${esc(c.b)}</div><div class="lbl">${esc(c.f)}</div>`
+        :`<div class="front ${isSym(c)?'sym':''} ${c.verse?'v':''}">${esc(c.f)}</div><div class="lbl">اضغطي للقلب</div>`}</div>
+    </div></div>
+    <div class="row"><button class="ghost" id="prev">السابقة</button><button class="go" id="next">التالية</button></div>`;
+    $('#fc').onclick=$('#fc').onkeydown=e=>{if(e.type==='keydown'&&e.key!=='Enter'&&e.key!==' ')return;flipped=!flipped;draw()};
+    $('#next').onclick=()=>{i=(i+1)%cards.length;flipped=false;draw()};
+    $('#prev').onclick=()=>{i=(i-1+cards.length)%cards.length;flipped=false;draw()};
+  }
+  draw();
+}
+
+/* ===== الجلسات ===== */
+function poolFor(opts){
+  let pool=opts.ids?opts.ids.map(id=>BYID[id]).filter(Boolean):opts.scope==='all'?BANK:opts.scope==='mistakes'?mistakes():BANK.filter(q=>q.unit===opts.scope);
+  if(opts.only)pool=pool.filter(q=>q.type===opts.only);
+  if(opts.level&&opts.level!=='mix')pool=pool.filter(q=>diff(q)===+opts.level);
+  return pool;
+}
+function practiceSetup(scope){
+  let n=20,level='mix';
+  const back=scope==='all'?'go(home)':`go(unitView,'${scope}')`;
+  function draw(){
+    const avail=l=>poolFor({scope,level:l}).length;
+    app.innerHTML=`${hdr(back)}
+    <div class="unit-head"><p>تدريب</p><h1>${scope==='all'?'تدريب عام على كل المنهج':UNITS.find(u=>u.id===scope).title}</h1></div>
+    <h2>مستوى الصعوبة</h2><div class="seg">${LEVELS.map(([k,t])=>`<button class="${k===level?'on':''}" data-l="${k}" ${avail(k)?'':'disabled style="opacity:.4"'}>${t} <small>(${AR(avail(k))})</small></button>`).join('')}</div>
+    <p class="hint" style="text-align:right;margin-top:0">${LEVEL_HINT[level]}</p>
+    <h2>عدد الأسئلة</h2><div class="seg">${[10,20,40].map(k=>`<button class="${k===n?'on':''}" data-n="${k}">${AR(k)}</button>`).join('')}<button class="${n===0?'on':''}" data-n="0">الكل</button></div>
+    <p class="hint" style="text-align:right">التصحيح فوري، وفي النهاية تقدرين تعيدين أخطاء الجلسة.</p>
+    <div class="row"><button class="go" id="start">ابدئي التدريب</button></div>`;
+    app.querySelectorAll('[data-l]').forEach(b=>b.onclick=()=>{level=b.dataset.l;draw()});
+    app.querySelectorAll('[data-n]').forEach(b=>b.onclick=()=>{n=+b.dataset.n;draw()});
+    $('#start').onclick=()=>{const total=avail(level);go(runSession,{scope,mode:'practice',level,n:n===0?total:Math.min(n,total)})};
+  }
+  draw();
+}
+function examSetup(scope){
+  let n=20,timed=false,level='mix';
+  const back=scope==='all'?'go(home)':`go(unitView,'${scope}')`;
+  function draw(){
+    const avail=l=>poolFor({scope,level:l}).length;
+    app.innerHTML=`${hdr(back)}
+    <div class="unit-head"><p>اختبار</p><h1>${scope==='all'?'اختبار شامل':UNITS.find(u=>u.id===scope).title}</h1></div>
+    <h2>مستوى الصعوبة</h2><div class="seg">${LEVELS.map(([k,t])=>`<button class="${k===level?'on':''}" data-l="${k}" ${avail(k)?'':'disabled style="opacity:.4"'}>${t} <small>(${AR(avail(k))})</small></button>`).join('')}</div>
+    <h2>عدد الأسئلة</h2><div class="seg">${[10,20,40].map(k=>`<button class="${k===n?'on':''}" data-n="${k}">${AR(k)}</button>`).join('')}</div>
+    <h2>المؤقت</h2><div class="seg"><button class="${!timed?'on':''}" data-t="0">بدون</button><button class="${timed?'on':''}" data-t="1">دقيقة لكل سؤال</button></div>
+    <p class="hint" style="text-align:right">لن يظهر التصحيح حتى تنتهي، ثم تراجعين كل سؤال.</p>
+    <div class="row"><button class="go" id="start">ابدئي الاختبار</button></div>`;
+    app.querySelectorAll('[data-n]').forEach(b=>b.onclick=()=>{n=+b.dataset.n;draw()});
+    app.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>{timed=b.dataset.t==='1';draw()});
+    app.querySelectorAll('[data-l]').forEach(b=>b.onclick=()=>{level=b.dataset.l;draw()});
+    $('#start').onclick=()=>go(runSession,{scope,mode:'exam',level,n:Math.min(n,avail(level)),timed});
+  }
+  draw();
+}
+
+function runSession(opts){
+  const pool=poolFor(opts);
+  if(!pool.length){app.innerHTML=`${hdr('go(home)')}<div class="empty">لا توجد أسئلة هنا الآن. ${opts.scope==='mistakes'?'لا أخطاء محفوظة، أحسنتِ.':''}</div>`;return}
+  const n=Math.min(opts.n||15,pool.length);
+  let queue=selectQs(pool,n), idx=0, log=[], deadline=opts.timed?Date.now()+n*60000:null;
+  const exam=opts.mode==='exam';
+  const back=opts.scope==='all'||opts.scope==='mistakes'?'go(home)':`go(unitView,'${opts.scope}')`;
+  const title=opts.scope==='all'?'كل الوحدات':opts.scope==='mistakes'?'أخطائي':UNITS.find(u=>u.id===opts.scope).title;
+  if(deadline){timerId=setInterval(()=>{const el=$('#timer');const left=deadline-Date.now();if(left<=0){clearInterval(timerId);finish();return}if(el)el.textContent=AR(Math.floor(left/60000))+':'+AR(String(Math.floor(left%60000/1000)).padStart(2,'0'))},1000)}
+
+  function next(){idx++; if(idx>=queue.length)finish(); else draw()}
+  function draw(){
+    const q=queue[idx];
+    app.innerHTML=`${hdr(back)}
+    <div class="qmeta"><span>${exam?'اختبار':'تدريب'} · ${title}</span><span>${deadline?`<span class="timer" id="timer"></span> · `:''}${AR(idx+1)} / ${AR(queue.length)}</span></div>
+    <div class="progress"><i style="width:${100*idx/queue.length}%"></i></div>
+    <div class="qcard" id="qc"></div>
+    <button class="flag" onclick="flagQ('${q.id}')">في هذا السؤال خطأ؟</button>`;
+    renderQ(q,$('#qc'),{exam,onDone:(ok,given)=>{
+      log.push({q,ok,given});
+      if(ok!==null)rec(q.id,ok===true);
+      if(exam)next();
+    },onNext:next});
+  }
+  function finish(){
+    clearInterval(timerId);
+    results(log,exam,opts,back);
+  }
+  draw();
+}
+
+/* ===== عرض السؤال ===== */
+function renderQ(q,el,{exam,onDone,onNext}){
+  if(q.type==='shahid')return renderShahid(q,el,{exam,onDone,onNext});
+  const fb=(ok,extra='')=>exam?'':`<div class="fb ${ok?'ok':'no'}"><b>${ok?'صحيح · +١ نقطة':'غير صحيح'}</b>${extra}${esc(q.explain||'')}<div class="ref">${esc(q.ref||'')}</div></div><div class="row"><button class="go" id="nx">التالي</button></div>`;
+  const head=`${q.big&&q.prompt.includes('«')?`<div class="symbig">${esc(q.prompt.match(/«([^»]+)»/)[1])}</div>`:''}<p class="prompt">${esc(q.prompt)}</p>${q.verse?`<div class="qverse">${esc(q.verse)}</div>`:''}`;
+  if(q.type==='mcq'){
+    const opts=q.fixed?q.options:shuffle(q.options);
+    el.innerHTML=`${head}<div class="opts ${q.options.length===2&&q.options[0]==='صح'?'tf':''}">${opts.map((o,i)=>`<button class="opt ${q.verseOpts?'verse':''}" data-i="${i}">${esc(o)}</button>`).join('')}</div><div id="fbx"></div>`;
+    el.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{
+      const pickd=opts[+b.dataset.i], ok=pickd===q.correct;
+      el.querySelectorAll('.opt').forEach(x=>{x.disabled=true;if(!exam){if(opts[+x.dataset.i]===q.correct)x.classList.add('ok')}});
+      if(!exam&&!ok)b.classList.add('no'); if(exam)b.classList.add('sel');
+      onDone(ok,pickd);
+      if(!exam){$('#fbx').innerHTML=fb(ok);$('#nx').onclick=onNext;$('#nx').focus()}
+    });
+  }else if(q.type==='multi'){
+    const opts=shuffle(q.options),sel=new Set();
+    el.innerHTML=`${head}<p class="hint" style="text-align:right;margin-top:-8px">اختاري كل الإجابات الصحيحة ثم «تحقّقي»</p><div class="opts">${opts.map((o,i)=>`<button class="opt" data-i="${i}" aria-pressed="false">${esc(o)}</button>`).join('')}</div><div class="row"><button class="go" id="chk">تحقّقي</button></div><div id="fbx"></div>`;
+    el.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{const v=opts[+b.dataset.i];sel.has(v)?sel.delete(v):sel.add(v);b.classList.toggle('sel');b.setAttribute('aria-pressed',sel.has(v))});
+    $('#chk').onclick=()=>{
+      const ok=sameSet(sel,q.correct);
+      el.querySelectorAll('.opt').forEach(x=>{x.disabled=true;const v=opts[+x.dataset.i];if(!exam){x.classList.remove('sel');if(q.correct.includes(v))x.classList.add('ok');else if(sel.has(v))x.classList.add('no')}});
+      $('#chk').remove();onDone(ok,[...sel].join('، '));
+      if(!exam){$('#fbx').innerHTML=fb(ok);$('#nx').onclick=onNext}
+    };
+  }else if(q.type==='text'){
+    el.innerHTML=`${head}<input type="text" id="ans" autocomplete="off" placeholder="اكتبي هنا"><div class="row"><button class="go" id="chk">تحقّقي</button></div><div id="fbx"></div>`;
+    const inp=$('#ans');inp.focus();
+    inp.onkeydown=e=>{if(e.key==='Enter')$('#chk').click()};
+    $('#chk').onclick=()=>{
+      const v=inp.value.trim(); if(!v){inp.focus();return}
+      const ok=checkText(q,v);
+      inp.disabled=true; $('#chk').remove();
+      if(exam){onDone(ok,v);return}
+      inp.classList.add(ok?'ok':'no');
+      $('#fbx').innerHTML=fb(ok,ok?'':`<div>الإجابة: <b style="display:inline">${esc(q.model)}</b></div>`)+(ok?'':`<button class="flag" id="ovr">إجابتي صحيحة بصيغة أخرى</button>`);
+      let done=false;const fin=r=>{if(done)return;done=true;onDone(r,v)};
+      $('#nx').onclick=()=>{fin(ok);onNext()};
+      if(!ok)$('#ovr').onclick=()=>{fin(true);onNext()};
+    };
+  }
+}
+function checkText(q,v){
+  if(q.mode==='exact')return q.accept.some(a=>norm(a)===norm(v));
+  if(q.special&&q.special.some(s=>norm(v).includes(norm(s))))return true;
+  return setMatches(v,q.ids);
+}
+
+/* ===== الشاهد ===== */
+function renderShahid(q,el,{exam,onDone,onNext}){
+  // تقطيع البيت إلى كلمات قابلة للنقر
+  let k=0;const targets=new Set();
+  const lineHtml=line=>line.map(half=>`<span class="half">${
+    half.split(/(\{[^}]+\}|\s+)/).filter(s=>s&&!/^\s+$/.test(s)).map(w=>{
+      const t=w.startsWith('{');const txt=t?w.slice(1,-1):w;const id=k++;if(t)targets.add(id);
+      return `<button class="tok" data-k="${id}">${txt}</button>`}).join(' ')}</span>`).join('');
+  const verses=q.lines.map(l=>`<div class="sh-verse">${lineHtml(l)}</div>`).join('');
+  const readerChips=READERS.map(r=>[r.id,...r.rawis]).flat();
+  el.innerHTML=`<p class="prompt">استخرجي الخريطة من البيت</p>${verses}
+  <p class="hint">المسي الكلمات التي فيها رمز أو اسم القارئ</p>
+  <div class="field"><label for="w">اللفظ القرآني المختلف فيه</label><input type="text" id="w" autocomplete="off"></div>
+  <div class="field"><label>المرموز لهم أو المصرّح بأسمائهم (لا تختاري الباقين)</label>
+    <div class="chips">${readerChips.map(id=>`<button class="chip ${ALL[id].rawis?'reader':''}" data-id="${id}">${label(id)}</button>`).join('')}</div></div>
+  <div class="field"><label for="sh">الشاهد</label><textarea id="sh" placeholder="اكتبي موضع الشاهد من البيت"></textarea></div>
+  <div class="field"><label for="ra">وجه قراءة المرموز لهم</label><textarea id="ra"></textarea></div>
+  <div class="field"><label for="rb">قراءة الباقين</label><textarea id="rb"></textarea></div>
+  <div class="row"><button class="go" id="chk">تحقّقي</button></div><div id="res"></div>`;
+  const tsel=new Set(), csel=new Set();
+  el.querySelectorAll('.tok').forEach(b=>b.onclick=()=>{const id=+b.dataset.k;tsel.has(id)?tsel.delete(id):tsel.add(id);b.classList.toggle('on')});
+  el.querySelectorAll('.chip').forEach(b=>b.onclick=()=>{const id=b.dataset.id;csel.has(id)?csel.delete(id):csel.add(id);b.classList.toggle('on')});
+  $('#chk').onclick=()=>{
+    const who=q.groups.flatMap(g=>g.who);
+    const wv=$('#w').value, shv=$('#sh').value;
+    const part={
+      word: q.accept.some(a=>{const A=norm(a),V=norm(wv);return V&&(A===V||V.includes(A)||A.includes(V)&&V.length>=4)}),
+      toks: sameSet(tsel,targets),
+      who: sameSet(csel,who),
+      shahid: (()=>{const A=norm(q.shahid),V=norm(shv);if(!V)return false;if(A===V)return true;const aw=A.split(' '),vw=new Set(V.split(' '));return aw.filter(w=>vw.has(w)).length/aw.length>=.85})(),
+      read:null
+    };
+    // إظهار التصحيح على البيت والأزرار
+    el.querySelectorAll('.tok').forEach(b=>{b.disabled=true;const id=+b.dataset.k;b.classList.remove('on');if(targets.has(id))b.classList.add(tsel.has(id)?'right':'miss');else if(tsel.has(id))b.classList.add('extra')});
+    el.querySelectorAll('.chip').forEach(b=>{b.disabled=true;const id=b.dataset.id;if(who.includes(id))b.classList.add(csel.has(id)?'on':'ok');else if(csel.has(id)){b.classList.remove('on');b.classList.add('no')}});
+    ['w','sh','ra','rb'].forEach(i=>$('#'+i).disabled=true);
+    $('#w').classList.add(part.word?'ok':'no');$('#sh').classList.add(part.shahid?'ok':'no');
+    $('#chk').remove();
+    const tick=v=>v?'<span class="mark">✓</span>':'<span class="mark" style="color:var(--wrong)">✗</span>';
+    $('#res').innerHTML=`
+    <div class="map"><h3>الخريطة الصحيحة</h3>
+      <div class="root">${esc(q.word)} ${tick(part.word)}</div>
+      <div class="branches">
+        ${q.groups.map(g=>`<div class="br"><b>${esc(g.reading)}</b>${names(g.who)}<br><small>${esc(g.codes)}</small></div>`).join('')}
+        <div class="br sh"><b>الشاهد ${tick(part.shahid)}</b>${esc(q.shahid)}</div>
+        <div class="br rest"><b>الباقون</b>${esc(q.rest)}</div>
+      </div>
+      <p class="hint" style="margin-top:10px">مواضع الرموز ${tick(part.toks)} · القراء ${tick(part.who)}<br><span style="font-size:12px">${esc(q.ref)}</span></p>
+      <p class="hint" style="margin:6px 0">قارني كتابتك لوجه القراءة وقراءة الباقين بالخريطة:</p>
+      <div class="self"><button data-s="1">كتبتها صح</button><button data-s="0">فيها نقص</button></div>
+      ${part.word&&part.shahid?'':'<button class="flag" id="ovr">كتبتُ اللفظ أو الشاهد بصيغة صحيحة أخرى</button>'}
+    </div>`;
+    if($('#ovr'))$('#ovr').onclick=()=>{part.word=true;part.shahid=true;$('#ovr').remove();$('#w').className='ok';$('#sh').className='ok'};
+    el.querySelectorAll('[data-s]').forEach(b=>b.onclick=()=>{
+      part.read=b.dataset.s==='1';
+      const ok=part.word&&part.toks&&part.who&&part.shahid&&part.read;
+      el.querySelector('.self').innerHTML=`<div class="fb ${ok?'ok':'no'}" style="margin:0;flex:1"><b>${ok?'الخريطة كاملة · +١ نقطة 🌷':'راجعي ما عليه ✗ ثم أعيديها لاحقاً'}</b></div>`;
+      onDone(ok,'خريطة');
+      if(!exam){el.insertAdjacentHTML('beforeend','<div class="row"><button class="go" id="nx">التالي</button></div>');$('#nx').onclick=onNext}
+    });
+  };
+}
+
+/* ===== النتائج ===== */
+function results(log,exam,opts,back){
+  submitScore();
+  const graded=log.filter(l=>l.ok!==null), right=graded.filter(l=>l.ok).length;
+  const pct=graded.length?Math.round(100*right/graded.length):0;
+  app.innerHTML=`${hdr(back)}
+  <div class="score"><div class="num">${AR(right)} / ${AR(log.length)}</div><p>${pct>=90?'ممتاز':pct>=70?'جيد جداً، بقي القليل':'راجعي الأخطاء وأعيدي المحاولة'}</p></div>
+  ${(()=>{const w=[...new Set(log.filter(l=>l.ok===false).map(l=>l.q.id))];return w.length?`<div class="row"><button class="go" onclick="go(runSession,${esc(JSON.stringify({scope:opts.scope,mode:'practice',ids:w,n:w.length}))})">أعيدي أخطاء هذه الجلسة (${AR(w.length)})</button></div>`:''})()}
+  <div class="row"><button class="${log.some(l=>l.ok===false)?'ghost':'go'}" onclick="go(runSession,${esc(JSON.stringify({...opts,ids:undefined}))})">جلسة جديدة بنفس الإعدادات</button><button class="ghost" onclick="go(home)">الرئيسية</button></div>
+  ${exam?`<h2>مراجعة الإجابات</h2>${log.map(l=>`<div class="rev ${l.ok?'':'no'}"><div>${l.ok?'✓':'✗'} ${esc(l.q.type==='shahid'?'خريطة: '+l.q.word:l.q.prompt)}${l.q.verse?' — '+esc(l.q.verse):''}</div>
+     ${l.q.type==='shahid'?'':`<div class="a">إجابتك: ${esc(l.given||'—')}</div><div>الصحيح: <b>${esc(Array.isArray(l.q.correct)?l.q.correct.join('، '):l.q.correct||l.q.model)}</b></div>`}
+     ${l.q.explain?`<div class="a">${esc(l.q.explain)} · ${esc(l.q.ref||'')}</div>`:''}</div>`).join('')}`:''}
+  ${ded}`;
+}
+
+/* ===== الملاحظات ===== */
+function flagQ(id){
+  const note=prompt('ما الخطأ في هذا السؤال؟ (اختياري)');
+  if(note===null)return;
+  S.flags=S.flags.filter(f=>f.id!==id);S.flags.push({id,note,t:Date.now()});save();
+  alert('حُفظت الملاحظة، تجدينها في الرئيسية.');
+}
+function flagsView(){
+  const txt=S.flags.map(f=>{const q=BYID[f.id];return `[${f.id}] ${q?(q.type==='shahid'?q.word:q.prompt):''}${f.note?' — '+f.note:''}`}).join('\n');
+  app.innerHTML=`${hdr('go(home)')}<div class="unit-head"><h1>ملاحظاتي على الأسئلة</h1><p>انسخي القائمة وأرسليها لمن يصحّح الأسئلة.</p></div>
+  ${S.flags.map(f=>{const q=BYID[f.id];return `<div class="rev"><div>${esc(q?(q.type==='shahid'?'خريطة: '+q.word:q.prompt):f.id)}</div>${f.note?`<div class="a">${esc(f.note)}</div>`:''}<button class="flag" data-del="${f.id}">حذف</button></div>`}).join('')}
+  <div class="row"><button class="go" id="cp">نسخ القائمة</button></div>`;
+  $('#cp').onclick=()=>{navigator.clipboard&&navigator.clipboard.writeText(txt).then(()=>{$('#cp').textContent='نُسخت'})};
+  app.querySelectorAll('[data-del]').forEach(b=>b.onclick=()=>{S.flags=S.flags.filter(f=>f.id!==b.dataset.del);save();flagsView()});
+}
+
+/* ===== المرجع ===== */
+function reference(){
+  app.innerHTML=`${hdr('go(home)')}<div class="unit-head"><h1>المرجع السريع</h1></div>
+  <h2>الرموز الفردية</h2><div class="tbl"><table><tr><th>الكلمة</th><th>القارئ</th><th>الراوي الأول</th><th>الراوي الثاني</th></tr>
+  ${READERS.map(r=>`<tr><td class="s">${r.word}</td><td>${r.sym} ${r.name}</td>${r.rawis.map(x=>`<td>${ALL[x].sym} ${label(x)}</td>`).join('')}</tr>`).join('')}</table></div>
+  <h2>الرموز الجماعية</h2><div class="tbl"><table><tr><th>الرمز</th><th>النوع</th><th>من يشمل</th></tr>
+  ${GROUPS.map(g=>`<tr><td class="s">${g.sym}</td><td>${g.kind}</td><td>${g.desc}</td></tr>`).join('')}</table></div>
+  <h2>القراء</h2><div class="tbl"><table><tr><th>القارئ</th><th>النسبة</th><th>الرواية عنه</th></tr>
+  ${READERS.map(r=>`<tr><td>${r.name}</td><td>${r.nisba}</td><td>${r.via}</td></tr>`).join('')}</table></div>
+  <h2>الأضداد</h2><div class="tbl"><table><tr><th>الحكم</th><th>ضده</th></tr>
+  ${[['المد','القصر'],['الإثبات','الحذف'],['الفتح','الإمالة'],['الإدغام','الإظهار'],['الهمز','ترك الهمز'],['النقل','إبقاء الحركة'],['الاختلاس','إتمام الحركة'],['الجزم','الرفع'],['التذكير','التأنيث'],['الغيب','الخطاب'],['التخفيف','التشديد'],['الجمع','الإفراد'],['التنوين','ترك التنوين'],['التحريك المطلق (الفتح)','الإسكان'],['النون','الياء'],['الفتح','الكسر'],['النصب','الخفض'],['الرفع','النصب'],['الضم (غير مقيد)','الفتح']].map(([a,b])=>`<tr><td>${a}</td><td>${b}</td></tr>`).join('')}</table></div>
+  ${ded}`;
+}
+
+/* ===== لوحة المتصدرات (Supabase) ===== */
+const SB_URL='https://mctfkeylqbxyonekxhcy.supabase.co';
+const SB_KEY='sb_publishable_PHq7yl5v7HgKK0aQSREigg_HSwkBQzv';
+function uuid(){return (window.crypto&&crypto.randomUUID)?crypto.randomUUID():'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,c=>{const r=Math.random()*16|0;return(c==='x'?r:(r&3|8)).toString(16)})}
+function myStats(){let c=0,w=0;Object.values(S.q).forEach(r=>{c+=r.c||0;w+=r.w||0});return{correct:c,answered:c+w,mastery:mastery()}}
+async function submitScore(){
+  if(!S.nick)return false;
+  if(!S.dev){S.dev=uuid();save()}
+  const s=myStats();
+  try{
+    const r=await fetch(SB_URL+'/rest/v1/rpc/submit_score',{method:'POST',headers:{'apikey':SB_KEY,'Content-Type':'application/json'},
+      body:JSON.stringify({p_device:S.dev,p_name:S.nick,p_correct:s.correct,p_answered:s.answered,p_mastery:s.mastery})});
+    return r.ok;
+  }catch(e){return false}
+}
+function nameForm(change){
+  app.innerHTML=`${hdr('go(home)')}
+  <div class="unit-head"><h1>${change?'تغيير الاسم':'اسمك في المتصدرات'}</h1><p>اكتبي اسماً مستعاراً. يراه كل من عنده رابط الموقع.</p></div>
+  <div class="field"><label for="nk">الاسم (حتى ٢٠ حرفاً)</label><input type="text" id="nk" maxlength="20" autocomplete="off" value="${esc(S.nick||'')}"></div>
+  <div class="row"><button class="go" id="sv">حفظ والدخول</button></div>
+  <p class="hint" style="text-align:right;margin-top:14px">لا حسابات ولا كلمات سر. يُرسل اسمك وعدد إجاباتك ونسبة إتقانك فقط.</p>`;
+  const inp=$('#nk');inp.focus();
+  const ok=()=>{const v=inp.value.trim().replace(/\s+/g,' ');if(!v){inp.focus();return}S.nick=v.slice(0,20);save();go(lbView)};
+  $('#sv').onclick=ok;inp.onkeydown=e=>{if(e.key==='Enter')ok()};
+}
+async function lbView(sortKey){
+  if(!S.nick){nameForm(false);return}
+  sortKey=sortKey||'correct';
+  app.innerHTML=`${hdr('go(home)')}<div class="unit-head"><h1>المتصدرات</h1></div><div class="empty">جارٍ التحميل…</div>`;
+  await submitScore();
+  let rows;
+  try{
+    const r=await fetch(SB_URL+'/rest/v1/leaderboard?select=name,correct,answered,mastery,updated_at&order=correct.desc&limit=200',{headers:{'apikey':SB_KEY}});
+    if(!r.ok)throw new Error(r.status);
+    rows=await r.json();
+  }catch(e){
+    app.innerHTML=`${hdr('go(home)')}<div class="unit-head"><h1>المتصدرات</h1></div>
+    <div class="empty">تعذّر الاتصال باللوحة. تأكدي من الإنترنت وحاولي مرة أخرى.</div>
+    <div class="row"><button class="go" onclick="go(lbView)">إعادة المحاولة</button></div>`;
+    return;
+  }
+  const MIN=20;
+  let list=rows.slice();
+  if(sortKey==='mastery'){list=list.filter(r=>r.answered>=MIN).sort((a,b)=>b.mastery-a.mastery||b.correct-a.correct)}
+  else list.sort((a,b)=>b.correct-a.correct||b.mastery-a.mastery);
+  const me=list.findIndex(r=>r.name===S.nick);
+  const medal=['🥇','🥈','🥉'];
+  app.innerHTML=`${hdr('go(home)')}
+  <div class="unit-head"><h1>المتصدرات</h1><p>كل إجابة صحيحة = نقطة · ${AR(rows.length)} مشاركة</p></div>
+  <div class="seg"><button class="${sortKey==='correct'?'on':''}" data-k="correct">النقاط</button><button class="${sortKey==='mastery'?'on':''}" data-k="mastery">الإتقان</button></div>
+  ${sortKey==='mastery'?`<p class="hint" style="text-align:right;margin:0">يدخل الإتقان بعد ${AR(MIN)} إجابة أو أكثر.</p>`:''}
+  ${me>=0?`<div class="mine">ترتيبك: <b>${AR(me+1)}</b> من ${AR(list.length)} · نقاطك: <b>${AR(list[me].correct)}</b></div>`:`<div class="mine">${sortKey==='mastery'?'أجيبي عن ٢٠ سؤالاً لتظهري في هذا الترتيب.':'ابدئي التدريب لتظهري في اللوحة.'}</div>`}
+  <div class="lb">${list.length?list.map((r,i)=>`<div class="lbr ${r.name===S.nick?'me':''}"><span class="rk">${i<3?medal[i]:AR(i+1)}</span><span class="nm">${esc(r.name)}<small>إتقان ${AR(r.mastery)}٪ · أجابت ${AR(r.answered)}</small></span><span class="sc">${AR(sortKey==='mastery'?r.mastery+'٪':r.correct)}</span></div>`).join(''):'<div class="empty">لا أحد بعد. كوني الأولى.</div>'}</div>
+  <div class="row"><button class="lnk" id="chn">تغيير اسمي (${esc(S.nick)})</button></div>`;
+  app.querySelectorAll('[data-k]').forEach(b=>b.onclick=()=>lbView(b.dataset.k));
+  $('#chn').onclick=()=>nameForm(true);
+}
+
+go(home);
+</script>
+</body>
+</html>
