@@ -186,6 +186,12 @@ td.s{font-family:var(--verse);font-size:21px;color:var(--ramz);width:56px;text-a
 .lbr .sc{font-weight:700;color:var(--rose);font-size:22px;text-align:left}
 .mine{background:var(--lav-soft);border-radius:14px;padding:10px 14px;margin:10px 0;font-size:15px}
 .lnk{background:none;border:0;color:var(--lav);text-decoration:underline;cursor:pointer;font-size:14px;padding:4px 0}
+
+:root[data-theme="dark"]{--paper:#1F1820;--card:#2A2129;--ink:#F2E8EE;--muted:#B5A3B1;--line:#3E323D;--rose:#E08797;--rose-soft:#3A2630;--mint:#7CC4B5;--mint-soft:#203A35;--lav:#ABA2DA;--lav-soft:#2C2840;--ramz:#F07A6B;--wrong:#F08A9C}
+.theme{background:none;border:1px solid var(--line);border-radius:999px;width:40px;height:40px;cursor:pointer;font-size:18px;line-height:1;padding:0}
+.homebar{display:flex;justify-content:flex-end;margin-bottom:-6px}
+.hbtns{display:flex;gap:8px;align-items:center}
+.count{display:inline-block;background:var(--rose-soft);color:var(--rose);border-radius:999px;padding:4px 14px;font-size:15px;font-weight:600;margin-top:10px}
 </style>
 </head>
 <body>
@@ -813,7 +819,7 @@ if(typeof module!=='undefined')module.exports={buildBank,buildCards,norm,parseNa
 <script>
 /* ===== الحالة والتخزين ===== */
 const KEY='hirz-v1';
-let S={q:{},flags:[],last:null,nick:'',dev:''};
+let S={q:{},flags:[],last:null,nick:'',dev:'',theme:''};
 try{const raw=localStorage.getItem(KEY);if(raw)S=Object.assign(S,JSON.parse(raw))}catch(e){}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
 const BANK=buildBank();
@@ -858,7 +864,7 @@ function selectQs(pool,n){return pool.map(q=>[priority(q),q]).sort((a,b)=>a[0]-b
 /* ===== التنقل ===== */
 let view=null, timerId=null;
 function go(fn,...args){clearInterval(timerId);view=[fn,args];fn(...args);window.scrollTo(0,0)}
-function hdr(back){return `<div class="top"><button class="brand" onclick="go(home)" aria-label="الرئيسية">حِرز</button>${back?`<button class="back" onclick="${back}">رجوع</button>`:''}</div>`}
+function hdr(back){return `<div class="top"><button class="brand" onclick="go(home)" aria-label="الرئيسية">حِرز</button><span class="hbtns">${back?`<button class="back" onclick="${back}">رجوع</button>`:''}${themeBtn()}</span></div>`}
 const ded='';
 
 function verseHtml(v,cls='bayt'){
@@ -877,9 +883,11 @@ function home(){
   const m=mistakes().length, total=mastery();
   const seen=Object.keys(S.q).length;
   app.innerHTML=`
+  <div class="homebar">${themeBtn()}</div>
   <div class="hero">
     <h1>حِرز <span>الشاطبية</span></h1>
     <p>تدريب على الرموز والأبواب، من ملف المقرر نفسه.</p>
+    ${countdownHtml()}
     ${heroVerse()}
   </div>
   <div class="actions">
@@ -1224,6 +1232,28 @@ async function lbView(sortKey){
   app.querySelectorAll('[data-k]').forEach(b=>b.onclick=()=>lbView(b.dataset.k));
   $('#chn').onclick=()=>nameForm(true);
 }
+
+/* ===== الوضع الليلي وعدّاد الاختبار ===== */
+const EXAM=[2026,9,11]; // 11 أكتوبر 2026 (الشهر يبدأ من 0)
+function countdownHtml(){
+  const t=new Date(), a=new Date(t.getFullYear(),t.getMonth(),t.getDate()), b=new Date(EXAM[0],EXAM[1],EXAM[2]);
+  const d=Math.round((b-a)/86400000);
+  if(d<0)return '';
+  const txt=d===0?'الاختبار اليوم، بالتوفيق':d===1?'باقي يوم واحد على الاختبار':d===2?'باقي يومان على الاختبار':d<=10?`باقي ${AR(d)} أيام على الاختبار`:`باقي ${AR(d)} يوماً على الاختبار`;
+  return `<div class="count">${txt}</div>`;
+}
+function isDark(){return S.theme?S.theme==='dark':!!(window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)}
+function applyTheme(){
+  const r=document.documentElement;
+  if(S.theme)r.setAttribute('data-theme',S.theme);else r.removeAttribute('data-theme');
+  const m=document.querySelector('meta[name=theme-color]');if(m)m.content=isDark()?'#1F1820':'#FBF6F7';
+}
+function themeBtn(){return `<button class="theme" onclick="toggleTheme()" aria-label="تبديل الوضع الليلي">${isDark()?'☀️':'🌙'}</button>`}
+function toggleTheme(){
+  S.theme=isDark()?'light':'dark';save();applyTheme();
+  document.querySelectorAll('.theme').forEach(b=>b.textContent=isDark()?'☀️':'🌙');
+}
+applyTheme();
 
 go(home);
 </script>
