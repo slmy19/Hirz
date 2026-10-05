@@ -1220,7 +1220,7 @@ const SB_KEY='sb_publishable_PHq7yl5v7HgKK0aQSREigg_HSwkBQzv';
 function uuid(){return (window.crypto&&crypto.randomUUID)?crypto.randomUUID():'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,c=>{const r=Math.random()*16|0;return(c==='x'?r:(r&3|8)).toString(16)})}
 function myStats(){let c=0,w=0;Object.values(S.q).forEach(r=>{c+=r.c||0;w+=r.w||0});return{correct:c,answered:c+w,mastery:mastery()}}
 async function submitScore(){
-  if(!S.nick)return false;
+  if(!S.nick||ADM)return false;
   if(!S.dev){S.dev=uuid();save()}
   const s=myStats();
   try{
@@ -1241,7 +1241,6 @@ function nameForm(change){
   $('#sv').onclick=ok;inp.onkeydown=e=>{if(e.key==='Enter')ok()};
 }
 async function lbView(sortKey){
-  if(!S.nick){nameForm(false);return}
   sortKey=sortKey||'correct';
   app.innerHTML=`${hdr('go(home)')}<div class="unit-head"><h1>المتصدرات</h1></div><div class="empty">جارٍ التحميل…</div>`;
   await submitScore();
@@ -1264,14 +1263,15 @@ async function lbView(sortKey){
   const medal=['🥇','🥈','🥉'];
   app.innerHTML=`${hdr('go(home)')}
   <div class="unit-head"><h1>المتصدرات</h1><p>كل إجابة صحيحة = نقطة · ${AR(rows.length)} مشاركة</p></div>
-  ${ADM?'<div class="mine" style="background:var(--rose-soft)">وضع المشرف: اضغط × لحذف مشاركة · <button class="lnk" id="adx">خروج</button></div>':''}
+  ${ADM?'<div class="mine" style="background:var(--rose-soft)">وضع المشرف: اضغط × لحذف مشاركة. هذا الجهاز لا يظهر في اللوحة · <button class="lnk" id="adx">خروج</button></div>':''}
   <div class="seg"><button class="${sortKey==='correct'?'on':''}" data-k="correct">النقاط</button><button class="${sortKey==='mastery'?'on':''}" data-k="mastery">الإتقان</button></div>
   ${sortKey==='mastery'?`<p class="hint" style="text-align:right;margin:0">يدخل الإتقان بعد ${AR(MIN)} إجابة أو أكثر.</p>`:''}
-  ${me>=0?`<div class="mine">ترتيبك: <b>${AR(me+1)}</b> من ${AR(list.length)} · نقاطك: <b>${AR(list[me].correct)}</b></div>`:`<div class="mine">${sortKey==='mastery'?'أجيبي عن ٢٠ سؤالاً لتظهري في هذا الترتيب.':'ابدئي التدريب لتظهري في اللوحة.'}</div>`}
+  ${me>=0?`<div class="mine">ترتيبك: <b>${AR(me+1)}</b> من ${AR(list.length)} · نقاطك: <b>${AR(list[me].correct)}</b></div>`:`<div class="mine">${!S.nick?'<button class="lnk" id="reg">سجّلي اسمك لتظهري في اللوحة</button>':sortKey==='mastery'?'أجيبي عن ٢٠ سؤالاً لتظهري في هذا الترتيب.':'ابدئي التدريب لتظهري في اللوحة.'}</div>`}
   <div class="lb">${list.length?list.map((r,i)=>`<div class="lbr ${r.name===S.nick?'me':''} ${ADM?'adm':''}"><span class="rk">${i<3?medal[i]:AR(i+1)}</span><span class="nm">${esc(r.name)}<small>إتقان ${AR(r.mastery)}٪ · أجابت ${AR(r.answered)}</small></span><span class="sc">${AR(sortKey==='mastery'?r.mastery+'٪':r.correct)}</span>${ADM?`<button class="xdel" data-n="${esc(r.name)}" aria-label="حذف ${esc(r.name)}">×</button>`:''}</div>`).join(''):'<div class="empty">لا أحد بعد. كوني الأولى.</div>'}</div>
-  <div class="row"><button class="lnk" id="chn">تغيير اسمي (${esc(S.nick)})</button></div>`;
+  ${S.nick?`<div class="row"><button class="lnk" id="chn">تغيير اسمي (${esc(S.nick)})</button></div>`:''}`;
   app.querySelectorAll('[data-k]').forEach(b=>b.onclick=()=>lbView(b.dataset.k));
-  $('#chn').onclick=()=>nameForm(true);
+  if($('#chn'))$('#chn').onclick=()=>nameForm(true);
+  if($('#reg'))$('#reg').onclick=()=>nameForm(false);
   LASTSORT=sortKey;
   if(ADM){
     app.querySelectorAll('.xdel').forEach(b=>b.onclick=()=>adminDelete(b.dataset.n));
@@ -1301,7 +1301,7 @@ function adminForm(){
     $('#pwg').disabled=true;
     try{
       const ok=await rpc('admin_check',{p_password:v});
-      if(ok===true){ADM=v;try{sessionStorage.setItem('hirz-adm',v)}catch(e){}go(lbView);return}
+      if(ok===true){ADM=v;S.nick='';save();try{sessionStorage.setItem('hirz-adm',v)}catch(e){}go(lbView);return}
       alert('كلمة السر غير صحيحة.');
     }catch(e){alert('تعذّر الاتصال. تأكد من الإنترنت ومن تنفيذ نص Supabase.')}
     $('#pwg').disabled=false;
