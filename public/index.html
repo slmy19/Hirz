@@ -785,6 +785,13 @@ function setMatches(text,ids){
 /* ===== مولّد بنك الأسئلة ===== */
 function buildBank(){
   const B=[];
+  /* منع تسرّب الجواب في نص السؤال */
+  const STOPW=['بن','ابن','ابو','ابي','الله','عبد'];
+  const stripAl=w=>w.replace(/^ال/,'');
+  const sig=s=>norm(s).split(' ').filter(w=>w.length>=3&&!STOPW.includes(w));
+  const maskName=(full,ans)=>{const at=new Set(sig(ans).map(stripAl));return full.split(' ').map(w=>at.has(stripAl(norm(w)))?'…':w).join(' ').replace(/(… ?)+/g,'… ').trim()};
+  const distractNames=(full,ans,pool,k)=>{const ft=new Set(sig(full).map(stripAl));return pick(pool.filter(n=>n!==ans&&!sig(n).some(t=>ft.has(stripAl(t)))),k)};
+  const plainPair=ids=>ids.map(x=>ALL[x].name).join(' و');
   const add=q=>{B.push(q)};
   const MC=(id,unit,prompt,correct,wrongs,explain,ref,extra={})=>add({id,unit,type:'mcq',prompt,options:[correct,...wrongs],correct,explain,ref,...extra});
   const TF=(id,unit,stmt,val,explain,ref)=>add({id,unit,type:'mcq',fixed:true,prompt:stmt,options:['صح','خطأ'],correct:val?'صح':'خطأ',explain,ref});
@@ -801,13 +808,13 @@ function buildBank(){
     add({id:`u2-t-s2n-${s.id}`,unit:'u2',type:'text',prompt:`اكتبي من رمزه «${s.sym}»`,ids:[s.id],model:label(s.id),mode:'names',explain:`«${s.sym}» = ${label(s.id)}.`,ref:'الجدول'});
   });
   READERS.forEach(r=>{
-    const right=names(r.rawis);
-    const others=READERS.filter(o=>o.id!==r.id).map(o=>names(o.rawis));
-    MC(`u2-rawis-${r.id}`,'u2',`من راويا ${r.name}؟`,right,pick(others,3),`راويا ${r.name}: ${right}.`,'ص ١٨');
+    const right=plainPair(r.rawis);
+    const others=READERS.filter(o=>o.id!==r.id).map(o=>plainPair(o.rawis));
+    MC(`u2-rawis-${r.id}`,'u2',`من راويا ${r.name}؟`,right,pick(others,3),`راويا ${r.name}: ${right}${r.id==='abuamr'?' (دوري أبي عمرو والسوسي)':r.id==='kisai'?' (أبو الحارث ودوري الكسائي)':''}.`,'ص ١٨');
     MC(`u2-word-${r.id}`,'u2',`أي كلمة من «أبجد» تخص ${r.name} وراوييه؟`,r.word,pick(READERS.map(o=>o.word),3,[r.word]),`${r.word}: ${r.sym} = ${r.name}، ثم ${r.rawis.map(x=>ALL[x].sym+' = '+label(x)).join('، ')}.`,'ص ٢٢');
   });
   RAWIS.forEach(w=>{
-    MC(`u2-of-${w.id}`,'u2',`«${label(w.id)}» يروي عن أي قارئ؟`,ALL[w.of].name,pick(READERS.map(r=>r.name),3,[ALL[w.of].name]),`${label(w.id)} راوي ${ALL[w.of].name}.`,'ص ١٨');
+    MC(`u2-of-${w.id}`,'u2',(w.id.startsWith('duri')?`«الدوري» صاحب الرمز «${w.sym}» يروي عن أي قارئ؟`:`«${label(w.id)}» يروي عن أي قارئ؟`),ALL[w.of].name,pick(READERS.map(r=>r.name),3,[ALL[w.of].name]),`${label(w.id)} راوي ${ALL[w.of].name}.`,'ص ١٨');
   });
   MC('u2-duri','u2','الدوري له رمزان: «ط» و«ت». ما الفرق؟','«ط» دوري أبي عمرو، و«ت» دوري الكسائي',['«ط» دوري الكسائي، و«ت» دوري أبي عمرو','هما راويان مختلفان بالاسم نفسه ولا علاقة بينهما','«ط» عند الوصل و«ت» عند الوقف'],'الدوري شخص واحد روى عن أبي عمرو وعن الكسائي، فرمزه يتبع القارئ المروي عنه.','ص ١٧');
   MC('u2-who-two','u2','أي الرواة روى عن قارئين اثنين؟','الدوري',['حفص','خلف','هشام'],'الدوري روى عن أبي عمرو وعن الكسائي.','ص ١٧');
@@ -845,11 +852,11 @@ function buildBank(){
   /* --- الوحدة ١: الشاطبي والقراء والرواة --- */
   READERS.forEach(r=>{
     MC(`u1-nisba-${r.id}`,'u1',`ما نسبة الإمام ${r.name}؟`,r.nisba,pick(['المدني','المكي','البصري','الشامي','الكوفي'],3,[r.nisba]),`${r.name} ${r.nisba}.`,'ص ٤–١٧');
-    MC(`u1-full-${r.id}`,'u1',`من صاحب هذا الاسم: «${r.full}»؟`,r.name,pick(READERS.map(o=>o.name),3,[r.name]),`هو الإمام ${r.name}.`,'ص ٤–١٧');
+    MC(`u1-full-${r.id}`,'u1',`من صاحب هذا الاسم: «${maskName(r.full,r.name)}»؟`,r.name,distractNames(r.full,r.name,READERS.map(o=>o.name),3),`هو الإمام ${r.name}.`,'ص ٤–١٧');
     MC(`u1-via-${r.id}`,'u1',`روى راويا ${r.name} عنه:`,r.via.startsWith('بلا')?'مباشرة بلا واسطة':'بواسطة',[r.via.startsWith('بلا')?'بواسطة':'مباشرة بلا واسطة'],`${names(r.rawis)} رويا عن ${r.name} ${r.via}.`,'ص ٤–١٧',{fixed:true});
   });
   RAWIS.filter(w=>w.id!=='duri_k').forEach(w=>{
-    MC(`u1-full-${w.id}`,'u1',`من صاحب هذا الاسم: «${w.full}»؟`,w.name,pick(RAWIS.filter(o=>o.name!==w.name).map(o=>o.name),3),`هو ${w.name}، راوي ${ALL[w.of].name}.`,'ص ٤–١٧');
+    MC(`u1-full-${w.id}`,'u1',`من صاحب هذا الاسم: «${maskName(w.full,w.name)}»؟`,w.name,distractNames(w.full,w.name,RAWIS.map(o=>o.name),3),`هو ${w.name}، راوي ${ALL[w.of].name}.`,'ص ٤–١٧');
   });
   const u1=[
     ['u1-sh-name','ما اسم الإمام الشاطبي؟','أبو محمد القاسم بن فِيرُّه بن خلف بن أحمد',['أبو عمرو عثمان بن سعيد الداني','أبو عبدالله محمد بن علي النفزي','أبو العباس أحمد بن عمار المهدوي'],'الشاطبي: أبو محمد القاسم بن فيره بن خلف بن أحمد.','ص ١'],
