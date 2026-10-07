@@ -458,6 +458,9 @@ td.s{font-family:var(--verse);font-size:21px;color:var(--ramz);width:56px;text-a
 .sx .chip{border-radius:14px;padding:10px 4px}
 .sx .field label{font-family:var(--disp);font-weight:500}
 .rs .go{background:linear-gradient(145deg,var(--ua),color-mix(in srgb,var(--ua) 62%,#fff));color:var(--card);box-shadow:0 18px 28px -16px color-mix(in srgb,var(--ua) 85%,transparent)}
+
+.half.off{opacity:.34;filter:grayscale(.7);pointer-events:none;user-select:none}
+.ask-note{display:inline-block;font-family:var(--disp);font-size:13.5px;font-weight:600;color:var(--ua,var(--rose));background:color-mix(in srgb,var(--ua,var(--rose)) 14%,transparent);padding:6px 14px;border-radius:999px;margin:0 0 12px}
 </style>
 </head>
 <body>
@@ -638,12 +641,12 @@ const VERSES = {
 /* ===== أسئلة الشاهد (الخريطة) =====
    lines: أبيات تُعرض؛ الكلمات بين {} هي مواضع الرمز/الاسم في هذا السؤال (لا تظهر الأقواس للطالبة) */
 const SHAHID = [
-  {id:'s-malik',unit:'u7',ref:'ص ٦٢',lines:[['وَمَالِكِ يَوْمِ الدِّينِ {رَاوِيهِ} {نَاصِرٌ}','وَعِنْدَ سِرَاطٍ وَالسِّرَاطَ لِقُنْبُلَا']],
+  {id:'s-malik',ask:[[0,0]],unit:'u7',ref:'ص ٦٢',lines:[['وَمَالِكِ يَوْمِ الدِّينِ {رَاوِيهِ} {نَاصِرٌ}','وَعِنْدَ سِرَاطٍ وَالسِّرَاطَ لِقُنْبُلَا']],
    word:'مالك يوم الدين',accept:['مالك','ملك','مالك يوم الدين','ملك يوم الدين'],
    shahid:'وَمَالِكِ يَوْمِ الدِّينِ رَاوِيهِ نَاصِرٌ',
    groups:[{who:['kisai','asim'],codes:'ر: راويه — ن: ناصر',reading:'بإثبات الألف بعد الميم «مالك»'}],
    rest:'باقي القراء بحذف الألف «ملك»'},
-  {id:'s-sirat',unit:'u7',ref:'ص ٦٣',lines:[['وَمَالِكِ يَوْمِ الدِّينِ رَاوِيهِ نَاصِرٌ','وَعِنْدَ سِرَاطٍ وَالسِّرَاطَ {لِقُنْبُلَا}'],['بِحَيْثُ أَتَى وَالصَّادَ زَايًا أَشِمَّهَا','لَدَى {خَلَفٍ} وَاشْمِمْ {لِخَلَّادٍ} الَاوَّلَا']],
+  {id:'s-sirat',ask:[[0,1],[1,0],[1,1]],askLabel:'المطلوب: الشطر الثاني من البيت الأول، والبيت الثاني كاملاً',unit:'u7',ref:'ص ٦٣',lines:[['وَمَالِكِ يَوْمِ الدِّينِ رَاوِيهِ نَاصِرٌ','وَعِنْدَ سِرَاطٍ وَالسِّرَاطَ {لِقُنْبُلَا}'],['بِحَيْثُ أَتَى وَالصَّادَ زَايًا أَشِمَّهَا','لَدَى {خَلَفٍ} وَاشْمِمْ {لِخَلَّادٍ} الَاوَّلَا']],
    word:'صراط، الصراط',accept:['صراط','الصراط','سراط','السراط','صراط الصراط','الصراط صراط','سراط والسراط','صراط والصراط'],
    shahid:'وَعِنْدَ سِرَاطٍ وَالسِّرَاطَ لِقُنْبُلَا بِحَيْثُ أَتَى وَالصَّادَ زَايًا أَشِمَّهَا لَدَى خَلَفٍ وَاشْمِمْ لِخَلَّادٍ الَاوَّلَا',
    groups:[{who:['qunbul'],codes:'قنبل: باسمه صريحاً',reading:'بالسين «سراط، السراط» حيث وقع'},
@@ -688,7 +691,7 @@ const SHAHID = [
    shahid:'وَهَا هُوَ بَعْدَ الْوَاوِ وَالْفَا وَلَامِهَا وَهَا هِيَ أَسْكِنْ رَاضِيًا بَارِدًا حَلَا',
    groups:[{who:['kisai','qalun','abuamr'],codes:'ر: راضياً — ب: بارداً — ح: حلا',reading:'بإسكان الهاء «وهْو، فهْي، لهْو»'}],
    rest:'الباقون بضم هاء «هو» وكسر هاء «هي»'},
-  {id:'s-thumma',unit:'u11',ref:'ص ١١٧',lines:[['وَثُمَّ هُوَ {رِفْقًا} {بَانَ} وَالضَّمُّ غَيْرُهُمْ','وَكَسْرٌ وَعَنْ كُلٍّ يُمِلَّ هُوَ انْجَلَى']],
+  {id:'s-thumma',ask:[[0,0]],unit:'u11',ref:'ص ١١٧',lines:[['وَثُمَّ هُوَ {رِفْقًا} {بَانَ} وَالضَّمُّ غَيْرُهُمْ','وَكَسْرٌ وَعَنْ كُلٍّ يُمِلَّ هُوَ انْجَلَى']],
    word:'ثم هو يوم القيامة',accept:['ثم هو','ثم هو يوم القيامه'],
    shahid:'وَثُمَّ هُوَ رِفْقًا بَانَ',
    groups:[{who:['kisai','qalun'],codes:'ر: رفقاً — ب: بان',reading:'بإسكان الهاء «ثم هْو» في القصص'}],
@@ -703,12 +706,12 @@ const SHAHID = [
    shahid:'وَءَادَمَ فَارْفَعْ نَاصِبًا كَلِمَاتِهِ بِكَسْرٍ وَلِلْمَكِّيِّ عَكْسٌ تَحَوَّلَا',
    groups:[{who:['ibnkathir'],codes:'المكي: باسمه صريحاً',reading:'بنصب «آدمَ» ورفع «كلماتٌ»'}],
    rest:'الباقون برفع «آدمُ» ونصب «كلماتٍ» بالكسر'},
-  {id:'s-tuqbal',unit:'u12',ref:'ص ١٢٦',lines:[['وَيُقْبَلُ الُاولَى أَنَّثُوا {دُونَ} {حَاجِزٍ}','وَعَدْنَا جَمِيعًا دُونَ مَا أَلِفٍ حَلَا']],
+  {id:'s-tuqbal',ask:[[0,0]],unit:'u12',ref:'ص ١٢٦',lines:[['وَيُقْبَلُ الُاولَى أَنَّثُوا {دُونَ} {حَاجِزٍ}','وَعَدْنَا جَمِيعًا دُونَ مَا أَلِفٍ حَلَا']],
    word:'ولا يقبل منها شفاعة',accept:['يقبل','ولا يقبل','ولا يقبل منها شفاعه','تقبل'],
    shahid:'وَيُقْبَلُ الُاولَى أَنَّثُوا دُونَ حَاجِزٍ',
    groups:[{who:['ibnkathir','abuamr'],codes:'د: دون — ح: حاجز',reading:'بتاء التأنيث «ولا تُقبل منها شفاعة»'}],
    rest:'الباقون بياء التذكير «ولا يُقبل»، و«ولا يقبل منها عدل» بالتذكير للجميع'},
-  {id:'s-waadna',unit:'u12',ref:'ص ١٢٦',lines:[['وَيُقْبَلُ الُاولَى أَنَّثُوا دُونَ حَاجِزٍ','وَعَدْنَا جَمِيعًا دُونَ مَا أَلِفٍ {حَلَا}']],
+  {id:'s-waadna',ask:[[0,1]],unit:'u12',ref:'ص ١٢٦',lines:[['وَيُقْبَلُ الُاولَى أَنَّثُوا دُونَ حَاجِزٍ','وَعَدْنَا جَمِيعًا دُونَ مَا أَلِفٍ {حَلَا}']],
    word:'واعدنا',accept:['واعدنا','وعدنا','واذ واعدنا'],
    shahid:'وَعَدْنَا جَمِيعًا دُونَ مَا أَلِفٍ حَلَا',
    groups:[{who:['abuamr'],codes:'ح: حلا',reading:'بحذف الألف «وعدنا» في مواضعها الثلاثة'}],
@@ -718,12 +721,12 @@ const SHAHID = [
    shahid:'وَبَسْمَلَ بَيْنَ السُّورَتَيْنِ بِسُنَّةٍ رِجَالٌ نَمَوْهَا دِرْيَةً',
    groups:[{who:['qalun','kisai','asim','ibnkathir'],codes:'ب: بسنة — ر: رجال — ن: نموها — د: درية',reading:'بالبسملة بين السورتين'}],
    rest:'حمزة بالوصل بلا بسملة، وورش وأبو عمرو وابن عامر لهم ثلاثة أوجه'},
-  {id:'s-wasl',unit:'u6',ref:'ص ٥١',lines:[['وَوَصْلُكَ بَيْنَ السُّورَتَيْنِ {فَصَاحَةٌ}','وَصِلْ وَاسْكُتَنْ كُلٌّ جَلَايَاهُ حَصَّلَا']],
+  {id:'s-wasl',ask:[[0,0]],unit:'u6',ref:'ص ٥١',lines:[['وَوَصْلُكَ بَيْنَ السُّورَتَيْنِ {فَصَاحَةٌ}','وَصِلْ وَاسْكُتَنْ كُلٌّ جَلَايَاهُ حَصَّلَا']],
    word:'الوصل بين السورتين',accept:['الوصل','الوصل بين السورتين','وصلك'],
    shahid:'وَوَصْلُكَ بَيْنَ السُّورَتَيْنِ فَصَاحَةٌ',
    groups:[{who:['hamza'],codes:'ف: فصاحة',reading:'بالوصل بين السورتين بلا بسملة'}],
    rest:'الباقون بين البسملة والأوجه الثلاثة'},
-  {id:'s-thalatha',unit:'u6',ref:'ص ٥١',lines:[['وَوَصْلُكَ بَيْنَ السُّورَتَيْنِ فَصَاحَةٌ','وَصِلْ وَاسْكُتَنْ {كُلٌّ} {جَلَايَاهُ} {حَصَّلَا}']],
+  {id:'s-thalatha',ask:[[0,1]],unit:'u6',ref:'ص ٥١',lines:[['وَوَصْلُكَ بَيْنَ السُّورَتَيْنِ فَصَاحَةٌ','وَصِلْ وَاسْكُتَنْ {كُلٌّ} {جَلَايَاهُ} {حَصَّلَا}']],
    word:'الوصل والسكت بين السورتين',accept:['الوصل والسكت','صل واسكتن','الاوجه الثلاثه','الوصل والسكت والبسمله'],
    shahid:'وَصِلْ وَاسْكُتَنْ كُلٌّ جَلَايَاهُ حَصَّلَا',
    groups:[{who:['ibnamir','warsh','abuamr'],codes:'ك: كل — ج: جلاياه — ح: حصلا',reading:'ثلاثة أوجه: الوصل بلا بسملة، والسكت بلا تنفس ولا بسملة، والبسملة'}],
@@ -1785,16 +1788,21 @@ function checkText(q,v){
 
 /* ===== الشاهد ===== */
 function renderShahid(q,el,{exam,onDone,onNext}){
-  // تقطيع البيت إلى كلمات قابلة للنقر
+  // تقطيع البيت إلى كلمات قابلة للنقر. الشطر غير المطلوب يظهر باهتاً وغير قابل للّمس
   let k=0;const targets=new Set();
-  const lineHtml=line=>line.map(half=>`<span class="half">${
-    half.split(/(\{[^}]+\}|\s+)/).filter(s=>s&&!/^\s+$/.test(s)).map(w=>{
-      const t=w.startsWith('{');const txt=t?w.slice(1,-1):w;const id=k++;if(t)targets.add(id);
-      return `<button class="tok" data-k="${id}">${txt}</button>`}).join(' ')}</span>`).join('');
-  const verses=q.lines.map(l=>`<div class="sh-verse">${lineHtml(l)}</div>`).join('');
+  const isAct=(li,hi)=>!q.ask||q.ask.some(([a,b])=>a===li&&b===hi);
+  const lineHtml=(line,li)=>line.map((half,hi)=>{
+    if(!isAct(li,hi))return `<span class="half off" aria-hidden="true">${half.replace(/[{}]/g,'')}</span>`;
+    return `<span class="half">${
+      half.split(/(\{[^}]+\}|\s+)/).filter(s=>s&&!/^\s+$/.test(s)).map(w=>{
+        const t=w.startsWith('{');const txt=t?w.slice(1,-1):w;const id=k++;if(t)targets.add(id);
+        return `<button class="tok" data-k="${id}">${txt}</button>`}).join(' ')}</span>`}).join('');
+  const verses=q.lines.map((l,li)=>`<div class="sh-verse">${lineHtml(l,li)}</div>`).join('');
+  const askLbl=q.ask?(q.askLabel||(q.lines.length===1?(q.ask[0][1]===0?'المطلوب: الشطر الأول من البيت فقط':'المطلوب: الشطر الثاني من البيت فقط'):'المطلوب: الأجزاء الواضحة فقط')):'';
+  const askNote=askLbl?`<div class="ask-note">${esc(askLbl)}</div>`:'';
   const readerChips=READERS.map(r=>[r.id,...r.rawis]).flat();
-  el.innerHTML=`<p class="prompt">استخرجي الخريطة من البيت</p>${verses}
-  <p class="hint">المسي الكلمات التي فيها رمز أو اسم القارئ</p>
+  el.innerHTML=`<p class="prompt">استخرجي الخريطة من البيت</p>${askNote}${verses}
+  <p class="hint">${q.ask?'المسي الكلمات التي فيها رمز أو اسم القارئ في الشطر المطلوب فقط':'المسي الكلمات التي فيها رمز أو اسم القارئ'}</p>
   <div class="field"><label for="w">اللفظ القرآني المختلف فيه</label><input type="text" id="w" autocomplete="off"></div>
   <div class="field"><label>المرموز لهم أو المصرّح بأسمائهم (لا تختاري الباقين)</label>
     <div class="chips">${readerChips.map(id=>`<button class="chip ${ALL[id].rawis?'reader':''}" data-id="${id}">${label(id)}</button>`).join('')}</div></div>
