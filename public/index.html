@@ -501,6 +501,29 @@ body{background-color:var(--paper);background-image:radial-gradient(120% 55% at 
 .rs-stats div{border-radius:8px 8px 22px 22px/8px 8px 12px 12px;background:linear-gradient(160deg,#fbefd6,#ecca92);border:0;color:#3b2216}
 .rs-stats small{color:#6b4a33}
 .rs-dots i.ok{background:var(--mint)}
+
+/* ===== حركة الانتقال بين الصفحات ===== */
+::view-transition-group(root){animation-duration:.55s}
+::view-transition-old(root){animation:vtOutF .34s cubic-bezier(.4,0,1,1) both}
+::view-transition-new(root){animation:vtInF .6s cubic-bezier(.22,1,.36,1) both}
+html[data-dir="back"]::view-transition-old(root){animation-name:vtOutB}
+html[data-dir="back"]::view-transition-new(root){animation-name:vtInB}
+@keyframes vtInF{from{opacity:0;transform:translateX(-56px) scale(.95);filter:blur(6px)}to{opacity:1;transform:none;filter:none}}
+@keyframes vtOutF{to{opacity:0;transform:translateX(44px) scale(.97);filter:blur(5px)}}
+@keyframes vtInB{from{opacity:0;transform:translateX(56px) scale(.95);filter:blur(6px)}to{opacity:1;transform:none;filter:none}}
+@keyframes vtOutB{to{opacity:0;transform:translateX(-44px) scale(.97);filter:blur(5px)}}
+.tile,.sx .opt,.go,.ghost{will-change:transform}
+.tile:nth-child(1){animation:tileDrop .7s cubic-bezier(.34,1.4,.64,1) .08s both}
+.tile:nth-child(2){animation:tileDrop .7s cubic-bezier(.34,1.4,.64,1) .18s both}
+.tile:nth-child(3){animation:tileDrop .7s cubic-bezier(.34,1.4,.64,1) .28s both}
+@keyframes tileDrop{from{opacity:0;transform:translateY(-26px) rotate(-2deg);transform-origin:50% 0}60%{transform:translateY(5px) rotate(.8deg)}to{opacity:1;transform:none}}
+.sx .prompt{animation:archIn .7s cubic-bezier(.22,1,.36,1) both}
+.sx .opts .opt{animation:clothIn .55s cubic-bezier(.22,1,.36,1) both;transform-origin:50% 0}
+.sx .opts .opt:nth-child(1){animation-delay:.12s}.sx .opts .opt:nth-child(2){animation-delay:.2s}.sx .opts .opt:nth-child(3){animation-delay:.28s}.sx .opts .opt:nth-child(4){animation-delay:.36s}
+@keyframes archIn{from{opacity:0;transform:translateY(-18px) scale(.94)}to{opacity:1;transform:none}}
+@keyframes clothIn{from{opacity:0;transform:translateY(-12px) scaleY(.88)}to{opacity:1;transform:none}}
+.ring.xl{animation:mirrorIn .9s cubic-bezier(.34,1.3,.64,1) both}
+@keyframes mirrorIn{from{opacity:0;transform:scale(.7) rotate(-6deg)}to{opacity:1;transform:none}}
 </style>
 </head>
 <body>
@@ -610,6 +633,7 @@ function selectQs(pool,n){return pool.map(q=>[priority(q),q]).sort((a,b)=>a[0]-b
 /* ===== التنقل ===== */
 let view=null, timerId=null;
 function go(fn,...args){
+  document.documentElement.dataset.dir=(fn===home||fn===lbView&&view&&view[0]===lbView)?'back':'fwd';
   const run=()=>{closeUnits(true);clearInterval(timerId);view=[fn,args];fn(...args);window.scrollTo(0,0)};
   const calm=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
   if(document.startViewTransition&&!calm){try{document.startViewTransition(run)}catch(e){run()}}else run();
