@@ -3,27 +3,25 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#FBF6F7">
+<meta name="theme-color" content="#F6E9D2">
 <title>شمّاعة الخلاف المشروخة</title>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌷</text></svg>">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧣</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Aref+Ruqaa:wght@400;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600&family=Readex+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --paper:#FBF6F7; --card:#FFFFFF; --ink:#3A2C3B; --muted:#857584; --line:#EADCE1;
-  --rose:#C25B6B; --rose-soft:#F6E3E7; --mint:#4E9A8C; --mint-soft:#E1F1EC;
-  --lav:#7F74B3; --lav-soft:#ECE9F6; --ramz:#C0392B; --wrong:#B23A50;
+  --paper:#F6E9D2; --card:#FFF6E3; --ink:#3B2216; --muted:#8A6446; --line:#E3C79C;
+  --rose:#C9602A; --rose-soft:#F6DDBF; --mint:#5F8A4A; --mint-soft:#E2EDD6;
+  --lav:#A8651F; --lav-soft:#F2E0BC; --ramz:#B5412F; --wrong:#B5412F; --glow:rgba(240,138,60,.22); --stripe:rgba(185,97,37,.07);
   --verse:'Amiri','Noto Naskh Arabic','Traditional Arabic',serif;
   --ui:'IBM Plex Sans Arabic','Segoe UI',Tahoma,sans-serif;
-  --hand:'Aref Ruqaa','Amiri',serif;
+  --hand:'Readex Pro','IBM Plex Sans Arabic',sans-serif;
   box-sizing:border-box;
   padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --paper:#1F1820; --card:#2A2129; --ink:#F2E8EE; --muted:#B5A3B1; --line:#3E323D;
-  --rose:#E08797; --rose-soft:#3A2630; --mint:#7CC4B5; --mint-soft:#203A35;
-  --lav:#ABA2DA; --lav-soft:#2C2840; --ramz:#F07A6B; --wrong:#F08A9C;}}
+  --paper:#2A170F; --card:#3A2218; --ink:#F7E6C8; --muted:#D2B28C; --line:#5B3A28; --rose:#F08A3C; --rose-soft:#4A2A1A; --mint:#8FBF74; --mint-soft:#2B3A22; --lav:#E9A23B; --lav-soft:#4A3418; --ramz:#F3B36B; --wrong:#E0816E; --glow:rgba(240,138,60,.42); --stripe:rgba(255,214,160,.05);}}
 *{box-sizing:border-box}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--ui);font-size:17px;line-height:1.7;-webkit-tap-highlight-color:transparent}
@@ -187,7 +185,7 @@ td.s{font-family:var(--verse);font-size:21px;color:var(--ramz);width:56px;text-a
 .mine{background:var(--lav-soft);border-radius:14px;padding:10px 14px;margin:10px 0;font-size:15px}
 .lnk{background:none;border:0;color:var(--lav);text-decoration:underline;cursor:pointer;font-size:14px;padding:4px 0}
 
-:root[data-theme="dark"]{--paper:#1F1820;--card:#2A2129;--ink:#F2E8EE;--muted:#B5A3B1;--line:#3E323D;--rose:#E08797;--rose-soft:#3A2630;--mint:#7CC4B5;--mint-soft:#203A35;--lav:#ABA2DA;--lav-soft:#2C2840;--ramz:#F07A6B;--wrong:#F08A9C}
+:root[data-theme="dark"]{--paper:#2A170F; --card:#3A2218; --ink:#F7E6C8; --muted:#D2B28C; --line:#5B3A28; --rose:#F08A3C; --rose-soft:#4A2A1A; --mint:#8FBF74; --mint-soft:#2B3A22; --lav:#E9A23B; --lav-soft:#4A3418; --ramz:#F3B36B; --wrong:#E0816E; --glow:rgba(240,138,60,.42); --stripe:rgba(255,214,160,.05);}
 .theme{background:none;border:1px solid var(--line);border-radius:999px;width:40px;height:40px;cursor:pointer;font-size:18px;line-height:1;padding:0}
 .homebar{display:flex;justify-content:flex-end;margin-bottom:-6px}
 .hbtns{display:flex;gap:8px;align-items:center}
@@ -461,6 +459,48 @@ td.s{font-family:var(--verse);font-size:21px;color:var(--ramz);width:56px;text-a
 
 .half.off{opacity:.34;filter:grayscale(.7);pointer-events:none;user-select:none}
 .ask-note{display:inline-block;font-family:var(--disp);font-size:13.5px;font-weight:600;color:var(--ua,var(--rose));background:color-mix(in srgb,var(--ua,var(--rose)) 14%,transparent);padding:6px 14px;border-radius:999px;margin:0 0 12px}
+
+/* ===== غرفة الشماعة ===== */
+body{background-color:var(--paper);background-image:radial-gradient(120% 55% at 18% 8%,var(--glow),transparent 62%),repeating-linear-gradient(90deg,var(--stripe) 0 2px,transparent 2px 38px),radial-gradient(circle at 19px 19px,var(--stripe) 2px,transparent 3px);background-size:auto,auto,38px 56px;background-attachment:fixed;min-height:100vh}
+.brand{font-family:var(--disp);font-weight:700;font-size:19px;color:var(--rose)}
+.hero{position:relative;padding:14px 4px 0;min-height:300px}
+.hero h1{font-family:var(--disp);font-weight:700;font-size:50px;line-height:1.1;width:62%;position:relative;z-index:2}
+.hero h1 span{color:var(--rose);display:inline-block}
+.hero h1 em{font-style:normal;font-size:40px;color:var(--ramz)}
+.rack{position:absolute;left:-4px;top:6px;width:150px;height:315px;z-index:1;filter:drop-shadow(0 10px 14px rgba(0,0,0,.25))}
+.pill,.count{display:inline-block;padding:5px 14px;border-radius:999px;border:1.5px solid var(--lav);color:var(--lav);background:color-mix(in srgb,var(--lav) 12%,transparent);font-size:14px;font-weight:600;margin-top:10px}
+.hero p{position:relative;z-index:2}
+.rail{height:12px;border-radius:6px;margin-top:22px;background:linear-gradient(180deg,#e48a3d,#8a4a1f);box-shadow:0 8px 14px -6px rgba(0,0,0,.55)}
+.tiles{margin:12px 0 0;padding:0 6px;gap:14px}
+.tile{aspect-ratio:auto;min-height:150px;border-radius:6px 6px 34px 34px/6px 6px 16px 16px;padding:28px 14px 16px;box-shadow:0 18px 26px -14px rgba(0,0,0,.55)}
+.tile::before{content:'';position:absolute;top:-6px;right:50%;margin-right:-7px;width:14px;height:14px;border-radius:50%;border:3px solid #e9a23b;background:var(--paper);z-index:2}
+.t-main{background:linear-gradient(160deg,#f29a4c,#c9602a);color:#fff4de}
+.t-exam{background:linear-gradient(160deg,#fbefd6,#ecca92);color:#3b2216;border-color:transparent;--accent:#b96125}
+.t-mist{background:color-mix(in srgb,var(--card) 70%,transparent);border:1.5px solid color-mix(in srgb,var(--lav) 60%,transparent);color:var(--ink);--accent:var(--rose)}
+.tile.wide{min-height:84px;padding:14px 16px;border-radius:22px;margin-top:2px}
+.tile.wide::before{display:none}
+.lbcard{border:1.5px solid var(--lav);background:color-mix(in srgb,var(--card) 82%,transparent);border-radius:22px;margin-top:22px}
+.lbcard b{font-family:var(--disp)}
+/* السؤال: إطار ذهبي مقوّس */
+.sx .prompt{position:relative;text-align:center;color:#3b2216;font-size:22px;line-height:1.65;padding:44px 24px 26px;margin:0 0 22px;border:7px solid transparent;border-radius:150px 150px 28px 28px/120px 120px 28px 28px;background:linear-gradient(180deg,#fbefd6,#f0d6a6) padding-box,linear-gradient(160deg,#f6c25d,#c9802a 55%,#8a4a1f) border-box;box-shadow:0 24px 40px -20px rgba(0,0,0,.6)}
+.sx .prompt.long{font-size:19px;padding-top:46px}
+.sx .opts{position:relative;padding-top:16px;background:linear-gradient(180deg,#e48a3d,#8a4a1f) top/100% 10px no-repeat;border-radius:5px}
+.sx .opt{border-radius:8px 8px 22px 22px/8px 8px 12px 12px;border-color:color-mix(in srgb,var(--lav) 35%,var(--line));background:color-mix(in srgb,var(--card) 88%,transparent)}
+.sx .opt::before{border-radius:50%}
+.sx-kick b{font-family:var(--disp)}
+.dock{background:linear-gradient(180deg,#fbefd6,#f0d6a6);color:#3b2216}
+.dock.ok,.dock.no{background:linear-gradient(180deg,#fbefd6,#f0d6a6)}
+.dock .dk-ex,.dock .dk-ans{color:#3b2216}
+.dock.ok .dk-head b{color:#3d6a2a}.dock.no .dk-head b{color:#a8382a}
+.dk-ref{background:rgba(59,34,22,.1);color:#5a3a26}
+/* النتيجة: مرآة */
+.ring.xl{width:190px;height:236px;margin:6px auto 18px;border-radius:50%;border:9px solid transparent;background:radial-gradient(100% 80% at 35% 25%,#fff7e6,#f0d6a6) padding-box,linear-gradient(160deg,#f6c25d,#c9802a 55%,#8a4a1f) border-box;box-shadow:0 24px 40px -14px rgba(0,0,0,.6)}
+.ring.xl .tr{stroke:rgba(185,97,37,.2)}
+.ring.xl .pg{stroke:#f08a3c}
+.ring.xl b{color:#3b2216}
+.rs-stats div{border-radius:8px 8px 22px 22px/8px 8px 12px 12px;background:linear-gradient(160deg,#fbefd6,#ecca92);border:0;color:#3b2216}
+.rs-stats small{color:#6b4a33}
+.rs-dots i.ok{background:var(--mint)}
 </style>
 </head>
 <body>
@@ -595,18 +635,20 @@ function home(){
   app.innerHTML=`
   <div class="homebar">${themeBtn()}</div>
   <div class="hero">
-    <h1>شمّاعة <span>الخلاف المشروخة</span></h1>
-    <p>٢٥ سؤالاً اختيارياً، تدريب واختبار.</p>
+    <svg class="rack" viewBox="0 0 200 420" aria-hidden="true"><defs><linearGradient id="wd" x1="0" x2="1"><stop offset="0" stop-color="#e48a3d"/><stop offset=".55" stop-color="#b96125"/><stop offset="1" stop-color="#7a3d17"/></linearGradient><linearGradient id="cl" x1="0" x2="1"><stop offset="0" stop-color="#b3a79d"/><stop offset="1" stop-color="#7d726a"/></linearGradient></defs><ellipse cx="100" cy="404" rx="62" ry="9" fill="#000" opacity=".28"/><path d="M100 330 L56 398 M100 330 L144 398 M100 330 L100 400" stroke="url(#wd)" stroke-width="9" stroke-linecap="round"/><path d="M92 40 Q88 58 94 74 Q86 92 92 110 Q84 130 93 150 L93 330 L107 330 L107 150 Q116 130 108 110 Q114 92 106 74 Q112 58 108 40 Z" fill="url(#wd)"/><ellipse cx="100" cy="30" rx="15" ry="20" fill="url(#wd)"/><path d="M100 150 Q58 150 40 118" stroke="url(#wd)" stroke-width="9" fill="none" stroke-linecap="round"/><circle cx="38" cy="114" r="9" fill="url(#wd)"/><path d="M100 170 Q142 170 160 138" stroke="url(#wd)" stroke-width="9" fill="none" stroke-linecap="round"/><circle cx="162" cy="134" r="9" fill="url(#wd)"/><path d="M100 232 Q64 232 46 208" stroke="url(#wd)" stroke-width="9" fill="none" stroke-linecap="round"/><circle cx="44" cy="204" r="8" fill="url(#wd)"/><path d="M100 250 Q138 250 156 226" stroke="url(#wd)" stroke-width="9" fill="none" stroke-linecap="round"/><circle cx="158" cy="222" r="8" fill="url(#wd)"/><path d="M82 14 Q100 2 118 14 Q132 70 126 150 L74 150 Q68 70 82 14 Z" fill="url(#cl)" opacity=".96"/><path d="M92 22 Q96 90 90 150 M108 22 Q104 90 110 150" stroke="#6c625b" stroke-width="1.4" fill="none" opacity=".7"/><path d="M150 134 L186 128 L190 190 L168 196 Z" fill="#5d5650"/><path d="M150 134 L186 128 L184 150 L152 154 Z" fill="#6f6862"/></svg>
+    <h1>شمّاعة <span>الخلاف</span> <em>المشروخة</em></h1>
+    <p><span class="pill">٢٥ سؤالاً اختيارياً</span></p>
     ${countdownHtml()}
   </div>
-  <div class="lbcard">
-    <div class="lbhead"><b>المتصدرات</b><button class="lnk" onclick="go(lbView)">عرض الكل ←</button></div>
-    <div id="lbbody"><div class="empty" style="padding:14px">جارٍ التحميل…</div></div>
-  </div>
+  <div class="rail"></div>
   <div class="tiles">
     <button class="tile t-main" onclick="go(runSession,{scope:'all',mode:'practice',n:25})"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/><path d="M19 17v4M17 19h4"/></svg></span><span><b>تدريب عام</b><small>${seen?`الإتقان ${AR(total)}٪`:'٢٥ سؤالاً'}</small></span></button>
     <button class="tile t-exam" onclick="go(runSession,{scope:'all',mode:'exam',n:25})"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="4" width="14" height="17" rx="3"/><path d="M9 4h6v3H9z"/><path d="M9 14l2 2 4-4"/></svg></span><span><b>اختبار</b><small>٢٥ سؤالاً</small></span></button>
     <button class="tile wide t-mist" onclick="${m?`go(runSession,{scope:'mistakes',mode:'practice'})`:''}" ${m?'':'disabled'}><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 017-2.6A4 4 0 0119 10c0 5.6-7 10-7 10z"/></svg></span><span><b>أخطائي</b><small>${m?`${AR(m)} سؤال للمراجعة`:'لا أخطاء، أحسنتِ'}</small></span></button>
+  </div>
+  <div class="lbcard">
+    <div class="lbhead"><b>المتصدرات</b><button class="lnk" onclick="go(lbView)">عرض الكل ←</button></div>
+    <div id="lbbody"><div class="empty" style="padding:14px">جارٍ التحميل…</div></div>
   </div>
   ${S.flags.length?`<div class="row"><button class="ghost" onclick="go(flagsView)">ملاحظاتي على الأسئلة (${AR(S.flags.length)})</button></div>`:''}
   ${ded}`;
@@ -1063,7 +1105,7 @@ function isDark(){return S.theme?S.theme==='dark':!!(window.matchMedia&&matchMed
 function applyTheme(){
   const r=document.documentElement;
   if(S.theme)r.setAttribute('data-theme',S.theme);else r.removeAttribute('data-theme');
-  const m=document.querySelector('meta[name=theme-color]');if(m)m.content=isDark()?'#1F1820':'#FBF6F7';
+  const m=document.querySelector('meta[name=theme-color]');if(m)m.content=isDark()?'#2A170F':'#F6E9D2';
 }
 function themeBtn(){return `<button class="theme" onclick="toggleTheme()" aria-label="تبديل الوضع الليلي">${isDark()?'☀️':'🌙'}</button>`}
 function toggleTheme(){
@@ -1122,7 +1164,7 @@ function countUp(el,to,dur,suffix){
 function petals(){
   if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)return;
   const box=document.createElement('div');box.className='petals';
-  const em=['🌸','🌷','✨','💮'];
+  const em=['✦','❖','✧','•'];
   for(let i=0;i<22;i++){const s=document.createElement('span');s.textContent=em[i%em.length];
     s.style.cssText=`left:${(Math.random()*100).toFixed(1)}%;animation-delay:${(Math.random()*1.2).toFixed(2)}s;animation-duration:${(2.6+Math.random()*1.8).toFixed(2)}s;font-size:${(16+Math.random()*14).toFixed(0)}px`;
     box.appendChild(s)}
