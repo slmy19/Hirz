@@ -542,7 +542,7 @@ function rec(id,ok){
   scheduleSubmit();
 }
 let _st=null;
-function scheduleSubmit(){if(!S.nick)return;clearTimeout(_st);_st=setTimeout(()=>submitScore(),2500)}
+function scheduleSubmit(){return;clearTimeout(_st);_st=setTimeout(()=>submitScore(),2500)}
 function mastery(unit){
   const qs=BANK.filter(q=>!unit||q.unit===unit);
   const sum=qs.reduce((a,q)=>a+Math.min(3,(S.q[q.id]||{}).box||0),0);
@@ -599,10 +599,6 @@ function home(){
     <p>٢٥ سؤالاً اختيارياً، تدريب واختبار.</p>
     ${countdownHtml()}
   </div>
-  <div class="lbcard">
-    <div class="lbhead"><b>المتصدرات</b><button class="lnk" onclick="go(lbView)">عرض الكل ←</button></div>
-    <div id="lbbody"><div class="empty" style="padding:14px">جارٍ التحميل…</div></div>
-  </div>
   <div class="tiles">
     <button class="tile t-main" onclick="go(runSession,{scope:'all',mode:'practice',n:25})"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/><path d="M19 17v4M17 19h4"/></svg></span><span><b>تدريب عام</b><small>${seen?`الإتقان ${AR(total)}٪`:'٢٥ سؤالاً'}</small></span></button>
     <button class="tile t-exam" onclick="go(runSession,{scope:'all',mode:'exam',n:25})"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="4" width="14" height="17" rx="3"/><path d="M9 4h6v3H9z"/><path d="M9 14l2 2 4-4"/></svg></span><span><b>اختبار</b><small>٢٥ سؤالاً</small></span></button>
@@ -610,7 +606,6 @@ function home(){
   </div>
   ${S.flags.length?`<div class="row"><button class="ghost" onclick="go(flagsView)">ملاحظاتي على الأسئلة (${AR(S.flags.length)})</button></div>`:''}
   ${ded}`;
-  loadHomeLb();
 }
 
 /* ===== الوحدة ===== */
@@ -952,7 +947,7 @@ const SB_URL='https://mctfkeylqbxyonekxhcy.supabase.co';
 const SB_KEY='sb_publishable_PHq7yl5v7HgKK0aQSREigg_HSwkBQzv';
 function uuid(){return (window.crypto&&crypto.randomUUID)?crypto.randomUUID():'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,c=>{const r=Math.random()*16|0;return(c==='x'?r:(r&3|8)).toString(16)})}
 function myStats(){let c=0,w=0;Object.values(S.q).forEach(r=>{c+=r.c||0;w+=r.w||0});return{correct:c,answered:c+w,mastery:mastery()}}
-async function submitScore(){
+async function submitScore(){return;
   if(!S.nick||ADM)return false;
   if(!S.dev){S.dev=uuid();save()}
   const s=myStats();
