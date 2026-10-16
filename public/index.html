@@ -526,7 +526,7 @@ if(typeof module!=='undefined')module.exports={buildBank,UNITS};
 /* ===== الحالة والتخزين ===== */
 const KEY='hirz-v2';
 let S={q:{},flags:[],last:null,nick:'',dev:'',theme:''};
-try{const raw=localStorage.getItem(KEY);if(raw)S=Object.assign(S,JSON.parse(raw));else{const o=JSON.parse(localStorage.getItem('hirz-v1')||'null');if(o){S.nick=o.nick||'';S.dev=o.dev||'';S.theme=o.theme||''}}}catch(e){}
+try{const raw=localStorage.getItem(KEY);if(raw)S=Object.assign(S,JSON.parse(raw));else{const o=JSON.parse(localStorage.getItem('hirz-v1')||'null');if(o){S.dev=o.dev||'';S.theme=o.theme||''}}}catch(e){}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
 const BANK=buildBank();
 const BYID={};BANK.forEach(q=>BYID[q.id]=q);
@@ -979,7 +979,7 @@ async function lbView(sortKey){
   await submitScore();
   let rows;
   try{
-    const r=await fetch(SB_URL+'/rest/v1/leaderboard?select=name,correct,answered,mastery,updated_at&order=correct.desc&limit=200',{headers:{'apikey':SB_KEY}});
+    const r=await fetch(SB_URL+'/rest/v1/leaderboard?select=name,correct,answered,mastery,updated_at&updated_at=gte.2026-10-16T10:50:00Z&order=correct.desc&limit=200',{headers:{'apikey':SB_KEY}});
     if(!r.ok)throw new Error(r.status);
     rows=await r.json();
   }catch(e){
@@ -1075,7 +1075,7 @@ applyTheme();
 /* ===== المتصدرات في الصفحة الرئيسية ===== */
 let LBC={t:0,rows:null};
 async function fetchRows(){
-  const r=await fetch(SB_URL+'/rest/v1/leaderboard?select=name,correct,answered,mastery,updated_at&order=correct.desc&limit=200',{headers:{'apikey':SB_KEY}});
+  const r=await fetch(SB_URL+'/rest/v1/leaderboard?select=name,correct,answered,mastery,updated_at&updated_at=gte.2026-10-16T10:50:00Z&order=correct.desc&limit=200',{headers:{'apikey':SB_KEY}});
   if(!r.ok)throw new Error(r.status);
   return r.json();
 }
